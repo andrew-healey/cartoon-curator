@@ -1,0 +1,19 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "latest",
+    "body-parser": "latest",
+    "sqlite3": "latest",
+    "request": "2.88.0",
+    "request-promise": "4.2.4",
+    "cheerio": "1.0.0-rc.2",
+    "express-handlebars": "3.0.2",
+    "moment": "2.24.0"
+  }
+}
