@@ -4,9 +4,15 @@ import moment from "moment";
 import './App.css';
 
 class App extends Component {
-  constructor(props){
+  render(){
+    return <Newspaper/>;
+  }
+}
+
+class Newspaper extends Component {
+constructor(props){
     super(props);
-    this.state={date:window.location.pathname=="/"?new Date():new Date(window.location.path.substr(1)),comics:[{id:"pearlsbeforeswine",name:"Pearls Before Swine"},
+    this.state={date:window.location.pathname=="/"?new Date():new Date(window.location.pathname.substr(1)),comics:[{id:"pearlsbeforeswine",name:"Pearls Before Swine"},
 {id:"dilbert-classics",name:"Dilbert Classics"},
 {id:"lio",name:"Lio"},
 {id:"calvinandhobbes",name:"Calvin and Hobbes"},
@@ -14,6 +20,7 @@ class App extends Component {
 {id:"dilbert",name:"Dilbert"},
 {id:"garfield",name:"Garfield"},]};
   let date=moment(this.state.date).format("YYYY/MM/DD");
+  document.title=moment(this.state.date).format("MMMM D[, ]YYYY");
   let newComics=this.state.comics.map(comic=>({...comic,date}));
   this.state.comics=newComics;
   }
@@ -33,7 +40,7 @@ class App extends Component {
     );
   }
   addComic(){
-    this.setState({comics:[...this.state.comics,{id:"",name:""}]});
+    this.setState({comics:[...this.state.comics,{id:"",name:"",date:moment(this.state.date).format("YYYY/MM/DD")}]});
   }
   setDate(id,path){
     //console.log("Setting date!",this.state.comics[id],id,path);
@@ -50,13 +57,15 @@ class App extends Component {
     return ret;
   }
   addDays(numDays){
-    let newDate=new Date();
+    let newDate=new Date(this.state.date);
     newDate.setDate(this.state.date.getDate()+numDays);
     this.state.date=newDate;
     this.applyDate(moment(newDate).format("YYYY/MM/DD"));
   }
   applyDate(date){
     let newComics=this.state.comics.map(comic=>({...comic,date}));
+    document.title=moment(date).format("MMMM D[, ]YYYY");
+    window.history.pushState(date, moment(date).format("MMMM D[,] YYYY"), '/'+date);
     this.setState({comics:newComics});
   }
 }
@@ -113,24 +122,29 @@ class Comic extends Component{
     //console.log("running findUrl");
     path=path||this.getPath();
     let thisComic, strips={};
+    console.log("Finding",path);
     let num=Math.random();
     if(!Object.keys(this.state.strips).includes(path)){
       let url=`https://Comic-Strip-API.426729.repl.co/api${path}`;
-      //console.log(url);
+      console.log("trying",url);
       let json=await fetch(url);
+      console.log("Got response");
       json=await json.json();
-      if(json.error) return //console.log(url);
+      console.log("Awaited");
+      if(json.error) return console.log(url,"failed");
       thisComic=json;
-      //console.log(path,json.url);
+      console.log(json);
     }
     else {
-      //console.log("Cached");
+      console.log("Cached",path);
       thisComic=this.state.strips[path];
       //console.log("thisComic ",thisComic);
     }
     ////console.log("thisComic",thisComic);
     strips[path]=thisComic;
-    this.props.setDate(path);
+    if(this.state.path!==path) {
+      this.props.setDate(path);
+    }
     // this.setState({path});
     for(let order of ["previous","next"]){
       if(!this.state.strips[thisComic[order]]&&thisComic[order]&&thisComic[order]!=="") {
@@ -142,11 +156,17 @@ class Comic extends Component{
         //console.log("Adding the cache for",thisComic[order],json.url)
         strips[thisComic[order]]=json;
       }
+      else {
+        strips[thisComic[order]]=this.state.strips[thisComic[order]];
+      }
     }
     //console.log("Strips")
-    this.setState({strips});
+    let oldKeys=Object.keys(this.state.strips);
+    if(Object.keys(strips).filter(i=>!oldKeys.includes(i)).length>0){
+    this.setState({strips});}
   }
   getPath(date=this.date){
+    console.log(this.date);
     return `/${this.state.id}/${date}`;
   }
 }

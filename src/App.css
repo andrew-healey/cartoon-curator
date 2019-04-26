@@ -14,10 +14,11 @@
 }
 .changeDate {
   position:absolute;
-  width:50px;
+  width:12.5%;
+  height:12.5%;
 }
 .next {
-  left: calc(100% - 50px) ;
+  left: 87.5%;
 }
 .form-container {
   display:flex;
@@ -60,7 +61,7 @@ input[type=button].plus {
 }
 
 .comic span {
-  flex-shrink:1;
+  flex-grow:1;
   align-self:center;
 }
 
