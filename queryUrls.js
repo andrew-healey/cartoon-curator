@@ -21,6 +21,7 @@ const infoFinders={
     },
     getExtremes:async ()=>{
       let date="https://www.dilbert.com/";
+      return [];
     }
   },
 
@@ -56,7 +57,7 @@ const infoFinders={
       return ret;
     },
     getExtremes:async ()=>{
-      
+      return [];
     }
   },
 
@@ -82,7 +83,7 @@ const infoFinders={
       return ret;
     },
     getExtremes:async ()=>{
-
+        return [];
     }
   }
 };

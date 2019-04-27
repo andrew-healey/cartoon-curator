@@ -6,7 +6,7 @@ const sources = require("./sources");
 let allFunctions = require("./queryUrls");
 const schema = buildSchema(`
 type Query {
-  getComics(id: String!,date: String!): [Comic]! 
+  getComics(id: String!,date: String!): [Comic]!
 }
 
 type ComicStrip {
@@ -101,7 +101,7 @@ class ComicStrip {
    */
   async extremeComics(){
     let extremesList=await this.syndicate.findDates(this);
-    extremesList={first:extremesList[0],last:extemesList[1]};
+    extremesList={first:extremesList[0],last:extremesList[1]};
     for (let order of ["first", "last"]) {
       let info=new Comic(extremesList[order]);
       this[order]=info;
@@ -151,7 +151,7 @@ class Syndicate {
   }
   /**
    * Returns the raw JSON Object from sources.js or the cache.
-   * @param comic {Comic} - The Comic object for which to 
+   * @param comic {Comic} - The Comic object for which to
    */
   async getComic(comic) {
 
@@ -174,10 +174,11 @@ class Syndicate {
     //Get dates and assign them to Comics
     let stripExtremes=await this.query.getExtremes(strip.id);
     //Fill in the necessary data for those Comics
-    for(extreme of stripExtremes) {
-      extreme=new Comic({id:strip.id,date:dateStringFromComponents(stripExtremes.year,stripExtremes.month,stripExtremes.day),next:toDateStr(stripExtremes.next),previous:toDateStr(stripExtremes.prevous),strip:this});
+    let next=[];
+    for(let extreme of stripExtremes) {
+      next.push(new Comic({id:strip.id,date:dateStringFromComponents(extreme.year,extreme.month,extreme.day),next:toDateStr(extreme.next),previous:toDateStr(extreme.prevous),strip:this}));
     }
-    return stripExtremes;
+    return next;
   }
 }
 let comics;
