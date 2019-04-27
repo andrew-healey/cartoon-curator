@@ -105,5 +105,5 @@ app.get("/api/:id/:year/:month/:day",async (req,res)=>{
 app.get("/ids", async (req, res) => {
   res.send(allSources);
 });
-app.use("/test/graphql",require("./graphql"));
+//app.use("/test/graphql",require("./graphql"));
 app.listen(3000, () => console.log("Server started"));
