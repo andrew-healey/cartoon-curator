@@ -12,7 +12,8 @@ class App extends Component {
 class Newspaper extends Component {
 constructor(props){
     super(props);
-    this.state={date:window.location.pathname=="/"?new Date():new Date(window.location.pathname.substr(1)),comics:[{id:"pearlsbeforeswine",name:"Pearls Before Swine"},
+    let search=new URLSearchParams(window.location.search);
+    this.state={date:window.location.search==""?new Date():new Date(search.get("year")+"-"+search.get("month")+"-"+(parseInt(search.get("day"))+1)),comics:[{id:"pearlsbeforeswine",name:"Pearls Before Swine"},
 {id:"dilbert-classics",name:"Dilbert Classics"},
 {id:"lio",name:"Lio"},
 {id:"calvinandhobbes",name:"Calvin and Hobbes"},
@@ -65,7 +66,7 @@ constructor(props){
   applyDate(date){
     let newComics=this.state.comics.map(comic=>({...comic,date}));
     document.title=moment(date).format("MMMM D[, ]YYYY");
-    window.history.pushState(date, moment(date).format("MMMM D[,] YYYY"), '/'+date);
+    window.history.pushState(date, moment(date).format("MMMM D[,] YYYY"), moment(date).format("[?year=]YYYY[&month=]MM[&day=]DD"));
     this.setState({comics:newComics});
   }
 }
@@ -113,7 +114,7 @@ class Comic extends Component{
     );
     /*
     Old:
-    
+
         <input type="text" onChange={event=>{this.state.name=event.target.value;if(this.state.id)this.findUrl();}} placeholder="Name"/>
         <input type="text" onChange={event=>{this.state.id=event.target.value;this.state.path=this.getPath();this.findUrl();}} placeholder="Comic ID"/>
     */
