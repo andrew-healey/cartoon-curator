@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "core-js": "^3.0.1",
     "moment": "2.24.0",
     "polyfill-array-includes": "^2.0.0",
     "promise-polyfill": "^8.1.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-scripts": "2.1.5",
-    "url-search-params-polyfill": "^6.0.0"
+    "url-search-params-polyfill": "^6.0.0",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

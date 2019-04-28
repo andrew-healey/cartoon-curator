@@ -3,8 +3,11 @@ import logo from './logo.svg';
 import moment from "moment";
 import './App.css';
 import 'url-search-params-polyfill';
-import 'promise-polyfill/src/polyfill';
-import 'polyfill-array-includes';
+/*import 'core-js';*/
+import 'core-js/features/promise';
+import 'core-js/features/array/includes';
+import 'core-js/web/url-search-params';
+import 'whatwg-fetch';
 
 class App extends Component {
   render(){
