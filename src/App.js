@@ -4,6 +4,7 @@ import moment from "moment";
 import './App.css';
 import 'url-search-params-polyfill';
 import 'promise-polyfill/src/polyfill';
+import 'polyfill-array-includes';
 
 class App extends Component {
   render(){
