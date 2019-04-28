@@ -68,7 +68,6 @@ class Comic {
     this.previous = previous;
     this.next = next;
     this.dateObj = toDateObj(date);
-    console.log("Comic")
     //TODO init comic
     if(previous&&next) this.cacheNeighbors(numToCache);
   }
@@ -156,9 +155,9 @@ class Syndicate {
   async getComic(comic) {
 
     if (comic.strip.syndicate == this) {
-      console.log(comic.strip.id, comic.dateObj.year, comic.dateObj.month, comic.dateObj.day);
+    //   console.log(comic.strip.id, comic.dateObj.year, comic.dateObj.month, comic.dateObj.day);
       let info = await this.query.getDate(comic.strip.id, comic.dateObj.year, comic.dateObj.month, comic.dateObj.day);
-      console.log(`Retrieved ${comic.strip.id}/${comic.date}`);
+    //   console.log(`Retrieved ${comic.strip.id}/${comic.date}`);
       return info;
     }
     throw "Mismatched Syndicate.";
@@ -176,7 +175,7 @@ class Syndicate {
     //Fill in the necessary data for those Comics
     let next=[];
     for(let extreme of stripExtremes) {
-      next.push(new Comic({id:strip.id,date:dateStringFromComponents(extreme.year,extreme.month,extreme.day),next:toDateStr(extreme.next),previous:toDateStr(extreme.prevous),strip:this}));
+      next.push(new Comic({id:strip.id,date:dateStrFromComponents({year:extreme.year,month:extreme.month,day:extreme.day}),next:toDateStr(extreme.next),previous:toDateStr(extreme.prevous),strip:this}));
     }
     return next;
   }
@@ -187,7 +186,7 @@ let comics;
   let gocomics = await new Syndicate({ name: "gocomics" });
   await gocomics.initSources();
   let pbs = await gocomics.getStrip("pearlsbeforeswine");
-  console.log("pbs has",Object.keys(pbs));
+//   console.log("pbs has",Object.keys(pbs));
   comics = [await pbs.getComic("2019/04/12")]/*[
   {
     url: ()=>"https://assets.amuniversal.com/4a034c302bb501378ae6005056a9545d",

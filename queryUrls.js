@@ -20,16 +20,20 @@ const infoFinders={
       return ret;
     },
     getExtremes:async ()=>{
-      let date="https://www.dilbert.com/";
-      return [];
+      let url="https://www.dilbert.com/";
+      let html=await request(url);
+      let $=cheerio.load(html);
+      let img=$("img.img-responsive.img-comic");
+      return ["1989/04/16",img.attr("href").replace(/(\d+)-(\d+)-(\d+)/,"$1/$2/$3")];
     }
   },
 
   gocomics:{
+    proxy:undefined,
     getDate:async (id, year, month, day)=>{
       let path=`${id}/${year}/${month}/${day}`;
       let url = `https://www.gocomics.com/${path}`;
-      let html = await request(url);
+      let html = await request(url,{proxy:infoFinders.gocomics.proxy}).catch(err=>console.log(err.message));
       let $ = cheerio.load(html);
       let err = $("div.alert.alert-dismissible.fade.show.gc-alert.gc-alert--warning.js-gc-alert");
       let image = $("meta[property='og:image']");
@@ -56,8 +60,22 @@ const infoFinders={
       };
       return ret;
     },
-    getExtremes:async ()=>{
-      return [];
+    getExtremes:async (id)=>{
+      let extractDate=(url)=>url.replace(/(\d+)\/(\d+)\/(\d+)/,"$1/$2/$3")
+      const domain="https://www.gocomics.com";
+      let url=`${domain}/${id}/`;
+      console.log(url);
+      let html=await request(url,{proxy:infoFinders.gocomics.proxy}).catch(err=>console.log(err.message));
+      let $=cheerio.load(html);
+      let button=$("div.row div a.gc-blended-link.gc-blended-link--primary");
+      url=domain+button.attr("href");
+      let extremes=[extractDate(url)];
+      html=await request(url,{proxy:infoFinders.gocomics.proxy}).catch(err=>console.log(err.message));
+      $=cheerio.load(html);
+      button=$("a.fa.btn.btn-outline-secondary.btn-circle.fa.fa-backward.sm");
+      url=button.attr("href");
+      extremes.push(extractDate(url));
+      return extremes;
     }
   },
 
