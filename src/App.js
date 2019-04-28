@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import moment from "moment";
 import './App.css';
+import URLSearchParams from 'url-search-params-polyfill';
 
 class App extends Component {
   render(){
