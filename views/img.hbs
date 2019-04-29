@@ -21,23 +21,27 @@
         width:24%;
         height:200px;
       }
+      body.rot img{
+        align-self:flex-end;
+      }
+      img {
+        /*transform:translate(0px,calc(50% + 100px)) rotate(90deg);*/
+        width:100%;
+        height:auto;
+      }
+      html {
+          height:100%;
+          /*-webkit-transform:rotate(90deg);*/
+      }
       body {
         display:flex;
         flex-flow:column nowrap;
         align-items:center;
+        height:100%;
       }
       * {
         background-color:#2d2d2d;
         color:#8a8a80;
-      }
-      body.rot img{
-        align-self:flex-end;
-        /*transform:rotate(90deg);*/
-        -webkit-transform:rotate(90deg);
-      }
-      img {
-        width:100%;
-        height:auto;
       }
     </style>
     <div class="buttons">
@@ -46,7 +50,7 @@
     <a href={{{previous}}} ><input type="button" value="Previous"/></a>
     <a href={{{last}}} ><input type="button" value="Last"/></a>
     </div>
-    <img src={{{url}}}/>
+    <img src={{{url}}} height="100%"/>
     <p>{{{error}}}</p>
   </body>
 </html>
