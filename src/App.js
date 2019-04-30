@@ -19,6 +19,7 @@ class Newspaper extends Component {
 constructor(props){
     super(props);
     let search=new URLSearchParams(window.location.search);
+    this.url=search;
     this.state={date:window.location.search==""?new Date():new Date(search.get("year")+"-"+search.get("month")+"-"+(parseInt(search.get("day"))+1)),comics:[{id:"pearlsbeforeswine",name:"Pearls Before Swine"},
 {id:"dilbert-classics",name:"Dilbert Classics"},
 {id:"lio",name:"Lio"},
@@ -78,11 +79,13 @@ constructor(props){
   applyDate(date){
     let newComics=this.state.comics.map(comic=>({...comic,date}));
     let mom=moment(date);
-    document.title=mom.format("MMMM D[, ]YYYY");
+    this.setURL(undefined,date);
     // window.history.pushState(date, moment(date).format("MMMM D[,] YYYY"), this.url.toString()/*moment(date).format("[?year=]YYYY[&month=]MM[&day=]DD")*/);
     this.setState({comics:newComics});
   }
   setURL(comics,date=this.state.date){
+      let mom=moment(date);
+    //   alert(this.url);
       if(comics){
           this.url.delete("comic");
           for(let comic of comics){
@@ -92,9 +95,9 @@ constructor(props){
       if(date){
         this.url.set("year",mom.format("YYYY"));
         this.url.set("month",mom.format("MM"));
-        this.url.set("day",mom.format("DD"));   
+        this.url.set("day",mom.format("DD"));
       }
-      window.history.pushState(date,moment(date).format("MMMM D[,] YYYY"), this.url.toString());
+      window.history.pushState(date,moment(date).format("MMMM D[,] YYYY"), '?'+this.url.toString());
   }
 }
 
