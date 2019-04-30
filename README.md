@@ -1,3 +1,3 @@
 # Cartoon Curator
 
-##The integrated source for unlimited comics
+## The integrated source for unlimited comics
