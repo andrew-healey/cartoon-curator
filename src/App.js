@@ -38,9 +38,9 @@ constructor(props){
       <button onClick={()=>this.addDays(-1)} className="changeDate">&lt;</button>
       <button onClick={()=>this.addDays(1)} className="changeDate next">&gt;</button>
       <div className="App">
-        {this.state.comics.map((i,index)=><Comic remove={()=>this.popComic(index)} setDate={path=>this.setDate(index,path)} key={i.id} date={i.date} id={i.id} name={i.name}/>)}
+        {this.state.comics.map((i,index)=><Comic updateVals={newVal=>this.updateValue(index,newVal)} remove={()=>this.popComic(index)} setDate={path=>this.setDate(index,path)} key={i.id} date={i.date} id={i.id} name={i.name}/>)}
         <div className="input-container">
-        <input type="button" onClick={()=>this.addComic()} className="plus" value="+"/>
+          <input type="button" onClick={()=>this.addComic()} className="plus" value="+"/>
         </div>
       </div>
       </>
@@ -48,6 +48,12 @@ constructor(props){
   }
   addComic(){
     this.setState({comics:[...this.state.comics,{id:"",name:"",date:moment(this.state.date).format("YYYY/MM/DD")}]});
+  }
+  updateValue(index,value){
+      let comics=[...this.state.comics];
+      comics[index]=Object.assign({},comics[index],value);
+      this.setURL(comics);
+      this.setState({comics});
   }
   setDate(id,path){
     //console.log("Setting date!",this.state.comics[id],id,path);
@@ -71,9 +77,24 @@ constructor(props){
   }
   applyDate(date){
     let newComics=this.state.comics.map(comic=>({...comic,date}));
-    document.title=moment(date).format("MMMM D[, ]YYYY");
-    window.history.pushState(date, moment(date).format("MMMM D[,] YYYY"), moment(date).format("[?year=]YYYY[&month=]MM[&day=]DD"));
+    let mom=moment(date);
+    document.title=mom.format("MMMM D[, ]YYYY");
+    // window.history.pushState(date, moment(date).format("MMMM D[,] YYYY"), this.url.toString()/*moment(date).format("[?year=]YYYY[&month=]MM[&day=]DD")*/);
     this.setState({comics:newComics});
+  }
+  setURL(comics,date=this.state.date){
+      if(comics){
+          this.url.delete("comic");
+          for(let comic of comics){
+            this.url.append("comic",comic.id);
+          }
+      }
+      if(date){
+        this.url.set("year",mom.format("YYYY"));
+        this.url.set("month",mom.format("MM"));
+        this.url.set("day",mom.format("DD"));   
+      }
+      window.history.pushState(date,moment(date).format("MMMM D[,] YYYY"), this.url.toString());
   }
 }
 
@@ -115,7 +136,7 @@ class Comic extends Component{
       </div>:null
     ):(
       <div className="input-container">
-      <ComicChoice updateValue={(val)=>{this.state.id=val.id;this.state.name=val.name;this.state.path=this.getPath();this.findUrl();}}/>
+      <ComicChoice updateValue={(val)=>{this.props.updateVals({id:val.id,name:val.name});this.state.id=val.id;this.state.name=val.name;this.state.path=this.getPath();this.findUrl();}}/>
       </div>
     );
     /*
