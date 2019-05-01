@@ -3,6 +3,8 @@
   display:flex;
   flex-flow:row wrap;
   align-items:stretch;
+  max-height:calc(100vh - 75px);
+  overflow:scroll;
   flex:0 50%;
   background-color:antiquewhite;
 }
@@ -22,7 +24,6 @@
     text-align:center;
 }
 .navBar {
-    position:fixed;
     display:flex;
     flex-flow: row nowrap;
     align-items:stretch;

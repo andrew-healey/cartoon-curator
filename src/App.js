@@ -3,10 +3,12 @@ import moment from "moment";
 import './App.css';
 import 'url-search-params-polyfill';
 /*import 'core-js';*/
-import 'core-js/features/promise';
+// import 'core-js/features/promise';
 import 'core-js/features/array/includes';
 import 'core-js/web/url-search-params';
 import 'whatwg-fetch';
+
+const API_URL="https://Comic-Strip-API.426729.repl.co/api";
 
 function dateFromPath(path){
     return path.replace(/\/[^/]*\/(.*)$/g,"$1");
@@ -39,7 +41,6 @@ constructor(props){
   this.state.comics=newComics;
   }
   render() {
-    //console.log(this.state.comics);
     return (
       <>
       <div className="navBar">
@@ -66,7 +67,6 @@ constructor(props){
       this.setState({comics});
   }
   setDate(id,path){
-    //console.log("Setting date!",this.state.comics[id],id,path);
     let newComics=[...this.state.comics];
     let newThing={...newComics[id]};
     newThing.date=dateFromPath(path);
@@ -114,15 +114,17 @@ constructor(props){
 class Comic extends Component{
   constructor(props){
     super(props);
-    this.date=this.props.date;
-    this.state={path:"",strips:{},shown:true,id:this.props.id,name:this.props.name};
+    // this.date=this.props.date;
+    this.state={date:this.props.date,path:"",strips:{},shown:true,id:this.props.id,name:this.props.name};
     if(this.state.id) {
       this.state.path=this.getPath();
       this.findUrl(this.state.path);
     }
   }
+  static getDerivedStateFromProps(newProps,oldState){
+      return newProps.date!==oldState.date?{date:newProps.date}:null;
+  }
   render(){
-    this.date=this.props.date;
     this.findUrl();
     let thisComic=this.state.strips[this.state.path]||{};
 
@@ -133,13 +135,13 @@ class Comic extends Component{
         <p>{dateFromPath(this.state.path)}</p>
         <span role="img" aria-label="Delete" onClick={this.props.remove}>❌</span>
         <span className="comic">
-        <input type="button" onClick={()=>this.findUrl(thisComic.previous)} value="←" className="arrow"/>
-        <img ref="next" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.previous]||{}).url} onClick={()=>this.findUrl(thisComic.previous)}/>
+        <input type="button" onClick={()=>this.props.setDate(thisComic.previous)} value="←" className="arrow"/>
+        <img ref="next" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.previous]||{}).url}/>
         <span>
-        <img ref="this" alt={this.state.name||this.state.id+" comic strip"} src={thisComic.url} onClick={()=>this.findUrl(thisComic.previous)}/>
+        <img ref="this" alt={this.state.name||this.state.id+" comic strip"} src={thisComic.url} onClick={()=>this.props.setDate(thisComic.previous)}/>
         </span>
-        <img ref="last" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.next]||{}).url} onClick={()=>this.findUrl(thisComic.previous)}/>
-        <input type="button" onClick={()=>this.findUrl(thisComic.next)} value="→" className="arrow"/>
+        <img ref="last" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.next]||{}).url}/>
+        <input type="button" onClick={()=>this.props.setDate(thisComic.next)} value="→" className="arrow"/>
         </span>
       </div>:null
     ):(
@@ -149,48 +151,39 @@ class Comic extends Component{
     );
   }
   async findUrl(path){
-    //console.log("running findUrl");
     path=path||this.getPath();
     let thisComic, strips={};
     if(!Object.keys(this.state.strips).includes(path)){
-      let url=`https://Comic-Strip-API.426729.repl.co/api${path}`;
+      let url=`${API_URL}${path}`;
       let json=await fetch(url);
       json=await json.json();
       if(json.error) return console.log(url,"failed");
       thisComic=json;
-      console.log(json);
     }
     else {
       thisComic=this.state.strips[path];
-      //console.log("thisComic ",thisComic);
     }
-    ////console.log("thisComic",thisComic);
     strips[path]=thisComic;
     if(this.state.path!==path) {
-      this.props.setDate(path);
+      this.setState({path});
     }
-    // this.setState({path});
     for(let order of ["previous","next"]){
       if(!this.state.strips[thisComic[order]]&&thisComic[order]&&thisComic[order]!=="") {
-        //console.log("Not working path",thisComic[order]);
-        let url=`https://Comic-Strip-API.426729.repl.co/api${thisComic[order]}`;
-        //console.log(url);
+        let url=`${API_URL}${thisComic[order]}`;
         let json=await fetch(url);
         try{json=await json.json();} catch(err){continue;}
-        //console.log("Adding the cache for",thisComic[order],json.url)
         strips[thisComic[order]]=json;
       }
       else {
         strips[thisComic[order]]=this.state.strips[thisComic[order]];
       }
     }
-    //console.log("Strips")
     let oldKeys=Object.keys(this.state.strips);
     if(Object.keys(strips).filter(i=>!oldKeys.includes(i)).length>0){
-    this.setState({strips});}
+        this.setState({strips});
+    }
   }
-  getPath(date=this.date){
-    console.log(this.date);
+  getPath(date=this.state.date){
     return `/${this.state.id}/${date}`;
   }
 }
@@ -207,7 +200,7 @@ class ComicChoice extends Component{
     </select>;
   }
   async findStrips(){
-    let strips=await fetch("https://comic-strip-api.426729.repl.co/ids");
+    let strips=await fetch(`${API_URL}/ids`);
     strips=await strips.json();
     let newStrips={"Select":""};
     for(let key of Object.keys(strips)){
