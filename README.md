@@ -1,5 +1,5 @@
 # Cartoon Curator
 
-[![DeepScan grade](https://deepscan.io/api/teams/3547/projects/5223/branches/40557/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=3547&pid=5223&bid=40557)
+[![CodeFactor](https://www.codefactor.io/repository/github/sesamestrong/cartoon-curator/badge/master)](https://www.codefactor.io/repository/github/sesamestrong/cartoon-curator/overview/master)
 
 ## The integrated source for unlimited comics
