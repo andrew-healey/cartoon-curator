@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import moment from "moment";
 import './App.css';
 import 'url-search-params-polyfill';
@@ -20,13 +19,16 @@ constructor(props){
     super(props);
     let search=new URLSearchParams(window.location.search);
     this.url=search;
-    this.state={date:window.location.search==""?new Date():new Date(search.get("year")+"-"+search.get("month")+"-"+(parseInt(search.get("day"))+1)),comics:[{id:"pearlsbeforeswine",name:"Pearls Before Swine"},
+    this.state={date:["year","month","day"].reduce((last,next)=>last||!search.get(next),false)?new Date():new Date(search.get("year")+"-"+search.get("month")+"-"+(parseInt(search.get("day"))+1)),comics:[]};
+  let comics=search.getAll("comic");
+  if(comics.length===0) this.state.comics=[{id:"pearlsbeforeswine",name:"Pearls Before Swine"},
 {id:"dilbert-classics",name:"Dilbert Classics"},
 {id:"lio",name:"Lio"},
 {id:"calvinandhobbes",name:"Calvin and Hobbes"},
 {id:"foxtrot",name:"Foxtrot"},
 {id:"dilbert",name:"Dilbert"},
-{id:"garfield",name:"Garfield"},]};
+{id:"garfield",name:"Garfield"},];
+  else this.state.comics=comics.map(i=>({id:i}));
   let date=moment(this.state.date).format("YYYY/MM/DD");
   document.title=moment(this.state.date).format("MMMM D[, ]YYYY");
   let newComics=this.state.comics.map(comic=>({...comic,date}));
@@ -73,15 +75,16 @@ constructor(props){
   addDays(numDays){
     let newDate=new Date(this.state.date);
     newDate.setDate(this.state.date.getDate()+numDays);
-    this.state.date=newDate;
-    this.applyDate(moment(newDate).format("YYYY/MM/DD"));
+    // this.state.date=newDate;
+    this.applyDate(newDate);
   }
   applyDate(date){
-    let newComics=this.state.comics.map(comic=>({...comic,date}));
     let mom=moment(date);
-    this.setURL(undefined,date);
+    let str=mom.format("YYYY/MM/DD");
+    let newComics=this.state.comics.map(comic=>({...comic,date:str}));
+    this.setURL(undefined,str);
     // window.history.pushState(date, moment(date).format("MMMM D[,] YYYY"), this.url.toString()/*moment(date).format("[?year=]YYYY[&month=]MM[&day=]DD")*/);
-    this.setState({comics:newComics});
+    this.setState({date,comics:newComics});
   }
   setURL(comics,date=this.state.date){
       let mom=moment(date);
@@ -114,13 +117,11 @@ class Comic extends Component{
   render(){
     this.date=this.props.date;
     //console.log(this.props.date,"is date at render");
-    this.state.path=this.getPath();
-    console.log(this.state.path);
+    // this.state.path=this.getPath();
+    // console.log(this.state.path);
+    this.findUrl();
     //console.log("now, path is",this.state.path,this.date);
     let thisComic=this.state.strips[this.state.path]||{};
-    //console.log("rendering in render",this.state,"thisComic at render",thisComic);
-    //if(!thisComic.url)
-    this.findUrl(this.state.path);
     return this.state.path!==""&&this.state.id?
     (
       thisComic.url?<div className="comic-container">
@@ -153,21 +154,15 @@ class Comic extends Component{
     //console.log("running findUrl");
     path=path||this.getPath();
     let thisComic, strips={};
-    console.log("Finding",path);
-    let num=Math.random();
     if(!Object.keys(this.state.strips).includes(path)){
       let url=`https://Comic-Strip-API.426729.repl.co/api${path}`;
-      console.log("trying",url);
       let json=await fetch(url);
-      console.log("Got response");
       json=await json.json();
-      console.log("Awaited");
       if(json.error) return console.log(url,"failed");
       thisComic=json;
       console.log(json);
     }
     else {
-      console.log("Cached",path);
       thisComic=this.state.strips[path];
       //console.log("thisComic ",thisComic);
     }
@@ -210,7 +205,7 @@ class ComicChoice extends Component{
   }
   render(){
     return <select className="comic-choice" onChange={event=>this.props.updateValue({name:event.target.value,id:this.state.strips[event.target.value]})}>
-    {Object.keys(this.state.strips).map(i=><option value={i}>{i}</option>)}
+    {Object.keys(this.state.strips).map(i=><option key={i} value={i}>{i}</option>)}
     </select>;
   }
   async findStrips(){
