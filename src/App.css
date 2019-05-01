@@ -13,7 +13,7 @@
   pointer-events: none;
 }
 .changeDate {
-  position:absolute;
+  position:fixed;
   width:12.5%;
   height:12.5%;
 }
