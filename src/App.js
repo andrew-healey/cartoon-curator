@@ -8,7 +8,7 @@ import 'core-js/features/array/includes';
 import 'core-js/web/url-search-params';
 import 'whatwg-fetch';
 
-const API_URL="https://Comic-Strip-API.426729.repl.co/api";
+const API_URL="https://Comic-Strip-API.426729.repl.co";
 
 function dateFromPath(path){
     return path.replace(/\/[^/]*\/(.*)$/g,"$1");
@@ -154,7 +154,7 @@ class Comic extends Component{
     path=path||this.getPath();
     let thisComic, strips={};
     if(!Object.keys(this.state.strips).includes(path)){
-      let url=`${API_URL}${path}`;
+      let url=`${API_URL}/api${path}`;
       let json=await fetch(url);
       json=await json.json();
       if(json.error) return console.log(url,"failed");
@@ -169,7 +169,7 @@ class Comic extends Component{
     }
     for(let order of ["previous","next"]){
       if(!this.state.strips[thisComic[order]]&&thisComic[order]&&thisComic[order]!=="") {
-        let url=`${API_URL}${thisComic[order]}`;
+        let url=`${API_URL}/api${thisComic[order]}`;
         let json=await fetch(url);
         try{json=await json.json();} catch(err){continue;}
         strips[thisComic[order]]=json;
