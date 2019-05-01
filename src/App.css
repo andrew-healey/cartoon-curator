@@ -13,9 +13,20 @@
   pointer-events: none;
 }
 .changeDate {
-  position:fixed;
-  width:12.5%;
-  height:12.5%;
+  flex-basis:12.5%;
+  height:100%;
+}
+.title {
+    flex-grow:1;
+    flex-shrink:1;
+}
+.navBar {
+    position:fixed;
+    display:flex;
+    flex-flow: row nowrap;
+    align-items:stretch;
+    width:100%;
+    height:75px;
 }
 .next {
   left: 87.5%;

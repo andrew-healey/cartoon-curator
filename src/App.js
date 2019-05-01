@@ -38,8 +38,11 @@ constructor(props){
     //console.log(this.state.comics);
     return (
       <>
-      <button onClick={()=>this.addDays(-1)} className="changeDate">&lt;</button>
-      <button onClick={()=>this.addDays(1)} className="changeDate next">&gt;</button>
+      <div className="navBar">
+        <button onClick={()=>this.addDays(-1)} className="changeDate">&lt;</button>
+        <h1 className="title">Cartoon Curator</h1>
+        <button onClick={()=>this.addDays(1)} className="changeDate next">&gt;</button>
+      </div>
       <div className="App">
         {this.state.comics.map((i,index)=><Comic updateVals={newVal=>this.updateValue(index,newVal)} remove={()=>this.popComic(index)} setDate={path=>this.setDate(index,path)} key={i.id} date={i.date} id={i.id} name={i.name}/>)}
         <div className="input-container">
