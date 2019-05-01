@@ -8,6 +8,10 @@ import 'core-js/features/array/includes';
 import 'core-js/web/url-search-params';
 import 'whatwg-fetch';
 
+function dateFromPath(path){
+    return path.replace(/\/[^\/]*\/(.*)$/g,"$1");
+}
+
 class App extends Component {
   render(){
     return <Newspaper/>;
@@ -65,7 +69,7 @@ constructor(props){
     //console.log("Setting date!",this.state.comics[id],id,path);
     let newComics=[...this.state.comics];
     let newThing={...newComics[id]};
-    newThing.date=path.replace(/\/[^\/]*\/(.*)$/g,"$1");
+    newThing.date=dateFromPath(path);
     newComics[id]=newThing;
     this.setState({comics:newComics});
   }
@@ -119,39 +123,30 @@ class Comic extends Component{
   }
   render(){
     this.date=this.props.date;
-    //console.log(this.props.date,"is date at render");
-    // this.state.path=this.getPath();
-    // console.log(this.state.path);
     this.findUrl();
-    //console.log("now, path is",this.state.path,this.date);
     let thisComic=this.state.strips[this.state.path]||{};
+
     return this.state.path!==""&&this.state.id?
     (
       thisComic.url?<div className="comic-container">
         <h2>{this.state.name}</h2>
-        <p>{this.state.path.replace(/^\/[^\/]+\/(.*)$/g,"$1")}</p>
-        <span onClick={this.props.remove}>❌</span>
+        <p>{dateFromPath(this.state.path)}</p>
+        <span role="img" aria-label="Delete" onClick={this.props.remove}>❌</span>
         <span className="comic">
         <input type="button" onClick={()=>this.findUrl(thisComic.previous)} value="←" className="arrow"/>
-        <img ref="next" style={{display:"none"}} src={(this.state.strips[thisComic.previous]||{}).url} onClick={()=>this.findUrl(thisComic.previous)}/>
+        <img ref="next" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.previous]||{}).url} onClick={()=>this.findUrl(thisComic.previous)}/>
         <span>
-        <img ref="this" src={thisComic.url} onClick={()=>this.findUrl(thisComic.previous)}/>
+        <img ref="this" alt={this.state.name||this.state.id+" comic strip"} src={thisComic.url} onClick={()=>this.findUrl(thisComic.previous)}/>
         </span>
-        <img ref="last" style={{display:"none"}} src={(this.state.strips[thisComic.next]||{}).url} onClick={()=>this.findUrl(thisComic.previous)}/>
+        <img ref="last" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.next]||{}).url} onClick={()=>this.findUrl(thisComic.previous)}/>
         <input type="button" onClick={()=>this.findUrl(thisComic.next)} value="→" className="arrow"/>
         </span>
       </div>:null
     ):(
       <div className="input-container">
-      <ComicChoice updateValue={(val)=>{this.props.updateVals({id:val.id,name:val.name});this.state.id=val.id;this.state.name=val.name;this.state.path=this.getPath();this.findUrl();}}/>
+      <ComicChoice updateValue={(val)=>this.props.updateVals({id:val.id,name:val.name})}/>
       </div>
     );
-    /*
-    Old:
-
-        <input type="text" onChange={event=>{this.state.name=event.target.value;if(this.state.id)this.findUrl();}} placeholder="Name"/>
-        <input type="text" onChange={event=>{this.state.id=event.target.value;this.state.path=this.getPath();this.findUrl();}} placeholder="Comic ID"/>
-    */
   }
   async findUrl(path){
     //console.log("running findUrl");
