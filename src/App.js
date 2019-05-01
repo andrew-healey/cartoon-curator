@@ -210,4 +210,6 @@ class ComicChoice extends Component{
   }
 }
 
+console.log("ran");
+
 export default App;
