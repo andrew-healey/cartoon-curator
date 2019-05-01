@@ -9,7 +9,7 @@ import 'core-js/web/url-search-params';
 import 'whatwg-fetch';
 
 function dateFromPath(path){
-    return path.replace(/\/[^\/]*\/(.*)$/g,"$1");
+    return path.replace(/\/[^/]*\/(.*)$/g,"$1");
 }
 
 class App extends Component {
