@@ -25,7 +25,7 @@ constructor(props){
     super(props);
     let search=new URLSearchParams(window.location.search);
     this.url=search;
-    this.state={date:["year","month","day"].reduce((last,next)=>last||!search.get(next),false)?new Date():new Date(search.get("year"),search.get("month"),search.get("day")),comics:[]};
+    this.state={date:["year","month","day"].reduce((last,next)=>last||!search.get(next),false)?new Date():new Date(search.get("year"),search.get("month")-1,search.get("day")),comics:[]};
   let comics=search.getAll("comic");
   if(comics.length===0) this.state.comics=[{id:"pearlsbeforeswine",name:"Pearls Before Swine"},
 {id:"dilbert-classics",name:"Dilbert Classics"},
@@ -196,7 +196,7 @@ class ComicChoice extends Component{
   }
   render(){
     return <select className="comic-choice" onChange={event=>this.props.updateValue({name:event.target.value,id:this.state.strips[event.target.value]})}>
-    {Object.keys(this.state.strips).map(i=><option key={i} value={i}>{i}</option>)}
+    {Object.keys(this.state.strips).sort((last,next)=>next>last).map(i=><option key={i} value={i}>{i}</option>)}
     </select>;
   }
   async findStrips(){
