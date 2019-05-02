@@ -25,7 +25,7 @@ constructor(props){
     super(props);
     let search=new URLSearchParams(window.location.search);
     this.url=search;
-    this.state={date:["year","month","day"].reduce((last,next)=>last||!search.get(next),false)?new Date():new Date(search.get("year")+"-"+search.get("month")+"-"+(parseInt(search.get("day"))+1)),comics:[]};
+    this.state={date:["year","month","day"].reduce((last,next)=>last||!search.get(next),false)?new Date():new Date(search.get("year"),search.get("month"),search.get("day")),comics:[]};
   let comics=search.getAll("comic");
   if(comics.length===0) this.state.comics=[{id:"pearlsbeforeswine",name:"Pearls Before Swine"},
 {id:"dilbert-classics",name:"Dilbert Classics"},
