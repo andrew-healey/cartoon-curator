@@ -157,7 +157,9 @@ class Comic extends Component{
       let url=`${API_URL}/api${path}`;
       let json=await fetch(url);
       json=await json.json();
-      if(json.error) return console.log(url,"failed");
+      if(json.error) {
+        /*return */console.log(url,"failed");
+      }
       thisComic=json;
     }
     else {
