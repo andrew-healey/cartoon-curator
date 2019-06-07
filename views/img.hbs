@@ -25,7 +25,7 @@
         align-self:flex-end;
       }
       img {
-        /*transform:translate(0px,calc(50% + 100px)) rotate(90deg);*/
+        transform:translateY(50%, rotate(90deg);
         width:100%;
         height:auto;
       }
@@ -43,6 +43,10 @@
         background-color:#2d2d2d;
         color:#8a8a80;
       }
+      div.container {
+	height:calc(100vh - 100px);
+	width:100%;
+      }
     </style>
     <div class="buttons">
     <a href={{{first}}} ><input type="button" value="First"/></a>
@@ -50,7 +54,9 @@
     <a href={{{previous}}} ><input type="button" value="Previous"/></a>
     <a href={{{last}}} ><input type="button" value="Last"/></a>
     </div>
+    <div class="container">
     <img src={{{url}}} height="100%"/>
     <p>{{{error}}}</p>
+    </div>
   </body>
 </html>
