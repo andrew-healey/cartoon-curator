@@ -13,16 +13,18 @@
 
         input[type=button] {
             width: 24.5%;
-            height: 100px;
+            height: 200px;
             font-size: 30px;
         }
 
-        body.rot img {
+        .rot img {
             -webkit-transform: rotate(90deg);
-            width: calc(100vh - 100px);
+            position: relative;
+            top: -50%;
+            width: 100%
         }
 
-        body.not img {
+        .not img {
             width: 100%;
         }
 
@@ -48,7 +50,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: calc(100vh - 100px);
+            min-height: calc(100vh - 200px);
+            width: 100%;
+        }
+
+        .rot div.hugger {
+            width: calc(100vh - 200px);
+            position: relative;
+            top: -50%;
+        }
+
+        .not div.hugger {
             width: 100%;
         }
     </style>
@@ -59,7 +71,9 @@
         <a href={{{last}}}><input type="button" value="Last"/></a>
     </div>
     <div class="container">
-        <img src={{{url}}}/>
+        <div class="hugger">
+            <img src={{{url}}}/>
+        </div>
         <p>{{{error}}}</p>
     </div>
 </body>
