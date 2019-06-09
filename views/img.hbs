@@ -17,21 +17,6 @@
             font-size: 30px;
         }
 
-        .rot img {
-            -webkit-transform: rotate(90deg);
-            position: relative;
-            top: -50%;
-            width: 100%
-        }
-
-        .not img {
-            width: 100%;
-        }
-
-        img {
-            height: auto;
-        }
-
         html {
             height: 100%;
         }
@@ -41,27 +26,17 @@
             margin: auto;
         }
 
+        body.rot {
+            -webkit-transform: rotate(90deg);
+        }
+
+        img {
+            width: 100%;
+        }
+
         * {
             background-color: #2d2d2d;
             color: #8a8a80;
-        }
-
-        div.container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - 200px);
-            width: 100%;
-        }
-
-        .rot div.hugger {
-            width: calc(100vh - 200px);
-            position: relative;
-            top: -50%;
-        }
-
-        .not div.hugger {
-            width: 100%;
         }
     </style>
     <div class="buttons">
@@ -70,11 +45,7 @@
         <a href={{{previous}}}><input type="button" value="Previous"/></a>
         <a href={{{last}}}><input type="button" value="Last"/></a>
     </div>
-    <div class="container">
-        <div class="hugger">
-            <img src={{{url}}}/>
-        </div>
-        <p>{{{error}}}</p>
+    <img src={{{url}}}/>
     </div>
 </body>
 
