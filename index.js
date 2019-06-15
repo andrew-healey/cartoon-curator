@@ -84,7 +84,7 @@ app.get("/:id/:year/:month/:day", async (req, res) => {
     let info = await genComic(req.params.id, year, month, day);
     // console.log("Info =",info);
     let url = info.url;
-    let doRotation = "not" //req.get("user-agent").includes("Kindle")?"rot":"not";
+    let doRotation = req.get("user-agent").includes("Kindle")||req.query.rot==="true"?"rot":"not";
     res.render("img", { ...info,
         doRotation
     });
