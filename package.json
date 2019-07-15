@@ -3,24 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bluebird": "^3.5.5",
+    "cheerio": "^1.0.0-rc.3",
     "core-js": "^3.1.4",
+    "express": "^4.17.1",
     "gh-pages": "^2.0.1",
+    "jsonframe-cheerio": "^3.0.1",
+    "mocha": "^6.1.4",
     "moment": "2.24.0",
     "polyfill-array-includes": "^2.0.0",
     "promise-polyfill": "^8.1.3",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-scripts": "3.0.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
     "url-search-params-polyfill": "^7.0.0",
     "whatwg-fetch": "^3.0.0"
   },
   "homepage": "https://freecomics.ml",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "mocha test/**/*.test.js && react-scripts test --watchAll",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
