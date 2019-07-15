@@ -5,7 +5,7 @@
             "replace": "https://gocomics.com/$1/$2/$3/$4/"
         },
         "frame": {
-            "$url": "meta[property='og:image'] @ content",
+            "$url": "picture.item-comic-image img.lazyload.img-fluid @ src",
             "adjacents": {
                 "_s": "nav.gc-calendar-nav",
                 "_d": {
@@ -22,7 +22,7 @@
                 "replace": "https://gocomics.com/$1"
             },
             "frame": {
-                "$1": "div.gc-deck--cta-0 a.gc-blended-link @href || \\d+/\\d+/\\d+"
+                "$last": "div.gc-deck--cta-0 a.gc-blended-link @ href || \\d+/\\d+/\\d+"
             }
         }],
         "first": [{
@@ -31,7 +31,7 @@
                     "replace": "https://gocomics.com/$1"
                 },
                 "frame": {
-                    "$last": "div.gc-deck--cta-0 a.gc-blended-link @href "
+                    "$last": "div.gc-deck--cta-0 a.gc-blended-link @ href "
                 }
             },
             {

@@ -3,11 +3,13 @@ const {
     Provider
 } = require("../../backend/providers.js");
 const assert = require("assert");
+const {contains}=require("../../util");
+let providers;
 describe("Working provider management", () => {
-    let providers;
     // eslint-disable-next-line no-undef
     it("Retrieves providers in JSON format", async () => {
-        providers = await loadProviders();
+        providers = loadProviders();
+        providers = await providers;
         assert.equal(typeof providers, "object");
     });
 });
@@ -50,6 +52,36 @@ describe("Provider class", function () {
                     }
                 }
             ])
+        );
+    });
+});
+
+describe("Providers", function () {
+    let providerInstances = [],
+        providerAnswers={};
+    before("Load providers", async () => {
+        const provObj = await providers;
+        providerInstances = Object.keys(provObj).map(provName => new Provider(provName, provObj[provName]));
+        providerAnswers = await loadProviders(__dirname,/^(.*)\.test\.json$/,"$1.test.json");
+    });
+    it("Provider validation", function () {
+        providerInstances.forEach((prov) =>
+            describe(prov.name, () => {
+                const answers = providerAnswers[prov.name];
+                it("Gets first comic strip", async function () {
+                    const extInfo = answers["extremes-scrape"].first;
+                    contains(
+                        extInfo.out, await prov.getFirst(extInfo.in),true
+                    );
+                });
+                it("Gets comic strip image, next and previous", async function () {
+                    const dateInfo = answers["date-scrape"];
+                    contains(
+                        dateInfo.out, await prov.getDate(dateInfo.in.name,dateInfo.in.date),true
+                    );
+                });
+                //TODO Find way to confirm last comic strip date
+            })
         );
     });
 });

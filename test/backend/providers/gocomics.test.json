@@ -1,0 +1,21 @@
+{
+    "date-scrape": {
+        "in": {
+            "name":"pearlsbeforeswine",
+            "date":"2019/07/14"
+        },
+        "out": {
+            "url": "https://assets.amuniversal.com/54b89b006a180137a175005056a9545d",
+            "previous": "2019/07/13",
+            "next": "2019/07/15"
+        }
+    },
+    "extremes-scrape": {
+        "first": {
+            "in": "pearlsbeforeswine",
+            "out": {
+                "first": "2002/01/07"
+            }
+        }
+    }
+}
