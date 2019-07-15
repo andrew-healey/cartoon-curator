@@ -3,15 +3,14 @@ const {
     Provider
 } = require("../../backend/providers.js");
 const assert = require("assert");
-const {contains}=require("../../util");
-let providers;
-describe("Working provider management", () => {
-    // eslint-disable-next-line no-undef
-    it("Retrieves providers in JSON format", async () => {
-        providers = loadProviders();
-        providers = await providers;
-        assert.equal(typeof providers, "object");
-    });
+const {
+    contains
+} = require("../../util");
+let providers, providerAnswers, providerInstances;
+before("Retrieves providers in JSON format", async function () {
+    providers = await loadProviders();
+    providerAnswers = await loadProviders(__dirname, /^(.*)\.test\.json$/, "$1.test.json");
+    providerInstances = Object.keys(providers).map(provName => new Provider(provName, providers[provName]));
 });
 describe("Provider class", function () {
     this.timeout(5000);
@@ -57,31 +56,46 @@ describe("Provider class", function () {
 });
 
 describe("Providers", function () {
-    let providerInstances = [],
-        providerAnswers={};
-    before("Load providers", async () => {
-        const provObj = await providers;
-        providerInstances = Object.keys(provObj).map(provName => new Provider(provName, provObj[provName]));
-        providerAnswers = await loadProviders(__dirname,/^(.*)\.test\.json$/,"$1.test.json");
+    describe("Gets first comic strip", function () {
+        providerInstances.forEach(prov => it(prov.name, async function () {
+            const answer = providerAnswers[prov.name];
+            const extInfo = answer["extremes-scrape"].first;
+            contains(
+                extInfo.out, await prov.getFirst(extInfo.in)
+            );
+        }))
     });
-    it("Provider validation", function () {
-        providerInstances.forEach((prov) =>
-            describe(prov.name, () => {
-                const answers = providerAnswers[prov.name];
-                it("Gets first comic strip", async function () {
-                    const extInfo = answers["extremes-scrape"].first;
-                    contains(
-                        extInfo.out, await prov.getFirst(extInfo.in),true
-                    );
-                });
-                it("Gets comic strip image, next and previous", async function () {
-                    const dateInfo = answers["date-scrape"];
-                    contains(
-                        dateInfo.out, await prov.getDate(dateInfo.in.name,dateInfo.in.date),true
-                    );
-                });
-                //TODO Find way to confirm last comic strip date
-            })
-        );
+    describe("Gets comic strip image, next and previous", function () {
+        it("Does stuff", () => assert(true));
+        providerInstances.forEach(prov => it(prov.name, async function () {
+            const answer = providerAnswers[prov.name];
+            const dateInfo = answer["date-scrape"];
+            contains(
+                dateInfo.out, await prov.getDate(dateInfo.name, dateInfo.date), true
+            );
+        }))
     });
 });
+
+// it("This will run?", () => assert(true));
+// });
+
+// describe("Heyy!", () => {
+//     [
+//         [5, 1, 4]
+//     ].forEach(
+//         i => it("Adds numbers", async () => assert.equal(i[0] - i[1], i[2]))
+//     )
+// });
+
+/*
+it("Gets first comic strip", async () =>
+    providerInstances.forEach(prov => {
+        const first = providerAnswers[prov.name].first;
+        contains(
+            extInfo.out, await prov.getFirst(extInfo.in), true
+        );
+    }));
+it("Gets comic strip image, next and previous", async () =>
+    providerInstances.forEach(prov => ));
+    */
