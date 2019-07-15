@@ -7,11 +7,10 @@ const {
     contains
 } = require("../../util");
 let providers, providerAnswers, providerInstances;
-before("Retrieves providers in JSON format", async function () {
+(async ()=>{
     providers = await loadProviders();
     providerAnswers = await loadProviders(__dirname, /^(.*)\.test\.json$/, "$1.test.json");
     providerInstances = Object.keys(providers).map(provName => new Provider(provName, providers[provName]));
-});
 describe("Provider class", function () {
     this.timeout(5000);
     it("Extracts variables from a JSONFrame scrape", async () =>
@@ -66,16 +65,17 @@ describe("Providers", function () {
         }))
     });
     describe("Gets comic strip image, next and previous", function () {
-        it("Does stuff", () => assert(true));
         providerInstances.forEach(prov => it(prov.name, async function () {
             const answer = providerAnswers[prov.name];
             const dateInfo = answer["date-scrape"];
             contains(
-                dateInfo.out, await prov.getDate(dateInfo.name, dateInfo.date), true
+                dateInfo.out, await prov.getDate(dateInfo.in.name, dateInfo.in.date), true
             );
         }))
     });
 });
+
+})().then(run);
 
 // it("This will run?", () => assert(true));
 // });
