@@ -7,12 +7,7 @@ const {
     contains
 } = require("../../util");
 let providers, providerAnswers, providerInstances;
-(async ()=>{
-    providers = await loadProviders();
-    providerAnswers = await loadProviders(__dirname, /^(.*)\.test\.json$/, "$1.test.json");
-    providerInstances = Object.keys(providers).map(provName => new Provider(provName, providers[provName]));
 describe("Provider class", function () {
-    this.timeout(5000);
     it("Extracts variables from a JSONFrame scrape", async () =>
         assert.deepEqual({
             "slash-url": "https://github.githubassets.com/images/search-key-slash.svg"
@@ -54,28 +49,25 @@ describe("Provider class", function () {
     });
 });
 
-describe("Providers", function () {
-    describe("Gets first comic strip", function () {
-        providerInstances.forEach(prov => it(prov.name, async function () {
-            const answer = providerAnswers[prov.name];
-            const extInfo = answer["extremes-scrape"].first;
-            contains(
-                extInfo.out, await prov.getFirst(extInfo.in)
-            );
-        }))
-    });
-    describe("Gets comic strip image, next and previous", function () {
-        providerInstances.forEach(prov => it(prov.name, async function () {
-            const answer = providerAnswers[prov.name];
-            const dateInfo = answer["date-scrape"];
-            contains(
-                dateInfo.out, await prov.getDate(dateInfo.in.name, dateInfo.in.date), true
-            );
-        }))
-    });
+describe("Providers", async function () {
+    providers = await loadProviders();
+    providerAnswers = await loadProviders(__dirname, /^(.*)\.test\.json$/, "$1.test.json");
+    providerInstances = Object.keys(providers).map(provName => new Provider(provName, providers[provName]));
+    const comicTest = (desc, getContext, func) =>
+        describe(desc, function () {
+            providerInstances.forEach(prov => it(prov.name, async function () {
+                const answer = providerAnswers[prov.name];
+                const extInfo = getContext(answer);
+                contains(
+                    extInfo.out, await func(extInfo, prov)
+                );
+            }));
+        });
+    comicTest("Gets first comic strip", ans => ans["extremes-scrape"].first, async (data, prov) => await prov.getFirst(data.in));
+    comicTest("Gets comic strip image, next and previous", ans => ans["date-scrape"], async (data, prov) => await prov.getDate(data.in.name, data.in.date));
+    comicTest("Gets last comic strip", ans => ans["extremes-scrape"].last, async (data, prov) =>
+        await Provider.scrapes((await prov.getLast(data.in)).last, data.scrape));
 });
-
-})().then(run);
 
 // it("This will run?", () => assert(true));
 // });

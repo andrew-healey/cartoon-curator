@@ -1,8 +1,8 @@
 {
     "date-scrape": {
         "in": {
-            "name":"pearlsbeforeswine",
-            "date":"2019/07/14"
+            "name": "pearlsbeforeswine",
+            "date": "2019/07/14"
         },
         "out": {
             "url": "https://assets.amuniversal.com/54b89b006a180137a175005056a9545d",
@@ -15,6 +15,21 @@
             "in": "pearlsbeforeswine",
             "out": {
                 "first": "2002/01/07"
+            }
+        },
+        "last": {
+            "in":"calvinandhobbes",
+            "scrape":
+            [{
+                "generate-url": {
+                    "match":"^(.*)$",
+                    "replace":"https://gocomics.com/calvinandhobbes/$1"
+                },
+                "frame":{
+                    "$link":"a.fa.btn.btn-outline-secondary.btn-circle.fa-forward.sm.disabled @ href"
+                }
+            }],
+            "out":{
             }
         }
     }
