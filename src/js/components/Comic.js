@@ -8,14 +8,18 @@ export default class Comic extends Component{
     this.state={date:this.props.date,path:"",strips:{},shown:true,id:this.props.id,name:this.props.name};
     if(this.state.id) {
       this.state.path=this.getPath();
-      this.findUrl(this.state.path);
     }
   }
   static getDerivedStateFromProps(newProps,oldState){
       return newProps.date!==oldState.date?{date:newProps.date}:null;
   }
-  render(){
+  componentDidMount(){
+    if(this.state.id) this.findUrl(this.state.path);
+  }
+  componentDidUpdate(){
     this.findUrl();
+  }
+  render(){
     let thisComic=this.state.strips[this.state.path]||{};
 
     return this.state.path!==""&&this.state.id?
