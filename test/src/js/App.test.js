@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../../../src/js/components/App';
-import Enzyme,{ mount, shallow } from 'enzyme';
+import Enzyme,{
+  //mount,
+  shallow } from 'enzyme';
 import {assert} from 'chai';
 import Adapter from 'enzyme-adapter-react-16';
 
