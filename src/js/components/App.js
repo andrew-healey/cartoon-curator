@@ -1,8 +1,9 @@
 import '../util';
+import 'core-js';
+import 'isomorphic-fetch';
 import React, { Component } from 'react';
 import Newspaper from './Newspaper';
 import '../../css/App.css';
-import 'core-js';
 
 class App extends Component {
   render(){

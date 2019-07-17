@@ -1,4 +1,4 @@
-const assert=require("assert");
+const {assert}=require("chai");
 // import assert from 'assert';
 const {flatObject}=require("../util");
 // import {flatObject} from '../util';

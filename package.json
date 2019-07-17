@@ -2,31 +2,32 @@
   "name": "runner",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.5.4",
     "bluebird": "^3.5.5",
     "cheerio": "^1.0.0-rc.3",
     "core-js": "^3.1.4",
     "express": "^4.17.1",
     "gh-pages": "^2.0.1",
+    "isomorphic-fetch": "^2.2.1",
     "jsonframe-cheerio": "^3.0.1",
-    "mocha": "^6.1.4",
     "moment": "2.24.0",
-    "polyfill-array-includes": "^2.0.0",
-    "promise-polyfill": "^8.1.3",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-scripts": "3.0.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
-    "url-search-params-polyfill": "^7.0.0",
-    "whatwg-fetch": "^3.0.0"
+    "save-dev": "^2.0.0",
+    "url-search-params-polyfill": "^7.0.0"
   },
   "homepage": "https://freecomics.ml",
   "scripts": {
     "predeploy": "npm run build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "mocha test/**/*.test.js",
+    "test": "NODE_ENV=development mocha --require ./test/setupDOM.js --require ignore-styles --recursive",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -37,5 +38,18 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/node": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.0",
+    "@babel/register": "^7.4.4",
+    "chai": "^4.2.0",
+    "chai-enzyme": "^1.0.0-beta.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "ignore-styles": "^5.0.1",
+    "mocha": "^6.1.4",
+    "sinon": "^7.3.2"
+  }
 }
