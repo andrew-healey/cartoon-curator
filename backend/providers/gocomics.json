@@ -35,11 +35,11 @@
                 }
             },
             {
-                "generate-url":{
-                    "match":".*",
-                    "replace":"https://gocomics.com${last}"
+                "generate-url": {
+                    "match": ".*",
+                    "replace": "https://gocomics.com${last}"
                 },
-                "frame":{
+                "frame": {
                     "$first": ".fa.btn.btn-outline-secondary.btn-circle.fa.fa-backward.sm @ href || \\d+/\\d+/\\d+"
                 }
             }
@@ -54,5 +54,1575 @@
             "match": "(.*)",
             "replace": "https://assets.amuniversal.com/$1"
         }
-    }
+    },
+    "comics": [{
+        "names": ["The Academia Waltz"],
+        "id": "academiawaltz"
+    }, {
+        "names": ["Adam@Home"],
+        "id": "adamathome"
+    }, {
+        "names": ["Adult Children"],
+        "id": "adult-children"
+    }, {
+        "names": ["The Adventures of Business Cat"],
+        "id": "the-adventures-of-business-cat"
+    }, {
+        "names": ["Agnes"],
+        "id": "agnes"
+    }, {
+        "names": ["AJ and Magnus"],
+        "id": "aj-and-magnus"
+    }, {
+        "names": ["Lalo Alcaraz"],
+        "id": "laloalcaraz"
+    }, {
+        "names": ["Ali's House"],
+        "id": "alis-house"
+    }, {
+        "names": ["Alley Oop"],
+        "id": "alley-oop"
+    }, {
+        "names": ["Amanda the Great"],
+        "id": "amanda-the-great"
+    }, {
+        "names": ["American Chop Suey"],
+        "id": "american-chop-suey"
+    }, {
+        "names": ["Nick Anderson"],
+        "id": "nickanderson"
+    }, {
+        "names": ["Andertoons"],
+        "id": "andertoons"
+    }, {
+        "names": ["Michael Andrew"],
+        "id": "michael-andrew"
+    }, {
+        "names": ["Andy Capp"],
+        "id": "andycapp"
+    }, {
+        "names": ["Angry Birds"],
+        "id": "angry-birds"
+    }, {
+        "names": ["Angry Little Girls"],
+        "id": "angry-little-girls"
+    }, {
+        "names": ["Animal Crackers"],
+        "id": "animalcrackers"
+    }, {
+        "names": ["Annie"],
+        "id": "annie"
+    }, {
+        "names": ["The Argyle Sweater"],
+        "id": "theargylesweater"
+    }, {
+        "names": ["Robert Ariail"],
+        "id": "robert-ariail"
+    }, {
+        "names": ["Arlo and Janis"],
+        "id": "arloandjanis"
+    }, {
+        "names": ["Ask a Cat"],
+        "id": "ask-a-cat"
+    }, {
+        "names": ["Ask Shagg"],
+        "id": "askshagg"
+    }, {
+        "names": ["At the Zoo"],
+        "id": "at-the-zoo"
+    }, {
+        "names": ["Aunty Acid"],
+        "id": "aunty-acid"
+    }, {
+        "names": ["The Awkward Yeti"],
+        "id": "the-awkward-yeti"
+    }, {
+        "names": ["B.C."],
+        "id": "bc"
+    }, {
+        "names": ["Back to B.C."],
+        "id": "back-to-bc"
+    }, {
+        "names": ["Baby Trump"],
+        "id": "baby-trump"
+    }, {
+        "names": ["Back in the Day"],
+        "id": "backintheday"
+    }, {
+        "names": ["bacon"],
+        "id": "bacon"
+    }, {
+        "names": ["Bad Machinery"],
+        "id": "bad-machinery"
+    }, {
+        "names": ["Bad Reporter"],
+        "id": "badreporter"
+    }, {
+        "names": ["Badlands"],
+        "id": "badlands"
+    }, {
+        "names": ["Baldo"],
+        "id": "baldo"
+    }, {
+        "names": ["Ballard Street"],
+        "id": "ballardstreet"
+    }, {
+        "names": ["Banana Triangle"],
+        "id": "banana-triangle"
+    }, {
+        "names": ["Barkeater Lake"],
+        "id": "barkeaterlake"
+    }, {
+        "names": ["The Barn"],
+        "id": "thebarn"
+    }, {
+        "names": ["Barney & Clyde"],
+        "id": "barneyandclyde"
+    }, {
+        "names": ["Basic Instructions"],
+        "id": "basicinstructions"
+    }, {
+        "names": ["Batch Rejection"],
+        "id": "batch-rejection"
+    }, {
+        "names": ["Beanie the Brownie"],
+        "id": "beanie-the-brownie"
+    }, {
+        "names": ["Bear with Me"],
+        "id": "bear-with-me"
+    }, {
+        "names": ["Beardo"],
+        "id": "beardo"
+    }, {
+        "names": ["Ben"],
+        "id": "ben"
+    }, {
+        "names": ["Clay Bennett"],
+        "id": "claybennett"
+    }, {
+        "names": ["Lisa Benson"],
+        "id": "lisabenson"
+    }, {
+        "names": ["Steve Benson"],
+        "id": "stevebenson"
+    }, {
+        "names": ["Bent Objects"],
+        "id": "bent-objects"
+    }, {
+        "names": ["The Bent Pinky"],
+        "id": "the-bent-pinky"
+    }, {
+        "names": ["Berger & Wyse"],
+        "id": "berger-and-wyse"
+    }, {
+        "names": ["Berkeley Mews"],
+        "id": "berkeley-mews"
+    }, {
+        "names": ["The Best Medicine Cartoon"],
+        "id": "the-best-medicine"
+    }, {
+        "names": ["Betty"],
+        "id": "betty"
+    }, {
+        "names": ["Bewley"],
+        "id": "bewley"
+    }, {
+        "names": ["BFGF Syndrome"],
+        "id": "bfgf-syndrome"
+    }, {
+        "names": ["Biff & Riley"],
+        "id": "biff-and-riley"
+    }, {
+        "names": ["Big Nate"],
+        "id": "bignate"
+    }, {
+        "names": ["Big Nate: First Class"],
+        "id": "big-nate-first-class"
+    }, {
+        "names": ["The Big Picture"],
+        "id": "thebigpicture"
+    }, {
+        "names": ["Big Top"],
+        "id": "bigtop"
+    }, {
+        "names": ["Biographic"],
+        "id": "biographic"
+    }, {
+        "names": ["Bird and Moon"],
+        "id": "bird-and-moon"
+    }, {
+        "names": ["Birdbrains"],
+        "id": "birdbrains"
+    }, {
+        "names": ["Bleeker: The Rechargeable Dog"],
+        "id": "bleeker"
+    }, {
+        "names": ["Bliss"],
+        "id": "bliss"
+    }, {
+        "names": ["Bloom County"],
+        "id": "bloomcounty"
+    }, {
+        "names": ["Bloom County 2018"],
+        "id": "bloom-county"
+    }, {
+        "names": ["Bo Nanas"],
+        "id": "bonanas"
+    }, {
+        "names": ["Bob the Squirrel"],
+        "id": "bobthesquirrel"
+    }, {
+        "names": ["Chip Bok"],
+        "id": "chipbok"
+    }, {
+        "names": ["Boomerangs"],
+        "id": "boomerangs"
+    }, {
+        "names": ["The Boondocks"],
+        "id": "boondocks"
+    }, {
+        "names": ["The Born Loser"],
+        "id": "the-born-loser"
+    }, {
+        "names": ["Matt Bors"],
+        "id": "matt-bors"
+    }, {
+        "names": ["Bottomliners"],
+        "id": "bottomliners"
+    }, {
+        "names": ["Bound and Gagged"],
+        "id": "boundandgagged"
+    }, {
+        "names": ["Brain Squirts"],
+        "id": "brain-squirts"
+    }, {
+        "names": ["Break of Day"],
+        "id": "break-of-day"
+    }, {
+        "names": ["Breaking Cat News"],
+        "id": "breaking-cat-news"
+    }, {
+        "names": ["Steve Breen"],
+        "id": "stevebreen"
+    }, {
+        "names": ["Brevity"],
+        "id": "brevity"
+    }, {
+        "names": ["Brewster Rockit"],
+        "id": "brewsterrockit"
+    }, {
+        "names": ["Chris Britt"],
+        "id": "chrisbritt"
+    }, {
+        "names": ["Broom Hilda"],
+        "id": "broomhilda"
+    }, {
+        "names": ["The Buckets"],
+        "id": "thebuckets"
+    }, {
+        "names": ["Bully"],
+        "id": "bully"
+    }, {
+        "names": ["Buni"],
+        "id": "buni"
+    }, {
+        "names": ["Bushy Tales"],
+        "id": "bushy-tales"
+    }, {
+        "names": ["Calvin and Hobbes"],
+        "id": "calvinandhobbes"
+    }, {
+        "names": ["Tim Campbell"],
+        "id": "tim-campbell"
+    }, {
+        "names": ["Candorville"],
+        "id": "candorville"
+    }, {
+        "names": ["Stuart Carlson"],
+        "id": "stuartcarlson"
+    }, {
+        "names": ["Ken Catalino"],
+        "id": "kencatalino"
+    }, {
+        "names": ["Cathy"],
+        "id": "cathy"
+    }, {
+        "names": ["Cattitude — Doggonit"],
+        "id": "cattitude-doggonit"
+    }, {
+        "names": ["C'est la Vie"],
+        "id": "cestlavie"
+    }, {
+        "names": ["Cheap Thrills Cuisine"],
+        "id": "cheap-thrills-cuisine"
+    }, {
+        "names": ["Cheer Up, Emo Kid"],
+        "id": "cheer-up-emo-kid"
+    }, {
+        "names": ["Chuckle Bros"],
+        "id": "chucklebros"
+    }, {
+        "names": ["Citizen Dog"],
+        "id": "citizendog"
+    }, {
+        "names": ["The City"],
+        "id": "thecity"
+    }, {
+        "names": ["Claw"],
+        "id": "claw"
+    }, {
+        "names": ["Clear Blue Water"],
+        "id": "clearbluewater"
+    }, {
+        "names": ["Cleats"],
+        "id": "cleats"
+    }, {
+        "names": ["Close to Home"],
+        "id": "closetohome"
+    }, {
+        "names": ["The Comic Strip That Has A Finale Every Day"],
+        "id": "the-comic-strip-that-has-a-finale-every-day"
+    }, {
+        "names": ["Committed"],
+        "id": "committed"
+    }, {
+        "names": ["Compu-toon"],
+        "id": "compu-toon"
+    }, {
+        "names": ["The Conjurers"],
+        "id": "the-conjurers"
+    }, {
+        "names": ["Connie to the Wonnie"],
+        "id": "connie-to-the-wonnie"
+    }, {
+        "names": ["Cornered"],
+        "id": "cornered"
+    }, {
+        "names": ["Cow and Boy Classics"],
+        "id": "cowandboy"
+    }, {
+        "names": ["CowTown"],
+        "id": "cowtown"
+    }, {
+        "names": ["The Creeps"],
+        "id": "the-creeps"
+    }, {
+        "names": ["Crumb"],
+        "id": "crumb"
+    }, {
+        "names": ["Cul de Sac"],
+        "id": "culdesac"
+    }, {
+        "names": ["Cursed Forever"],
+        "id": "cursed-forever"
+    }, {
+        "names": ["Daddy's Home"],
+        "id": "daddyshome"
+    }, {
+        "names": ["The Daily Drawing"],
+        "id": "the-daily-drawing"
+    }, {
+        "names": ["Jeff Danziger"],
+        "id": "jeffdanziger"
+    }, {
+        "names": ["Dark Side of the Horse"],
+        "id": "darksideofthehorse"
+    }, {
+        "names": ["Matt Davies"],
+        "id": "mattdavies"
+    }, {
+        "names": ["Deep Dark Fears"],
+        "id": "deep-dark-fears"
+    }, {
+        "names": ["John Deering"],
+        "id": "johndeering"
+    }, {
+        "names": ["DeFlocked"],
+        "id": "deflocked"
+    }, {
+        "names": ["Diamond Lil"],
+        "id": "diamondlil"
+    }, {
+        "names": ["Dick Tracy"],
+        "id": "dicktracy"
+    }, {
+        "names": ["Dilbert Classics","Dilbert"],
+        "id": "dilbert-classics"
+    }, {
+        "names": ["The Dinette Set"],
+        "id": "dinetteset"
+    }, {
+        "names": ["Dinosaur Comics"],
+        "id": "dinosaur-comics"
+    }, {
+        "names": ["Dog Eat Doug"],
+        "id": "dogeatdoug"
+    }, {
+        "names": ["Dogs of C-Kennel"],
+        "id": "dogsofckennel"
+    }, {
+        "names": ["Domestic Abuse"],
+        "id": "domesticabuse"
+    }, {
+        "names": ["Doodle Diary"],
+        "id": "doodle-diary"
+    }, {
+        "names": ["Doodle for Food"],
+        "id": "doodle-for-food"
+    }, {
+        "names": ["Doodle Town"],
+        "id": "doodle-town"
+    }, {
+        "names": ["Doonesbury"],
+        "id": "doonesbury"
+    }, {
+        "names": ["The Doozies"],
+        "id": "thedoozies"
+    }, {
+        "names": ["Dorris McComics"],
+        "id": "dorris-mccomics"
+    }, {
+        "names": ["Drabble"],
+        "id": "drabble"
+    }, {
+        "names": ["Dragon Girl"],
+        "id": "dragon-girl"
+    }, {
+        "names": ["Drive"],
+        "id": "drive"
+    }, {
+        "names": ["Dude and Dude"],
+        "id": "dudedude"
+    }, {
+        "names": ["Dumbwich Castle"],
+        "id": "dumbwich-castle"
+    }, {
+        "names": ["The Duplex"],
+        "id": "duplex"
+    }, {
+        "names": ["Tim Eagan"],
+        "id": "tim-eagan"
+    }, {
+        "names": ["Edge City"],
+        "id": "edge-city"
+    }, {
+        "names": ["Edge of Adventure"],
+        "id": "edge-of-adventure"
+    }, {
+        "names": ["Eek!"],
+        "id": "eek"
+    }, {
+        "names": ["The Elderberries"],
+        "id": "theelderberries"
+    }, {
+        "names": ["Emmy Lou"],
+        "id": "emmy-lou"
+    }, {
+        "names": ["Endtown"],
+        "id": "endtown"
+    }, {
+        "names": ["Eric the Circle"],
+        "id": "eric-the-circle"
+    }, {
+        "names": ["Everyday People Cartoons"],
+        "id": "everyday-people-cartoons"
+    }, {
+        "names": ["Eyebeam"],
+        "id": "eyebeam"
+    }, {
+        "names": ["Eyebeam Classic"],
+        "id": "eyebeam-classic"
+    }, {
+        "names": ["F Minus"],
+        "id": "fminus"
+    }, {
+        "names": ["False Knees"],
+        "id": "false-knees"
+    }, {
+        "names": ["Family Tree"],
+        "id": "familytree"
+    }, {
+        "names": ["Farcus"],
+        "id": "farcus"
+    }, {
+        "names": ["Fat Cats"],
+        "id": "fat-cats"
+    }, {
+        "names": ["Flo and Friends"],
+        "id": "floandfriends"
+    }, {
+        "names": ["The Flying McCoys"],
+        "id": "theflyingmccoys"
+    }, {
+        "names": ["Foolish Mortals"],
+        "id": "foolish-mortals"
+    }, {
+        "names": ["For Better or For Worse"],
+        "id": "forbetterorforworse"
+    }, {
+        "names": ["For Heaven's Sake"],
+        "id": "forheavenssake"
+    }, {
+        "names": ["Fort Knox"],
+        "id": "fortknox"
+    }, {
+        "names": ["Four Eyes"],
+        "id": "four-eyes"
+    }, {
+        "names": ["Fowl Language"],
+        "id": "fowl-language"
+    }, {
+        "names": ["FoxTrot"],
+        "id": "foxtrot"
+    }, {
+        "names": ["FoxTrot Classics"],
+        "id": "foxtrotclassics"
+    }, {
+        "names": ["Francis"],
+        "id": "francis"
+    }, {
+        "names": ["Frank and Ernest"],
+        "id": "frank-and-ernest"
+    }, {
+        "names": ["Frazz"],
+        "id": "frazz"
+    }, {
+        "names": ["Fred Basset"],
+        "id": "fredbasset"
+    }, {
+        "names": ["Free Range"],
+        "id": "freerange"
+    }, {
+        "names": ["Freshly Squeezed"],
+        "id": "freshlysqueezed"
+    }, {
+        "names": ["Frog Applause"],
+        "id": "frogapplause"
+    }, {
+        "names": ["The Fusco Brothers"],
+        "id": "thefuscobrothers"
+    }, {
+        "names": ["Garfield"],
+        "id": "garfield"
+    }, {
+        "names": ["Garfield Classics"],
+        "id": "garfield-classics"
+    }, {
+        "names": ["Garfield Minus Garfield"],
+        "id": "garfieldminusgarfield"
+    }, {
+        "names": ["Gasoline Alley"],
+        "id": "gasolinealley"
+    }, {
+        "names": ["Geech"],
+        "id": "geech"
+    }, {
+        "names": ["Gentle Creatures"],
+        "id": "gentle-creatures"
+    }, {
+        "names": ["The Gentleman's Armchair"],
+        "id": "the-gentlemans-armchair"
+    }, {
+        "names": ["Get a Life"],
+        "id": "getalife"
+    }, {
+        "names": ["Get Fuzzy"],
+        "id": "getfuzzy"
+    }, {
+        "names": ["Gil"],
+        "id": "gil"
+    }, {
+        "names": ["Gil Thorp"],
+        "id": "gilthorp"
+    }, {
+        "names": ["Ginger Meggs"],
+        "id": "gingermeggs"
+    }, {
+        "names": ["Glasbergen Cartoons"],
+        "id": "glasbergen-cartoons"
+    }, {
+        "names": ["G-Man Webcomics"],
+        "id": "g-man-webcomics"
+    }, {
+        "names": ["Gnome Syndicate"],
+        "id": "gnome-syndicate"
+    }, {
+        "names": ["Goats"],
+        "id": "goats"
+    }, {
+        "names": ["GoComics Fan Art"],
+        "id": "fan-art"
+    }, {
+        "names": ["Bob Gorrell"],
+        "id": "bobgorrell"
+    }, {
+        "names": ["Graffiti"],
+        "id": "graffiti"
+    }, {
+        "names": ["Grand Avenue"],
+        "id": "grand-avenue"
+    }, {
+        "names": ["Gray Matters"],
+        "id": "gray-matters"
+    }, {
+        "names": ["Green Humour"],
+        "id": "green-humour"
+    }, {
+        "names": ["The Grizzwells"],
+        "id": "thegrizzwells"
+    }, {
+        "names": ["Haiku Ewe"],
+        "id": "haikuewe"
+    }, {
+        "names": ["Half Full"],
+        "id": "half-full"
+    }, {
+        "names": ["Ham Shears"],
+        "id": "ham-shears"
+    }, {
+        "names": ["Walt Handelsman"],
+        "id": "walthandelsman"
+    }, {
+        "names": ["Phil Hands"],
+        "id": "phil-hands"
+    }, {
+        "names": ["Harley"],
+        "id": "harley"
+    }, {
+        "names": ["Health Capsules"],
+        "id": "healthcapsules"
+    }, {
+        "names": ["Heart of the City"],
+        "id": "heartofthecity"
+    }, {
+        "names": ["Heathcliff"],
+        "id": "heathcliff"
+    }, {
+        "names": ["Joe Heller"],
+        "id": "joe-heller"
+    }, {
+        "names": ["Rebecca Hendin"],
+        "id": "rebecca-hendin"
+    }, {
+        "names": ["Herb and Jamaal"],
+        "id": "herbandjamaal"
+    }, {
+        "names": ["Herman"],
+        "id": "herman"
+    }, {
+        "names": ["Jerry Holbert"],
+        "id": "jerryholbert"
+    }, {
+        "names": ["Home and Away"],
+        "id": "homeandaway"
+    }, {
+        "names": ["Hot Comics for Cool People"],
+        "id": "hot-comics-for-cool-people"
+    }, {
+        "names": ["How to Cat"],
+        "id": "how-to-cat"
+    }, {
+        "names": ["HUBRIS!"],
+        "id": "hubris"
+    }, {
+        "names": ["Human Cull"],
+        "id": "human-cull"
+    }, {
+        "names": ["The Humble Stumble"],
+        "id": "humble-stumble"
+    }, {
+        "names": ["Hutch Owen"],
+        "id": "hutch-owen"
+    }, {
+        "names": ["Ice Cream Sandwich Comics"],
+        "id": "ice-cream-sandwich-comics"
+    }, {
+        "names": ["Imagine This"],
+        "id": "imaginethis"
+    }, {
+        "names": ["Imogen Quest"],
+        "id": "imogen-quest"
+    }, {
+        "names": ["In Security"],
+        "id": "in-security"
+    }, {
+        "names": ["In the Bleachers"],
+        "id": "inthebleachers"
+    }, {
+        "names": ["In the Sticks"],
+        "id": "inthesticks"
+    }, {
+        "names": ["Ink Pen"],
+        "id": "inkpen"
+    }, {
+        "names": ["Inspector Danger's Crime Quiz"],
+        "id": "inspector-dangers-crime-quiz"
+    }, {
+        "names": ["Invisible Bread"],
+        "id": "invisible-bread"
+    }, {
+        "names": ["It's All About You"],
+        "id": "itsallaboutyou"
+    }, {
+        "names": ["Jake Likes Onions"],
+        "id": "jake-likes-onions"
+    }, {
+        "names": ["Jane's World"],
+        "id": "janesworld"
+    }, {
+        "names": ["Jetpack Jr."],
+        "id": "jetpack-jr"
+    }, {
+        "names": ["Jim Benton Cartoons"],
+        "id": "jim-benton-cartoons"
+    }, {
+        "names": ["Jim's Journal"],
+        "id": "jimsjournal"
+    }, {
+        "names": ["Joe Vanilla"],
+        "id": "joevanilla"
+    }, {
+        "names": ["Joey Alison Sayers Comics"],
+        "id": "joey-alison-sayers-comics"
+    }, {
+        "names": ["Clay Jones"],
+        "id": "clayjones"
+    }, {
+        "names": ["JumpStart"],
+        "id": "jumpstart"
+    }, {
+        "names": ["Just Say Uncle"],
+        "id": "just-say-uncle"
+    }, {
+        "names": ["Kevin Kallaugher"],
+        "id": "kevinkallaugher"
+    }, {
+        "names": ["The K Chronicles"],
+        "id": "thekchronicles"
+    }, {
+        "names": ["Steve Kelley"],
+        "id": "stevekelley"
+    }, {
+        "names": ["Kevin Necessary Editorial Cartoons"],
+        "id": "kevin-necessary-editorial-cartoons"
+    }, {
+        "names": ["Kid Beowulf"],
+        "id": "kid-beowulf"
+    }, {
+        "names": ["Kid Shay Comics"],
+        "id": "kid-shay-comics"
+    }, {
+        "names": ["KidSpot"],
+        "id": "kidspot"
+    }, {
+        "names": ["KidTown"],
+        "id": "kidtown"
+    }, {
+        "names": ["Kit 'N' Carlyle"],
+        "id": "kitncarlyle"
+    }, {
+        "names": ["Kitchen Capers"],
+        "id": "kitchen-capers"
+    }, {
+        "names": ["Kliban"],
+        "id": "kliban"
+    }, {
+        "names": ["Kliban's Cats"],
+        "id": "klibans-cats"
+    }, {
+        "names": ["The Knight Life"],
+        "id": "theknightlife"
+    }, {
+        "names": ["La Cucaracha"],
+        "id": "lacucaracha"
+    }, {
+        "names": ["Lard's World Peace Tips"],
+        "id": "lards-world-peace-tips"
+    }, {
+        "names": ["Last Kiss"],
+        "id": "lastkiss"
+    }, {
+        "names": ["The Last Mechanical Monster"],
+        "id": "the-last-mechanical-monster"
+    }, {
+        "names": ["Laughing Redhead Comics"],
+        "id": "laughing-redhead-comics"
+    }, {
+        "names": ["Lay Lines"],
+        "id": "lay-lines"
+    }, {
+        "names": ["Learn to Speak Cat"],
+        "id": "learn-to-speak-cat"
+    }, {
+        "names": ["The LeftyBosco Picture Show"],
+        "id": "leftyboscopictureshow"
+    }, {
+        "names": ["Mike Lester"],
+        "id": "mike-lester"
+    }, {
+        "names": ["Liberty Meadows"],
+        "id": "libertymeadows"
+    }, {
+        "names": ["Life on Earth"],
+        "id": "life-on-earth"
+    }, {
+        "names": ["Li'l Abner"],
+        "id": "lil-abner"
+    }, {
+        "names": ["Lil' Donnie"],
+        "id": "lil-donnie"
+    }, {
+        "names": ["Lio"],
+        "id": "lio"
+    }, {
+        "names": ["Little Dog Lost"],
+        "id": "littledoglost"
+    }, {
+        "names": ["Little Fried Chicken and Sushi"],
+        "id": "little-fried-chicken-and-sushi"
+    }, {
+        "names": ["Little Moments of Love"],
+        "id": "little-moments-of-love"
+    }, {
+        "names": ["Little Nemo"],
+        "id": "little-nemo"
+    }, {
+        "names": ["Liz Climo Cartoons"],
+        "id": "liz-climo-cartoons"
+    }, {
+        "names": ["Lola"],
+        "id": "lola"
+    }, {
+        "names": ["Long Story Short"],
+        "id": "long-story-short"
+    }, {
+        "names": ["Looks Good on Paper"],
+        "id": "looks-good-on-paper"
+    }, {
+        "names": ["Loose Parts"],
+        "id": "looseparts"
+    }, {
+        "names": ["The Lost Bear"],
+        "id": "the-lost-bear"
+    }, {
+        "names": ["Lost Side of Suburbia"],
+        "id": "lostsideofsuburbia"
+    }, {
+        "names": ["Lost Sheep"],
+        "id": "lostsheep"
+    }, {
+        "names": ["Chan Lowe"],
+        "id": "chanlowe"
+    }, {
+        "names": ["Luann"],
+        "id": "luann"
+    }, {
+        "names": ["Luann Againn"],
+        "id": "luann-againn"
+    }, {
+        "names": ["Mike Luckovich"],
+        "id": "mikeluckovich"
+    }, {
+        "names": ["Lucky Cow"],
+        "id": "luckycow"
+    }, {
+        "names": ["Lug Nuts"],
+        "id": "lug-nuts"
+    }, {
+        "names": ["Lukey McGarry’s TLDR"],
+        "id": "lukey-mcgarrys-tldr"
+    }, {
+        "names": ["Lunarbaboon"],
+        "id": "lunarbaboon"
+    }, {
+        "names": ["Magic in a Minute"],
+        "id": "magicinaminute"
+    }, {
+        "names": ["Magnificatz"],
+        "id": "magnificatz"
+    }, {
+        "names": ["Maintaining"],
+        "id": "maintaining"
+    }, {
+        "names": ["Making It"],
+        "id": "making-it"
+    }, {
+        "names": ["Maria's Day"],
+        "id": "marias-day"
+    }, {
+        "names": ["Gary Markstein"],
+        "id": "garymarkstein"
+    }, {
+        "names": ["Marmaduke"],
+        "id": "marmaduke"
+    }, {
+        "names": ["The Martian Confederacy"],
+        "id": "the-martian-confederacy"
+    }, {
+        "names": ["M2Bulls"],
+        "id": "m2bulls"
+    }, {
+        "names": ["MazeToons Puzzle"],
+        "id": "mazetoons-puzzle"
+    }, {
+        "names": ["Brian McFadden"],
+        "id": "brian-mcfadden"
+    }, {
+        "names": ["The Meaning of Lila"],
+        "id": "meaningoflila"
+    }, {
+        "names": ["Medium Large"],
+        "id": "medium-large"
+    }, {
+        "names": ["Meg Classics"],
+        "id": "meg-classics"
+    }, {
+        "names": ["MercWorks"],
+        "id": "mercworks"
+    }, {
+        "names": ["Messycow Comics"],
+        "id": "messy-cow"
+    }, {
+        "names": ["Microcosm"],
+        "id": "microcosm"
+    }, {
+        "names": ["The Middle Age"],
+        "id": "the-middle-age"
+    }, {
+        "names": ["The Middletons"],
+        "id": "themiddletons"
+    }, {
+        "names": ["Mike du Jour"],
+        "id": "mike-du-jour"
+    }, {
+        "names": ["Minimum Security"],
+        "id": "minimumsecurity"
+    }, {
+        "names": ["Mo"],
+        "id": "mo"
+    }, {
+        "names": ["Moderately Confused"],
+        "id": "moderately-confused"
+    }, {
+        "names": ["Momma"],
+        "id": "momma"
+    }, {
+        "names": ["Mom's Cancer"],
+        "id": "moms-cancer"
+    }, {
+        "names": ["Monty"],
+        "id": "monty"
+    }, {
+        "names": ["Jim Morin"],
+        "id": "jimmorin"
+    }, {
+        "names": ["Motley Classics"],
+        "id": "motley-classics"
+    }, {
+        "names": ["Mr. Lowe"],
+        "id": "mr-lowe"
+    }, {
+        "names": ["Mustard and Boloney"],
+        "id": "mustard-and-boloney"
+    }, {
+        "names": ["Mutt & Jeff"],
+        "id": "muttandjeff"
+    }, {
+        "names": ["My Cage: New and Old"],
+        "id": "mycage"
+    }, {
+        "names": ["My Dad is Dracula"],
+        "id": "my-dad-is-dracula"
+    }, {
+        "names": ["MythTickle"],
+        "id": "mythtickle"
+    }, {
+        "names": ["Nancy"],
+        "id": "nancy"
+    }, {
+        "names": ["Nancy Classics"],
+        "id": "nancy-classics"
+    }, {
+        "names": ["Nest Heads"],
+        "id": "nestheads"
+    }, {
+        "names": ["NEUROTICA"],
+        "id": "neurotica"
+    }, {
+        "names": ["New Adventures of Queen Victoria"],
+        "id": "thenewadventuresofqueenvictoria"
+    }, {
+        "names": ["Next Door Neighbors"],
+        "id": "next-door-neighbors"
+    }, {
+        "names": ["Nick and Zuzu"],
+        "id": "nick-and-zuzu"
+    }, {
+        "names": ["Non Sequitur"],
+        "id": "nonsequitur"
+    }, {
+        "names": ["The Norm 4.0"],
+        "id": "the-norm-4-0"
+    }, {
+        "names": ["The Norm Classics"],
+        "id": "thenorm"
+    }, {
+        "names": ["Not Invented Here"],
+        "id": "not-invented-here"
+    }, {
+        "names": ["Nothing is Not Something"],
+        "id": "nothing-is-not-something"
+    }, {
+        "names": ["Now Recharging"],
+        "id": "now-recharging"
+    }, {
+        "names": ["Off the Mark"],
+        "id": "offthemark"
+    }, {
+        "names": ["Oh, Brother!"],
+        "id": "oh-brother"
+    }, {
+        "names": ["Jack Ohman"],
+        "id": "jackohman"
+    }, {
+        "names": ["Pat Oliphant"],
+        "id": "patoliphant"
+    }, {
+        "names": ["Ollie and Quentin"],
+        "id": "ollie-and-quentin"
+    }, {
+        "names": ["On A Claire Day"],
+        "id": "onaclaireday"
+    }, {
+        "names": ["1 and Done"],
+        "id": "1-and-done"
+    }, {
+        "names": ["One Big Happy"],
+        "id": "onebighappy"
+    }, {
+        "names": ["Ordinary Bill"],
+        "id": "ordinary-bill"
+    }, {
+        "names": ["Origins of the Sunday Comics"],
+        "id": "origins-of-the-sunday-comics"
+    }, {
+        "names": ["The Other Coast"],
+        "id": "theothercoast"
+    }, {
+        "names": ["The Other End"],
+        "id": "the-other-end"
+    }, {
+        "names": ["Out of the Gene Pool Re-Runs"],
+        "id": "outofthegenepool"
+    }, {
+        "names": ["Outland"],
+        "id": "outland"
+    }, {
+        "names": ["Over the Hedge"],
+        "id": "overthehedge"
+    }, {
+        "names": ["Overboard"],
+        "id": "overboard"
+    }, {
+        "names": ["Ozy and Millie"],
+        "id": "ozy-and-millie"
+    }, {
+        "names": ["Henry Payne"],
+        "id": "henrypayne"
+    }, {
+        "names": ["PC and Pixel"],
+        "id": "pcandpixel"
+    }, {
+        "names": ["Peanuts"],
+        "id": "peanuts"
+    }, {
+        "names": ["Peanuts Begins"],
+        "id": "peanuts-begins"
+    }, {
+        "names": ["Pearls Before Swine"],
+        "id": "pearlsbeforeswine"
+    }, {
+        "names": ["Perry Bible Fellowship"],
+        "id": "perry-bible-fellowship"
+    }, {
+        "names": ["Joel Pett"],
+        "id": "joelpett"
+    }, {
+        "names": ["Phoebe and Her Unicorn"],
+        "id": "phoebe-and-her-unicorn"
+    }, {
+        "names": ["Pibgorn"],
+        "id": "pibgorn"
+    }, {
+        "names": ["Pibgorn Sketches"],
+        "id": "pibgornsketches"
+    }, {
+        "names": ["Pickles"],
+        "id": "pickles"
+    }, {
+        "names": ["Pictures in Boxes"],
+        "id": "pictures-in-boxes"
+    }, {
+        "names": ["Pie Comic"],
+        "id": "pie-comic"
+    }, {
+        "names": ["The Pigeon Gazette"],
+        "id": "the-pigeon-gazette"
+    }, {
+        "names": ["Pinkerton"],
+        "id": "pinkerton"
+    }, {
+        "names": ["Pirate Mike"],
+        "id": "pirate-mike"
+    }, {
+        "names": ["Please Keep Warm"],
+        "id": "please-keep-warm"
+    }, {
+        "names": ["Please Listen to Me"],
+        "id": "please-listen-to-me"
+    }, {
+        "names": ["Pluggers"],
+        "id": "pluggers"
+    }, {
+        "names": ["Pooch Cafe"],
+        "id": "poochcafe"
+    }, {
+        "names": ["Poorcraft"],
+        "id": "poorcraft"
+    }, {
+        "names": ["Poorly Drawn Lines"],
+        "id": "poorly-drawn-lines"
+    }, {
+        "names": ["Pop Culture Shock Therapy"],
+        "id": "pop-culture-shock-therapy"
+    }, {
+        "names": ["Poptropica"],
+        "id": "poptropica"
+    }, {
+        "names": ["Pot-Shots"],
+        "id": "pot-shots"
+    }, {
+        "names": ["PreTeena"],
+        "id": "preteena"
+    }, {
+        "names": ["Prickly City"],
+        "id": "pricklycity"
+    }, {
+        "names": ["A Problem Like Jamal"],
+        "id": "a-problem-like-jamal"
+    }, {
+        "names": ["Promises, Promises"],
+        "id": "promises-promises"
+    }, {
+        "names": ["Questionable Quotebook"],
+        "id": "questionable-quotebook"
+    }, {
+        "names": ["The Quixote Syndrome"],
+        "id": "the-quixote-syndrome"
+    }, {
+        "names": ["Rabbits Against Magic"],
+        "id": "rabbitsagainstmagic"
+    }, {
+        "names": ["Raising Duncan"],
+        "id": "raising-duncan"
+    }, {
+        "names": ["Ted Rall"],
+        "id": "ted-rall"
+    }, {
+        "names": ["Michael Ramirez"],
+        "id": "michaelramirez"
+    }, {
+        "names": ["Marshall Ramsey"],
+        "id": "marshallramsey"
+    }, {
+        "names": ["Randolph Itch, 2 a.m."],
+        "id": "randolphitch"
+    }, {
+        "names": ["Real Life Adventures"],
+        "id": "reallifeadventures"
+    }, {
+        "names": ["Reality Check"],
+        "id": "realitycheck"
+    }, {
+        "names": ["Red and Rover"],
+        "id": "redandrover"
+    }, {
+        "names": ["Reply All"],
+        "id": "replyall"
+    }, {
+        "names": ["Reply All Lite"],
+        "id": "reply-all-lite"
+    }, {
+        "names": ["Richard's Poor Almanac"],
+        "id": "richards-poor-almanac"
+    }, {
+        "names": ["Rip Haywire"],
+        "id": "riphaywire"
+    }, {
+        "names": ["Ripley's Believe It or Not"],
+        "id": "ripleysbelieveitornot"
+    }, {
+        "names": ["Robbie and Bobby"],
+        "id": "robbie-and-bobby"
+    }, {
+        "names": ["Rob Rogers"],
+        "id": "robrogers"
+    }, {
+        "names": ["Rose is Rose"],
+        "id": "roseisrose"
+    }, {
+        "names": ["Rubes"],
+        "id": "rubes"
+    }, {
+        "names": ["Rudy Park"],
+        "id": "rudypark"
+    }, {
+        "names": ["Sarah's Scribbles"],
+        "id": "sarahs-scribbles"
+    }, {
+        "names": ["Saturday Morning Breakfast Cereal"],
+        "id": "saturday-morning-breakfast-cereal"
+    }, {
+        "names": ["Savage Chickens"],
+        "id": "savage-chickens"
+    }, {
+        "names": ["Scary Gary"],
+        "id": "scarygary"
+    }, {
+        "names": ["Scenes from a Multiverse"],
+        "id": "scenes-from-a-multiverse"
+    }, {
+        "names": ["Sheldon"],
+        "id": "sheldon"
+    }, {
+        "names": ["Shen Comix"],
+        "id": "shen-comix"
+    }, {
+        "names": ["Drew Sheneman"],
+        "id": "drewsheneman"
+    }, {
+        "names": ["Shirley and Son Classics"],
+        "id": "shirley-and-son-classics"
+    }, {
+        "names": ["Shoe"],
+        "id": "shoe"
+    }, {
+        "names": ["Shoecabbage"],
+        "id": "shoecabbage"
+    }, {
+        "names": ["Shortcuts"],
+        "id": "shortcuts"
+    }, {
+        "names": ["Shutterbug Follies"],
+        "id": "shutterbug-follies"
+    }, {
+        "names": ["Sketchshark Comics"],
+        "id": "sketchshark-comics"
+    }, {
+        "names": ["Sketchy Chics"],
+        "id": "sketchy-chics"
+    }, {
+        "names": ["Skin Horse"],
+        "id": "skinhorse"
+    }, {
+        "names": ["Skippy"],
+        "id": "skippy"
+    }, {
+        "names": ["Small Potatoes"],
+        "id": "small-potatoes"
+    }, {
+        "names": ["Snow Sez"],
+        "id": "snow-sez"
+    }, {
+        "names": ["Snowflakes"],
+        "id": "snowflakes"
+    }, {
+        "names": ["Jen Sorensen"],
+        "id": "jen-sorensen"
+    }, {
+        "names": ["Spectickles"],
+        "id": "spectickles"
+    }, {
+        "names": ["Speechless"],
+        "id": "speechless"
+    }, {
+        "names": ["Speed Bump"],
+        "id": "speedbump"
+    }, {
+        "names": ["Spirit of the Staircase"],
+        "id": "spirit-of-the-staircase"
+    }, {
+        "names": ["Spot the Frog"],
+        "id": "spot-the-frog"
+    }, {
+        "names": ["Jeff Stahler"],
+        "id": "jeffstahler"
+    }, {
+        "names": ["Scott Stantis"],
+        "id": "scottstantis"
+    }, {
+        "names": ["Starling"],
+        "id": "starling"
+    }, {
+        "names": ["Sticky Comics"],
+        "id": "sticky-comics"
+    }, {
+        "names": ["Tom Stiglich"],
+        "id": "tom-stiglich"
+    }, {
+        "names": ["Stone Soup"],
+        "id": "stonesoup"
+    }, {
+        "names": ["Stone Soup Classics"],
+        "id": "stone-soup-classics"
+    }, {
+        "names": ["Strange Brew"],
+        "id": "strangebrew"
+    }, {
+        "names": ["Dana Summers"],
+        "id": "danasummers"
+    }, {
+        "names": ["Sunny Street"],
+        "id": "sunny-street"
+    }, {
+        "names": ["The Sunshine Club"],
+        "id": "the-sunshine-club"
+    }, {
+        "names": ["Sunshine State"],
+        "id": "sunshine-state"
+    }, {
+        "names": ["Swan Eaters"],
+        "id": "swan-eaters"
+    }, {
+        "names": ["Sweet and Sour Pork"],
+        "id": "sweet-and-sour-pork"
+    }, {
+        "names": ["Sylvia"],
+        "id": "sylvia"
+    }, {
+        "names": ["Paul Szep"],
+        "id": "paulszep"
+    }, {
+        "names": ["Tank McNamara"],
+        "id": "tankmcnamara"
+    }, {
+        "names": ["Tarzan"],
+        "id": "tarzan"
+    }, {
+        "names": ["@Tavicat"],
+        "id": "tavicat"
+    }, {
+        "names": ["Ten Cats"],
+        "id": "ten-cats"
+    }, {
+        "names": ["Texts From Mittens"],
+        "id": "texts-from-mittens"
+    }, {
+        "names": ["That is Priceless"],
+        "id": "that-is-priceless"
+    }, {
+        "names": ["That New Carl Smell"],
+        "id": "that-new-carl-smell"
+    }, {
+        "names": ["That's Life"],
+        "id": "thats-life"
+    }, {
+        "names": ["Thatababy"],
+        "id": "thatababy"
+    }, {
+        "names": ["Thin Lines"],
+        "id": "thinlines"
+    }, {
+        "names": ["(th)ink"],
+        "id": "think"
+    }, {
+        "names": ["Tiny Sepuku"],
+        "id": "tinysepuku"
+    }, {
+        "names": ["TOBY"],
+        "id": "toby"
+    }, {
+        "names": ["Tom Toles"],
+        "id": "tomtoles"
+    }, {
+        "names": ["Tom the Dancing Bug"],
+        "id": "tomthedancingbug"
+    }, {
+        "names": ["Super-Fun-Pak Comix"],
+        "id": "super-fun-pak-comix"
+    }, {
+        "names": ["Too Much Coffee Man"],
+        "id": "toomuchcoffeeman"
+    }, {
+        "names": ["Tough Town"],
+        "id": "tough-town"
+    }, {
+        "names": ["Trivquiz"],
+        "id": "trivquiz"
+    }, {
+        "names": ["Truth Facts"],
+        "id": "truth-facts"
+    }, {
+        "names": ["Two Party Opera"],
+        "id": "two-party-opera"
+    }, {
+        "names": ["Uncle Art's Funland"],
+        "id": "uncleartsfunland"
+    }, {
+        "names": ["Understanding Chaos"],
+        "id": "understanding-chaos"
+    }, {
+        "names": ["Unstrange Phenomena"],
+        "id": "unstrange-phenomena"
+    }, {
+        "names": ["Up and Out"],
+        "id": "up-and-out"
+    }, {
+        "names": ["The Upside Down World of Gustave Verbeek"],
+        "id": "upside-down-world-of-gustave-verbeek"
+    }, {
+        "names": ["U.S. Acres"],
+        "id": "us-acres"
+    }, {
+        "names": ["Gary Varvel"],
+        "id": "garyvarvel"
+    }, {
+        "names": ["ViewsAfrica"],
+        "id": "viewsafrica"
+    }, {
+        "names": ["ViewsAmerica"],
+        "id": "viewsamerica"
+    }, {
+        "names": ["ViewsAsia"],
+        "id": "viewsasia"
+    }, {
+        "names": ["ViewsBusiness"],
+        "id": "viewsbusiness"
+    }, {
+        "names": ["ViewsEurope"],
+        "id": "viewseurope"
+    }, {
+        "names": ["ViewsLatinAmerica"],
+        "id": "viewslatinamerica"
+    }, {
+        "names": ["ViewsMidEast"],
+        "id": "viewsmideast"
+    }, {
+        "names": ["Views of the World"],
+        "id": "viewsoftheworld"
+    }, {
+        "names": ["Viivi & Wagner"],
+        "id": "viivi-and-wagner"
+    }, {
+        "names": ["Faces in the News by Kerry Waghorn"],
+        "id": "facesinthenews"
+    }, {
+        "names": ["Wallace the Brave"],
+        "id": "wallace-the-brave"
+    }, {
+        "names": ["The Wandering Melon"],
+        "id": "the-wandering-melon"
+    }, {
+        "names": ["Warped"],
+        "id": "warped"
+    }, {
+        "names": ["Dan Wasserman"],
+        "id": "danwasserman"
+    }, {
+        "names": ["Watch Your Head"],
+        "id": "watchyourhead"
+    }, {
+        "names": ["WaynoVision"],
+        "id": "waynovision"
+    }, {
+        "names": ["Webcomic Name"],
+        "id": "webcomic-name"
+    }, {
+        "names": ["Wee Pals"],
+        "id": "weepals"
+    }, {
+        "names": ["We the Robots"],
+        "id": "we-the-robots"
+    }, {
+        "names": ["Whyatt Cartoons"],
+        "id": "whyatt-cartoons"
+    }, {
+        "names": ["Widdershins"],
+        "id": "widdershins"
+    }, {
+        "names": ["Wide Open"],
+        "id": "wide-open"
+    }, {
+        "names": ["Signe Wilkinson"],
+        "id": "signewilkinson"
+    }, {
+        "names": ["Win, Lose, Drew"],
+        "id": "drewlitton"
+    }, {
+        "names": ["Winston"],
+        "id": "winston"
+    }, {
+        "names": ["Wit of the World"],
+        "id": "witoftheworld"
+    }, {
+        "names": ["Wizard of Id"],
+        "id": "wizardofid"
+    }, {
+        "names": ["Wizard of Id Classics"],
+        "id": "wizard-of-id-classics"
+    }, {
+        "names": ["Wondermark"],
+        "id": "wondermark"
+    }, {
+        "names": ["Working Daze"],
+        "id": "working-daze"
+    }, {
+        "names": ["Working It Out"],
+        "id": "workingitout"
+    }, {
+        "names": ["World of Wonder"],
+        "id": "world-of-wonder"
+    }, {
+        "names": ["The Worried Well"],
+        "id": "the-worried-well"
+    }, {
+        "names": ["The Worst Thing I've Ever Done"],
+        "id": "the-worst-thing-ive-ever-done"
+    }, {
+        "names": ["Wrong Hands"],
+        "id": "wrong-hands"
+    }, {
+        "names": ["W.T. Duck"],
+        "id": "wtduck"
+    }, {
+        "names": ["Matt Wuerker"],
+        "id": "mattwuerker"
+    }, {
+        "names": ["WuMo"],
+        "id": "wumo"
+    }, {
+        "names": ["Yaffle"],
+        "id": "yaffle"
+    }, {
+        "names": ["Zack Hill"],
+        "id": "zackhill"
+    }, {
+        "names": ["Zen Pencils"],
+        "id": "zen-pencils"
+    }, {
+        "names": ["Ziggy"],
+        "id": "ziggy"
+    }, {
+        "names": ["2 Cows and a Chicken"],
+        "id": "2cowsandachicken"
+    }, {
+        "names": ["9 to 5"],
+        "id": "9to5"
+    }, {
+        "names": ["9 Chickweed Lane"],
+        "id": "9chickweedlane"
+    }, {
+        "names": ["9 Chickweed Lane Classics"],
+        "id": "9-chickweed-lane-classics"
+    }]
 }

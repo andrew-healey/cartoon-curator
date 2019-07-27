@@ -19,7 +19,7 @@ const loadProviders = async (directory=__dirname,jsonRx = /^(.*)\.json$/,jsonStr
     });
     return providers;
 };
-
+//TODO Replace this class with the schema
 class Provider {
     constructor(name, json) {
         this.name = name;
