@@ -1,119 +1,88 @@
 .App {
-  text-align: center;
+  width:100vw;
+}
+.App > *{
+  margin:auto;
+}
+.navBar{
+  margin:5px auto;
+  width:90%;
+  height:10vh;
   display:flex;
-  flex-flow:row wrap;
+  justify-content:space-between;
   align-items:stretch;
-  max-height:calc(100vh - 75px);
-  overflow:scroll;
-  flex:0 50%;
-  background-color:antiquewhite;
+  border:solid 2px black;
+  border-radius:20px;
+  overflow:hidden;
+  position:sticky;
+  top:5px;
+  z-index:1;
+  background:white;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.navBar > * {
+  display:inline;
+  margin:0px;
 }
-.changeDate {
-  flex-basis:12.5%;
-  height:100%;
+.navBar > button {
+  flex-basis:15%;
+  flex-shrink:1;
+  border:none;
 }
 .title {
-    flex-grow:1;
-    flex-shrink:1;
-    text-align:center;
-}
-.navBar {
-    display:flex;
-    flex-flow: row nowrap;
-    align-items:stretch;
-    background-color:white;
-    width:100%;
-    height:75px;
-}
-.next {
-  left: 87.5%;
-}
-.form-container {
-  display:flex;
-  flex-flow:column nowrap;
-  border-bottom:solid black;
-  justify-content:center;
-}
-
-.comic-choice {
-  /* position:absolute; */
-  width:25%;
-}
-
-.comic-container {
-  display:flex;
-  flex-flow:column nowrap;
-  border-bottom:solid black;
-  flex-basis:50%;
-}
-
-.input-container {
-  display:flex;
-  flex-flow:column nowrap;
-  border-bottom:solid black;
-  flex-basis:50%;
-  min-height:100px;
-  align-items:center;
-  justify-content:space-around;
-}
-
-input[type=button].plus {
-  flex-basis:50%;
-}
-
-.comic {
-  display:flex;
-  flex-flow:row nowrap;
-  flex-grow:1;
-  align-self:stretch;
-}
-
-.comic span {
-  flex-grow:1;
   align-self:center;
 }
+.body {
+  background:#F0F0F0;
+  display:flex;
+  align-items:center;
+  flex-flow:column nowrap;
+  width:fit-content;
+  box-shadow: 1px 1px 3px 3px rgba(0,0,0,0.2);
+  border-radius:5px 5px 5px 5px;
+  padding:20px;
 
-img {
+}
+.comic-container {
+  background:#E0E0E0;
+  display:flex;
+  flex-flow:column;
+  align-items:center;
+  padding:5px;
+  margin:20px;
+  border-radius:20px;
+  width:auto;
+  position:relative;
+}
+.comic-container > * {
+  margin:0px;
+}
+.comic {
+  position:relative;
+  overflow:hidden;
+  border-radius:10px;
+  margin:10px;
+  padding:0px;
+  background:blue;
+}
+.comic *{
+  margin:0px;
+  padding:0px;
+  display:block;
+}
+
+.comic .overlay {
   width:100%;
-  height:auto;
+  height:100%;
+  position:absolute;
+  top:0px;
+  display:flex;
+  flex-flow:row nowrap;
 }
-
-.arrow {
-  background-color:#EEEEEE;
+.comic input[type=button] {
+  flex-basis:50%;
+  background:none;
   border:none;
-  align-self:stretch;
 }
-
-.x {
-  align-self:flex-end;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.comic input[type=button]:hover {
+  background:rgba(0,0,0,0.2);
 }

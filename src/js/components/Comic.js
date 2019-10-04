@@ -28,15 +28,15 @@ export default class Comic extends Component{
         <h2>{this.state.name}</h2>
         <p>{dateFromPath(this.state.path)}</p>
         <span role="img" aria-label="Delete" onClick={this.props.remove}>❌</span>
-        <span className="comic">
-        <input type="button" onClick={()=>this.props.setDate(thisComic.previous)} value="←" className="arrow"/>
-        <img ref="next" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.previous]||{}).url}/>
-        <span>
-        <img ref="this" alt={this.state.name||this.state.id+" comic strip"} src={thisComic.url} onClick={()=>this.props.setDate(thisComic.previous)}/>
-        </span>
-        <img ref="last" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.next]||{}).url}/>
-        <input type="button" onClick={()=>this.props.setDate(thisComic.next)} value="→" className="arrow"/>
-        </span>
+        <div className="comic">
+          <img ref="next" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.previous]||{}).url}/>
+          <img ref="this" alt={this.state.name||this.state.id+" comic strip"} src={thisComic.url} onClick={()=>this.props.setDate(thisComic.previous)}/>
+          <img ref="last" alt="" style={{display:"none"}} src={(this.state.strips[thisComic.next]||{}).url}/>
+          <div className="overlay">
+            <input type="button" onClick={()=>this.props.setDate(thisComic.previous)} value="" className="arrow"/>
+            <input type="button" onClick={()=>this.props.setDate(thisComic.next)} value="" className="arrow"/>
+          </div>
+       </div>
       </div>:null
     ):(
       <div className="input-container">
