@@ -1,88 +1,86 @@
 .App {
-  width:100vw;
+  width: 100vw;
 }
-.App > *{
-  margin:auto;
+.App > * {
+  margin: auto;
 }
-.navBar{
-  margin:5px auto;
-  width:90%;
-  height:10vh;
-  display:flex;
-  justify-content:space-between;
-  align-items:stretch;
-  border:solid 2px black;
-  border-radius:20px;
-  overflow:hidden;
-  position:sticky;
-  top:5px;
-  z-index:1;
-  background:white;
+.navBar {
+  margin: 5% auto;
+  width: 90vw;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  border: solid 2px black;
+  border-radius: 20px;
+  overflow: hidden;
+  position: sticky;
+  top: 5px;
+  z-index: 1;
+  background: white;
 }
 .navBar > * {
-  display:inline;
-  margin:0px;
+  display: inline;
+  margin: 0px;
+
+  flex-shrink: 1;
 }
 .navBar > button {
-  flex-basis:15%;
-  flex-shrink:1;
-  border:none;
+  flex-basis: 15%;
+  border: none;
 }
 .title {
-  align-self:center;
+  align-self: center;
 }
 .body {
-  background:#F0F0F0;
-  display:flex;
-  align-items:center;
-  flex-flow:column nowrap;
-  width:fit-content;
-  box-shadow: 1px 1px 3px 3px rgba(0,0,0,0.2);
-  border-radius:5px 5px 5px 5px;
-  padding:20px;
-
+  background: #faebd7;
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+  width: fit-content;
+  box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 5px 5px 5px 5px;
 }
 .comic-container {
-  background:#E0E0E0;
-  display:flex;
-  flex-flow:column;
-  align-items:center;
-  padding:5px;
-  margin:20px;
-  border-radius:20px;
-  width:auto;
-  position:relative;
+  background: rgb(0, 0, 0, 0.1);
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 5px;
+  margin: 20px;
+  border-radius: 20px;
+  width: auto;
+  position: relative;
 }
 .comic-container > * {
-  margin:0px;
+  margin: 0px;
 }
 .comic {
-  position:relative;
-  overflow:hidden;
-  border-radius:10px;
-  margin:10px;
-  padding:0px;
-  background:blue;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 0px;
 }
-.comic *{
-  margin:0px;
-  padding:0px;
-  display:block;
+.comic * {
+  margin: 0px;
+  padding: 0px;
+  display: block;
 }
 
 .comic .overlay {
-  width:100%;
-  height:100%;
-  position:absolute;
-  top:0px;
-  display:flex;
-  flex-flow:row nowrap;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  display: flex;
+  flex-flow: row nowrap;
 }
-.comic input[type=button] {
-  flex-basis:50%;
-  background:none;
-  border:none;
+.comic input[type="button"] {
+  flex-basis: 50%;
+  background: none;
+  border: none;
 }
-.comic input[type=button]:hover {
-  background:rgba(0,0,0,0.2);
+.comic input[type="button"]:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
