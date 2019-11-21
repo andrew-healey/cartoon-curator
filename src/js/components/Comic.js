@@ -88,7 +88,7 @@ export default class Comic extends Component {
     let thisComic,
       strips = {};
     if (!Object.keys(this.state.strips).includes(path)) {
-      let url = `${API_URL}/api${path}`;
+      let url = `${API_URL}${path}`;
       let json = await fetch(url);
       json = await json.json();
       if (json.error) {
@@ -108,7 +108,7 @@ export default class Comic extends Component {
         thisComic[order] &&
         thisComic[order] !== ""
       ) {
-        let url = `${API_URL}/api${thisComic[order]}`;
+        let url = `${API_URL}${thisComic[order]}`;
         let json = await fetch(url);
         try {
           json = await json.json();
