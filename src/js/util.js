@@ -5,7 +5,7 @@
 // import 'core-js/web/url-search-params';
 // import 'whatwg-fetch';
 
-const API_URL="https://Comic-Strip-API.426729.repl.co";
+const API_URL="https://api.freecomics.ml"/*"https://Comic-Strip-API.426729.repl.co"*/;
 
 function dateFromPath(path){
     return path.replace(/\/[^/]*\/(.*)$/g,"$1");
