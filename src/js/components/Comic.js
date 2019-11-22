@@ -38,11 +38,11 @@ export default class Comic extends Component {
             ❌
           </span>
           <div className="comic">
-            <img
-              ref="next"
-              alt=""
-              style={{ display: "none" }}
-              src={(this.state.strips[thisComic.previous] || {}).url}
+            <link
+              ref="previous"
+              rel="preload"
+              as="image"
+              href={(this.state.strips[thisComic.previous] || {}).url}
             />
             <img
               ref="this"
@@ -50,11 +50,11 @@ export default class Comic extends Component {
               src={thisComic.url}
               onClick={() => this.props.setDate(thisComic.previous)}
             />
-            <img
-              ref="last"
-              alt=""
-              style={{ display: "none" }}
-              src={(this.state.strips[thisComic.next] || {}).url}
+            <link
+              ref="next"
+              rel="preload"
+              as="image"
+              href={(this.state.strips[thisComic.next] || {}).url}
             />
             <div className="overlay">
               <input
