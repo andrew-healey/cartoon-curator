@@ -11,4 +11,8 @@ function dateFromPath(path){
     return path.replace(/\/[^/]*\/(.*)$/g,"$1");
 }
 
-export {API_URL,dateFromPath};
+function getCookie(name) {
+  return document.cookie.replace(new RegExp(`(?:(?:^|.*;\s*)${name}\s*\=\s*([^;]*).*$)|^.*$`), "$1").replace(/ , /g,";");
+}
+
+export {API_URL,dateFromPath,getCookie};
