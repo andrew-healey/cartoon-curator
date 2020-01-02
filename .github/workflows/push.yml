@@ -11,13 +11,15 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
     - name: Install
-      uses: actions/npm@e7aaefe
+      uses: actions/setup-node@v1
       with:
-        args: install
+        node-version: 12
+    - run: npm install
     - name: Build
-      uses: actions/npm@e7aaefe
+      uses: actions/setup-node@v1
       with:
-        args: run build
+        node-version: 12
+    - run: npm run build
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@master
       env:
