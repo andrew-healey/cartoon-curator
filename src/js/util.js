@@ -12,7 +12,7 @@ function dateFromPath(path){
 }
 
 function getCookie(name) {
-  return document.cookie.replace(new RegExp(`(?:(?:^|.*;\s*)${name}\s*\=\s*([^;]*).*$)|^.*$`), "$1").replace(/ , /g,";");
+  return document.cookie.replace(new RegExp(`(?:(?:^|.*;\\s*)${name}\\s*\\=\\s*([^;]*).*$)|^.*$`), "$1").replace(/ , /g,";");
 }
 
 export {API_URL,dateFromPath,getCookie};
