@@ -29,7 +29,6 @@ export default class Newspaper extends Component {
         comics = comics.length > 0 ? comics :
             getCookie("comic").split("_,_").filter(i => i.length > 0).map(comic => comic.replace(/,,/g, ","));
         window.getCookie=getCookie;
-        console.log("comics", comics);
         comics = comics.length > 0 ? comics.map(i => ({
             id: i
         })) : [{
@@ -61,7 +60,6 @@ export default class Newspaper extends Component {
                 name: "Garfield"
             }
         ];
-        console.log(comics);
         this.state.comics = comics;
         let date = moment(this.state.date).format("YYYY/MM/DD");
         document.title = moment(this.state.date).format("MMMM D[, ]YYYY");
