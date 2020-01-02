@@ -11,8 +11,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
     - name: Install
-      uses: actions/npm@e7aaefe
+      uses: actions/setup-node@v1
       with:
+        node-version: 12
         args: install
     - name: Build
       uses: actions/npm@e7aaefe
