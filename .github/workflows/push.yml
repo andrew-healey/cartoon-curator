@@ -16,8 +16,9 @@ jobs:
         node-version: 12
         args: install
     - name: Build
-      uses: actions/npm@e7aaefe
+      uses: actions/setup-node@v1
       with:
+        node-version: 12
         args: run build
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@master
