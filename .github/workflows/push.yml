@@ -14,12 +14,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12
-        args: install
+    - run: npm install
     - name: Build
       uses: actions/setup-node@v1
       with:
         node-version: 12
-        args: run build
+    - run: npm run build
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@master
       env:
