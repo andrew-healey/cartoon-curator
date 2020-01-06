@@ -1,58 +1,46 @@
 {
+    "name": "GoComics",
+    "id": "gocomics",
     "date-scrape": [{
-        "generate-url": {
-            "match": "([^\\/]+)\\/(\\d+)\\/(\\d+)\\/(\\d+)",
-            "replace": "https://gocomics.com/$1/$2/$3/$4/"
+        "headers": {
+            "uri": "https://gocomics.com/${seriesId}/${year}/${month}/${day}/"
         },
         "frame": {
-            "$url": "picture.item-comic-image img.lazyload.img-fluid @ src",
+            "%url": "picture.item-comic-image img.lazyload.img-fluid @ src",
             "adjacents": {
                 "_s": "nav.gc-calendar-nav",
                 "_d": {
-                    "$previous": ".fa.btn.btn-outline-secondary.btn-circle.fa.fa-caret-left.sm @ href || \\d+/\\d+/\\d+",
-                    "$next": ".fa.btn.btn-outline-secondary.btn-circle.fa.fa-caret-right.sm @ href || \\d+/\\d+/\\d+"
+                    "%previous": ".fa.btn.btn-outline-secondary.btn-circle.fa.fa-caret-left.sm @ href || \\d+/\\d+/\\d+",
+                    "%next": ".fa.btn.btn-outline-secondary.btn-circle.fa.fa-caret-right.sm @ href || \\d+/\\d+/\\d+"
                 }
             }
         }
     }],
     "extremes-scrape": {
         "last": [{
-            "generate-url": {
-                "match": "^(.*)$",
-                "replace": "https://gocomics.com/$1"
+            "headers": {
+                "uri": "https://gocomics.com/${seriesId}"
             },
             "frame": {
-                "$last": "div.gc-deck--cta-0 a.gc-blended-link @ href || \\d+/\\d+/\\d+"
+                "%last": "div.gc-deck--cta-0 a.gc-blended-link @ href || \\d+/\\d+/\\d+"
             }
         }],
         "first": [{
-                "generate-url": {
-                    "match": "^(.*)$",
-                    "replace": "https://gocomics.com/$1"
-                },
-                "frame": {
-                    "$last": "div.gc-deck--cta-0 a.gc-blended-link @ href "
-                }
+            "headers": {
+                "uri": "https://gocomics.com/${seriesId}"
             },
-            {
-                "generate-url":{
-                    "match":".*",
-                    "replace":"https://gocomics.com${last}"
-                },
-                "frame":{
-                    "$first": ".fa.btn.btn-outline-secondary.btn-circle.fa.fa-backward.sm @ href || \\d+/\\d+/\\d+"
-                }
+            "frame": {
+                "%first": "div.gc-deck--cta-0 a.gc-blended-link @ href || \\d+/\\d+/\\d+"
             }
-        ]
+        }]
     },
-    "switch-image-id-and-url": {
-        "to": {
-            "match": "https://assets.amuniversal.com/([^/]{32})",
-            "replace": "$1"
+    "switch-image-id-and-url": "https://assets.amuniversal.com/([^/]{32})",
+    "get-name": [{
+        "headers": {
+            "uri": "https://gocomics.com/${seriesId}"
         },
-        "from": {
-            "match": "(.*)",
-            "replace": "https://assets.amuniversal.com/$1"
+        "frame": {
+            "%name": ".mb-0"
         }
-    }
+    }]
 }

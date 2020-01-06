@@ -6,16 +6,19 @@
   "dependencies": {
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.5.4",
+    "@sesamestrong/json-scraper": "^1.4.5",
     "bluebird": "^3.5.5",
     "cheerio": "^1.0.0-rc.3",
     "core-js": "^3.1.4",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "isomorphic-fetch": "^2.2.1",
     "jsonframe-cheerio": "^3.0.1",
     "moment": "2.24.0",
+    "mongoose": "^5.8.4",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^3.3.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "url-search-params-polyfill": "^7.0.0"
@@ -26,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "NODE_ENV=development mocha --require ./test/setupDOM.js --require ignore-styles --recursive",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "backend": "node backend/index.js"
   },
   "eslintConfig": {
     "extends": "react-app"
