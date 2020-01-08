@@ -4,6 +4,8 @@ module.exports = new Promise(async (resolve, reject) => {
 
     const app = express();
 
+    app.use(require("cors")());
+
     app.get("/", (req, res) =>
         res.send(`This API is under construction. See the 
 <a href="">main website</a>

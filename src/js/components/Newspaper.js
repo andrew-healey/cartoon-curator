@@ -32,32 +32,32 @@ export default class Newspaper extends Component {
         comics = comics.length > 0 ? comics.map(i => ({
             id: i
         })) : [{
+                provider:"gocomics",
                 id: "pearlsbeforeswine",
-                name: "Pearls Before Swine"
             },
             {
+                provider:"gocomics",
                 id: "dilbert-classics",
-                name: "Dilbert Classics"
             },
             {
+                provider:"gocomics",
                 id: "lio",
-                name: "Lio"
             },
             {
+                provider:"gocomics",
                 id: "calvinandhobbes",
-                name: "Calvin and Hobbes"
             },
             {
+                provider:"gocomics",
                 id: "foxtrot",
-                name: "Foxtrot"
             },
             {
+                provider:"gocomics",
                 id: "dilbert",
-                name: "Dilbert"
             },
             {
+                provider:"gocomics",
                 id: "garfield",
-                name: "Garfield"
             }
         ];
         this.state.comics = comics;
@@ -89,7 +89,7 @@ export default class Newspaper extends Component {
               key={i.id}
               date={i.date}
               id={i.id}
-              name={i.name}
+              provider={i.provider}
             />
           ))}
           <div className="input-container">
@@ -126,9 +126,8 @@ export default class Newspaper extends Component {
     }
     setDate(id, path) {
         let newComics = [...this.state.comics];
-        let newThing = { ...newComics[id]
-        };
-        newThing.date = dateFromPath(path);
+        let newThing = { ...newComics[id] };
+        newThing.date = path;
         newComics[id] = newThing;
         this.setState({
             comics: newComics

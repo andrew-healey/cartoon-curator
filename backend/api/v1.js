@@ -1,5 +1,6 @@
 module.exports=new Promise(async (resolve, reject) => {
 const express = require("express");
+    const moment=require("moment");
 const {
     Comic,
     //Series,
@@ -22,9 +23,9 @@ router.get("/:providerId/:series/:year/:month/:day", async (req, res) => {
         provId: providerId,
     });
     if(!provider) return res.send({ok:false,err:"Provider not found."});
-    res.json(await provider.getComic(series, year, month, day));
+    res.json(await provider.getComic(series, year, month, day,2));
 });
 
-//Provider.new(require("../providers/gocomics.json")).then(i=>console.log("Made GoComics!"));
+Provider.new(require("../providers/gocomics.json")).then(i=>console.log("Made GoComics!"));
 resolve(router);
 });

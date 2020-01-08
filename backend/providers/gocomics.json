@@ -6,7 +6,7 @@
             "uri": "https://gocomics.com/${seriesId}/${year}/${month}/${day}/"
         },
         "frame": {
-            "%url": "picture.item-comic-image img.lazyload.img-fluid @ src",
+            "%src": "picture.item-comic-image img.lazyload.img-fluid @ src || [^/]+$",
             "adjacents": {
                 "_s": "nav.gc-calendar-nav",
                 "_d": {
@@ -34,7 +34,7 @@
             }
         }]
     },
-    "switch-image-id-and-url": "https://assets.amuniversal.com/([^/]{32})",
+    "src-to-url": "https://assets.amuniversal.com/${src}",
     "get-name": [{
         "headers": {
             "uri": "https://gocomics.com/${seriesId}"
