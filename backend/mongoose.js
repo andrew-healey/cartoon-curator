@@ -8,6 +8,7 @@ module.exports = new Promise(async (resolve, reject) => {
     } = require("@sesamestrong/json-scraper");
 
     const dbUrl = process.env.DATABASE.replace(/<password>/, process.env.PASSWORD);
+    console.log(dbUrl);
     mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
