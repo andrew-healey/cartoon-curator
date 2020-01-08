@@ -8,20 +8,17 @@ import {
 import ComicChoice from "./ComicChoice";
 export default class Comic extends Component {
     constructor(props) {
+        console.log("Complete re-render");
         super(props);
         // this.date=this.props.date;
         this.state = {
-            date: this.props.date,
-            path: "",
+            date: this.props.date||"",
             strips: {},
             shown: true,
             id: this.props.id,
             name: undefined,
             provider: this.props.provider,
         };
-        if (this.state.id) {
-            this.state.path = this.state.date;
-        }
     }
     static getDerivedStateFromProps(newProps, oldState) {
         return newProps.date !== oldState.date ? {
@@ -29,20 +26,20 @@ export default class Comic extends Component {
         } : null;
     }
     componentDidMount() {
-        if (this.state.id) this.findUrl(this.state.path);
+        if (this.state.id) this.findUrl(this.state.date);
     }
     componentDidUpdate() {
         this.findUrl();
     }
     render() {
-        let thisComic = this.state.strips[this.state.path] || {};
+        let thisComic = this.state.strips[this.state.date] || {};
         console.log(thisComic);
 
-        return this.state.path !== "" && this.state.id ? (
+        return this.state.date !== "" && this.state.id ? (
             thisComic.url ? (
                 <div className="comic-container">
           <h2>{this.state.name}</h2>
-          <p>{this.state.path}</p>
+          <p>{this.state.date}</p>
           <span role="img" aria-label="Delete" onClick={this.props.remove}>
             ❌
           </span>
@@ -92,12 +89,13 @@ export default class Comic extends Component {
       </div>
         );
     }
-    async findUrl(path) {
-        path = path || this.state.date;
+    async findUrl(date) {
+        if(!(this.state.id&&this.state.provider)) return;
+        date = date || this.state.date;
         let thisComic,
             strips = {};
-        if (!Object.keys(this.state.strips).includes(path)) {
-            let url = this.getUrl(path);
+        if (!Object.keys(this.state.strips).includes(date)) {
+            let url = this.getUrl(date);
             let json = await fetch(url);
             json = await json.json();
             if (json.error) {
@@ -106,12 +104,12 @@ export default class Comic extends Component {
             }
             thisComic = json;
         } else {
-            thisComic = this.state.strips[path];
+            thisComic = this.state.strips[date];
         }
-        strips[path] = thisComic;
-        if (this.state.path !== path) {
+        strips[date] = thisComic;
+        if (this.state.date !== date) {
             this.setState({
-                path
+                date
             });
         }
         for (let order of ["previous", "next"]) {

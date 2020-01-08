@@ -158,6 +158,7 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     const runSteps = async function(steps, vars) {
+        console.log(vars);
         return await runEntireScraper({
             steps
         }, vars);
@@ -166,7 +167,6 @@ module.exports = new Promise(async (resolve, reject) => {
     providers.methods.getFirst = async function(seriesId) {
         const series = await this.getSeries(seriesId);
         if (!series) throw new Error("Series does not exist.");
-        console.log("first", series);
         if (!series.first) series.first = this.parseDate((await runSteps(this.firstJson, {
             seriesId
         })).first).toDate();
@@ -209,7 +209,7 @@ module.exports = new Promise(async (resolve, reject) => {
 
     providers.statics.formatDate = function(date) {
         if (date instanceof Date) date = moment(date);
-        return date&&date.format("YYYY/MM/DD");
+        return date&&date.format("YYYY/M/D");
     };
 
     providers.statics.genDate = (year, month, day) => {
@@ -219,10 +219,12 @@ module.exports = new Promise(async (resolve, reject) => {
     providers.methods.getComic = async function(seriesId, year, month, day, recsLeft = 0) {
         const series = await this.getSeries(seriesId);
         const date = Provider.genDate(year, month, day);
+        const startTime=new Date();
         const comic = await Comic.findOne({
             date,
             seriesId: series.id,
         });
+        if(comic) console.log("Using cache for",seriesId,day,"taking",new Date()-startTime," ms");
 
         if (!comic) {
             const {
@@ -238,6 +240,7 @@ module.exports = new Promise(async (resolve, reject) => {
             const prevDate = this.parseDate(previous);
             const nextDate = this.parseDate(next);
 
+            if(!src) return {};
             const comic = new Comic({
                 previous: prevDate&&prevDate.toDate(),
                 next: nextDate&&nextDate.toDate(),
@@ -247,7 +250,7 @@ module.exports = new Promise(async (resolve, reject) => {
             });
             await comic.save();
             if(recsLeft>0)
-                Promise.all([prevDate,nextDate].map(dt=>dt?this.getComic(seriesId,dt.year(),dt.month()+1,dt.date(),recsLeft-1):dt));
+                Promise.all([prevDate,nextDate].map(dt=>dt?this.getComic(seriesId,dt.year(),dt.month()+1,dt.date(),recsLeft-1):dt)).then(console.log("cached"));
             return {
                 url: getString(this.urlRx, {
                     src: comic.src

@@ -3,7 +3,8 @@
     "id": "gocomics",
     "date-scrape": [{
         "headers": {
-            "uri": "https://gocomics.com/${seriesId}/${year}/${month}/${day}/"
+            "uri": "https://gocomics.com/${seriesId}/${year}/${month}/${day}/",
+            "followAllRedirects":false
         },
         "frame": {
             "%src": "picture.item-comic-image img.lazyload.img-fluid @ src || [^/]+$",

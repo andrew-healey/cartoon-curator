@@ -51,10 +51,10 @@ export default class Newspaper extends Component {
                 provider:"gocomics",
                 id: "foxtrot",
             },
-            {
+            /*{
                 provider:"gocomics",
                 id: "dilbert",
-            },
+            },*/
             {
                 provider:"gocomics",
                 id: "garfield",
