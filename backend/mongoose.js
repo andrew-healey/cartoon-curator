@@ -8,7 +8,6 @@ module.exports = new Promise(async (resolve, reject) => {
     } = require("@sesamestrong/json-scraper");
 
     const dbUrl = process.env.DATABASE.replace(/<password>/, process.env.PASSWORD);
-    console.log(dbUrl);
     mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -73,7 +72,6 @@ module.exports = new Promise(async (resolve, reject) => {
             provId: provider.id,
             name,
         });
-        console.log("hey");
         await series.save();
         return series;
     };
@@ -159,7 +157,6 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     const runSteps = async function(steps, vars) {
-        console.log(vars);
         return await runEntireScraper({
             steps
         }, vars);
@@ -178,7 +175,6 @@ module.exports = new Promise(async (resolve, reject) => {
     providers.methods.getLast = async function(seriesId) {
         const series = await this.getSeries(seriesId);
         if (!series) throw new Error("Series does not exist.");
-        console.log("last", series, new Date() - series.last);
         if (!series.last || (new Date() - series.last >= 3.6 * 24 * 10 ** 6)) series.last = moment((await runSteps(this.lastJson, {
             seriesId
         })).last, "YYYY-MM-DD").toDate();
@@ -199,7 +195,6 @@ module.exports = new Promise(async (resolve, reject) => {
     providers.methods.getSeriesInfo = async function(seriesId) {
         const first = await this.getFirst(seriesId);
         const last = await this.getLast(seriesId);
-        console.log("On to name");
         const name = await this.getName(seriesId);
         return {
             first,
@@ -225,7 +220,6 @@ module.exports = new Promise(async (resolve, reject) => {
             date,
             seriesId: series.id,
         });
-        if(comic) console.log("Using cache for",seriesId,day,"taking",new Date()-startTime," ms");
 
         if (!comic) {
             const {
@@ -251,7 +245,7 @@ module.exports = new Promise(async (resolve, reject) => {
             });
             await comic.save();
             if(recsLeft>0)
-                Promise.all([prevDate,nextDate].map(dt=>dt?this.getComic(seriesId,dt.year(),dt.month()+1,dt.date(),recsLeft-1):dt)).then(console.log("cached"));
+                Promise.all([prevDate,nextDate].map(dt=>dt?this.getComic(seriesId,dt.year(),dt.month()+1,dt.date(),recsLeft-1):dt));
             return {
                 url: getString(this.urlRx, {
                     src: comic.src

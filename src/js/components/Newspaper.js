@@ -61,7 +61,7 @@ export default class Newspaper extends Component {
             }
         ];
         this.state.comics = comics;
-        let date = moment(this.state.date).format("YYYY/MM/DD");
+        let date = moment(this.state.date).format("YYYY/M/D");
         document.title = moment(this.state.date).format("MMMM D[, ]YYYY");
         let newComics = this.state.comics.map(comic => ({ ...comic,
             date
@@ -111,7 +111,7 @@ export default class Newspaper extends Component {
                 {
                     id: "",
                     name: "",
-                    date: moment(this.state.date).format("YYYY/MM/DD")
+                    date: moment(this.state.date).format("YYYY/M/D")
                 }
             ]
         });
@@ -149,12 +149,12 @@ export default class Newspaper extends Component {
     }
     applyDate(date) {
         let mom = moment(date);
-        let str = mom.format("YYYY/MM/DD");
+        let str = mom.format("YYYY/M/D");
         let newComics = this.state.comics.map(comic => ({ ...comic,
             date: str
         }));
         this.setURL(undefined, str);
-        // window.history.pushState(date, moment(date).format("MMMM D[,] YYYY"), this.url.toString()/*moment(date).format("[?year=]YYYY[&month=]MM[&day=]DD")*/);
+        // window.history.pushState(date, moment(date).format("MMMM D[,] YYYY"), this.url.toString()/*moment(date).format("[?year=]YYYY[&month=]M[&day=]D")*/);
         this.setState({
             date,
             comics: newComics
@@ -174,8 +174,8 @@ export default class Newspaper extends Component {
         if (date) {
             const dateStuff = [
                 ["year", "YYYY"],
-                ["month", "MM"],
-                ["day", "DD"]
+                ["month", "M"],
+                ["day", "D"]
             ];
             dateStuff.forEach(([part, format]) => {
                 const val = mom.format(format);

@@ -8,7 +8,6 @@ import {
 import ComicChoice from "./ComicChoice";
 export default class Comic extends Component {
     constructor(props) {
-        console.log("Complete re-render");
         super(props);
         // this.date=this.props.date;
         this.state = {
@@ -33,7 +32,6 @@ export default class Comic extends Component {
     }
     render() {
         let thisComic = this.state.strips[this.state.date] || {};
-        console.log(thisComic);
 
         return this.state.date !== "" && this.state.id ? (
             thisComic.url ? (
