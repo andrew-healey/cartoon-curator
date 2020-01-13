@@ -3,7 +3,7 @@
     "id": "xkcd",
     "date-scrape": [{
         "headers": {
-            "uri": "https://ukq0w.sse.codesandbox.io/id/${year}-${month}-${day}"
+            "uri": "https://xkcd-api.herokuapp.com/id/${year}-${month}-${day}"
         },
         "text":"%comicId"
     }, {
@@ -11,8 +11,20 @@
             "uri": "https://xkcd.com/${comicId}"
         },
         "frame": {
-            "%src": "#comic img @ href || [^/]+$"
+            "%src": "#comic img @ src || [^/]+$",
+            "%previousId":"a[rel=prev] @ href || \\d+",
+            "%nextId":"a[rel=next] @ href || \\d+"
         }
+    },{
+    "headers":{
+        "uri":"https://xkcd-api.herokuapp.com/date/${previousId}"
+    },
+    "text":"%previous"
+    },{
+    "headers":{
+        "uri":"https://xkcd-api.herokuapp.com/date/${nextId}"
+    },
+    "text":"%next"
     }],
     "extremes-scrape": {
         "last": [{
@@ -24,13 +36,13 @@
             }
         }, {
             "headers": {
-                "uri": "https://ukq0w.sse.codesandbox.io/date/${lastNum}"
+                "uri": "https://xkcd-api.herokuapp.com/date/${lastNum}"
             },
             "text":"%last"
         }],
         "first": [{
             "headers": {
-                "uri": "https://ukq0w.sse.codesandbox.io/date/1"
+                "uri": "https://xkcd-api.herokuapp.com/date/1"
             },
             "text":"%last"
         }]

@@ -176,6 +176,7 @@ module.exports = new Promise(async (resolve, reject) => {
             provId: this.id,
         });
         if (!series) {
+            console.log("Making new series",seriesId);
             //Check if it is valid
             const name = await this.getName(seriesId);
             if (name) {
