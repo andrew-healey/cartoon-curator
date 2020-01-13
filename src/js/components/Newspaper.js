@@ -25,30 +25,35 @@ export default class Newspaper extends Component {
                 ),
             comics: []
         };
-        let comics = search.getAll("comic");
+        const zip=(...rows)=>rows.reduce((last, next) => last.slice(0, next.length).map((i, ind) => [i, next[ind]]));
+        let comics = zip(search.getAll("comic"), search.getAll("provider"))
         comics = comics.length > 0 ? comics :
-            getCookie("comic").split("_,_").filter(i => i.length > 0).map(comic => comic.replace(/,,/g, ","));
-        window.getCookie=getCookie;
+            zip(JSON.parse(getCookie("comic")||"[]"),JSON.parse(getCookie("provider")||"[]"));
         comics = comics.length > 0 ? comics.map(i => ({
-            id: i
+            id: i[0],
+            provider: i[1],
         })) : [{
-                provider:"gocomics",
+                provider: "gocomics",
                 id: "pearlsbeforeswine",
             },
             {
-                provider:"gocomics",
+                provider: "dilbert",
+                id: "dilbert",
+            },
+            {
+                provider: "gocomics",
                 id: "dilbert-classics",
             },
             {
-                provider:"gocomics",
+                provider: "gocomics",
                 id: "lio",
             },
             {
-                provider:"gocomics",
+                provider: "gocomics",
                 id: "calvinandhobbes",
             },
             {
-                provider:"gocomics",
+                provider: "gocomics",
                 id: "foxtrot",
             },
             /*{
@@ -56,7 +61,7 @@ export default class Newspaper extends Component {
                 id: "dilbert",
             },*/
             {
-                provider:"gocomics",
+                provider: "gocomics",
                 id: "garfield",
             }
         ];
@@ -118,6 +123,7 @@ export default class Newspaper extends Component {
     }
     updateValue(index, value) {
         let comics = [...this.state.comics];
+        console.log("--",index,value);
         comics[index] = Object.assign({}, comics[index], value);
         this.setURL(comics);
         this.setState({
@@ -126,7 +132,8 @@ export default class Newspaper extends Component {
     }
     setDate(id, path) {
         let newComics = [...this.state.comics];
-        let newThing = { ...newComics[id] };
+        let newThing = { ...newComics[id]
+        };
         newThing.date = path;
         newComics[id] = newThing;
         this.setState({
@@ -167,9 +174,10 @@ export default class Newspaper extends Component {
             this.url.delete("comic");
             for (let comic of comics) {
                 this.url.append("comic", comic.id);
+                this.url.append("provider",comic.provider);
             }
-            const comStr = comics.map(comic => comic.id.replace(/,/g, ",,").replace(/;/g, " , ")).join("_,_");
-            document.cookie = "comic=" + comStr;
+            const sanitize=m=>m.replace(/,/g, ",,").replace(/;/g, " , ");
+            [["id","comic"],["provider","provider"]].forEach(([key,name])=>{document.cookie=name+"="+escape(JSON.stringify(comics.map(comic=>comic[key])))});
         }
         if (date) {
             const dateStuff = [

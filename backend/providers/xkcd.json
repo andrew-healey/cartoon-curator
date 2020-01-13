@@ -1,0 +1,48 @@
+{
+    "name": "xkcd",
+    "id": "xkcd",
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://ukq0w.sse.codesandbox.io/id/${year}-${month}-${day}"
+        },
+        "text":"%comicId"
+    }, {
+        "headers": {
+            "uri": "https://xkcd.com/${comicId}"
+        },
+        "frame": {
+            "%src": "#comic img @ href || [^/]+$"
+        }
+    }],
+    "extremes-scrape": {
+        "last": [{
+            "headers": {
+                "uri": "https://xkcd.com"
+            },
+            "frame": {
+                "%lastNum": "meta[property='og:url'] @ content || \\d+"
+            }
+        }, {
+            "headers": {
+                "uri": "https://ukq0w.sse.codesandbox.io/date/${lastNum}"
+            },
+            "text":"%last"
+        }],
+        "first": [{
+            "headers": {
+                "uri": "https://ukq0w.sse.codesandbox.io/date/1"
+            },
+            "text":"%last"
+        }]
+    },
+    "src-to-url": "https://imgs.xkcd.com/comics/${src}",
+    "get-name": [{
+        "headers": {
+            "uri": "https://xkcd.com"
+        },
+        "frame": {
+            "%name": "meta[property='og:site_name'] @ content"
+        }
+    }],
+    "series-ids": ["xkcd"]
+}

@@ -1,0 +1,98 @@
+{
+    "name":"Comics Kingdom",
+    "id":"comicskingdom",
+    "date-scrape":[{
+        "headers": {
+            "uri":"https://comicskingdom.com/${id}"
+        },
+        "frame":{
+            "%sampleSrc":"img.w-100.h-100 @ src || (?<=file=)[^/]+$"
+        }
+    },{
+        "headers":{
+            "uri":"https://freecomics-helper.herokuapp.com/api/v1/atob",
+            "method":"POST",
+            "json":{
+                "src":"${sampleSrc}"
+            }
+        },
+        "json":{
+            "%ans":0
+        }
+    },{
+    "headers":{
+        "uri":"https://freecomics-helper.herokuapp.com/api/v1/match",
+        "method":"POST",
+        "json":{
+            "str":"${ans}",
+            "pattern":"([^/]+)/\d+/\d+/([^.]+)(_[^.]+)?\\.(\d{4})(\d{2})(\d{2})+\\.(.+)$"
+        }
+    },
+    "json":{
+        "%1":0,
+        "%2":0,
+        "%3":0,
+        "%4":0,
+        "%5":0,
+        "%6":0,
+        "%7":0,
+    }
+    },{
+    "headers":{
+        "uri":"https://freecomics-helper.herokuapp.com/api/v1/matchDate",
+        "method":"POST",
+        "json":{
+            "year":"${4}",
+            "month":"${5}",
+            "day":"${6}",
+            "format":"d",
+            "patterns":{
+                "0":"${2}",
+                "[1-6]":"${2}${3}"
+            }
+        }
+    },
+    "json":{
+        "%ans":0
+    }
+    },{
+    "headers":{
+        "uri":"https://freecomics-helper.herokuapp.com/api/v1/matchDate",
+        "method":"POST",
+        "json":{
+            "year": "${year}",
+            "month": "${month}",
+            "day": "${day}",
+            "format":"d",
+            "patterns":{
+                "0":"${ans}_qt",
+                "[1-6]":"${ans}"
+            }
+        }
+    }
+    }],
+    "extremes-scrape":{
+        "first":[],
+        "last":[{
+            "headers":{
+                "uri":"https://comicskingdom.com/${id}"}
+            },
+            "frame":{
+                "%first":"meta[property='og:url'] @ content || [0-9-]+$"
+            }
+        }],
+    },
+    "date-format":"YYYY-MM-DD",
+    "list-names":[{
+        "headers": {
+            "series-ids":["#comic-lists a @ href || [^/]+$"]
+    }],
+    "get-name":[{
+        "headers":{
+            "uri":"https://comicskingdom.com/${id}"
+        },
+        "frame":{
+            "%name":"meta[property='og:title'] @ content"
+        }
+    }]
+}

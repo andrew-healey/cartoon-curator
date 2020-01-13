@@ -1,0 +1,35 @@
+{
+    "name":"Dilbert",
+    "id":"dilbert",
+    "date-scrape":[{
+        "headers":{
+            "uri":"https://dilbert.com/strip/${year}-${month}-${day}"
+        },
+        "frame":{
+            "%src":"meta[property='og:image'] @ content || .{32}$",
+            "%previous":".nav-comic.nav-left a @ href || \\d+-\\d+-\\d+$",
+            "%next":".nav-comic.nav-right a @ href || \\d+-\\d+-\\d+$"
+        }
+    }],
+    "extremes-scrape": {
+        "first":[],
+        "last":[{
+            "headers":{
+                "uri":"https://dilbert.com/",
+            },
+            "frame":{
+                "%last":"img.img-responsive.img-comic @ href || \\d+-\\d+-\\d+"
+            }
+        }]
+    },
+    "src-to-url":"https://assets.amuniversal.com/${src}",
+    "get-name":[{
+        "headers":{
+            "uri":"https://dilbert.com/"
+        },
+        "frame":{
+            "%name":"meta[property='og:site_name'] @ content"
+        }
+    }],
+    "series-ids":["dilbert"],
+}

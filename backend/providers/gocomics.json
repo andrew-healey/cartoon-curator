@@ -4,7 +4,7 @@
     "date-scrape": [{
         "headers": {
             "uri": "https://gocomics.com/${seriesId}/${year}/${month}/${day}/",
-            "followAllRedirects":false
+            "followAllRedirects": false
         },
         "frame": {
             "%src": "picture.item-comic-image img.lazyload.img-fluid @ src || [^/]+$",
@@ -42,6 +42,14 @@
         },
         "frame": {
             "%name": ".mb-0"
+        }
+    }],
+    "list-names": [{
+        "headers": {
+            "uri": "https://www.gocomics.com/comics/a-to-z"
+        },
+        "frame": {
+            "%seriesIds": [".col-lg-4 @ href || [^/]+"]
         }
     }]
 }

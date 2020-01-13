@@ -9,7 +9,6 @@ import ComicChoice from "./ComicChoice";
 export default class Comic extends Component {
     constructor(props) {
         super(props);
-        // this.date=this.props.date;
         this.state = {
             date: this.props.date||"",
             strips: {},
@@ -31,6 +30,7 @@ export default class Comic extends Component {
         this.findUrl();
     }
     render() {
+        console.log(this.state.id,this.state.provider);
         let thisComic = this.state.strips[this.state.date] || {};
 
         return this.state.date !== "" && this.state.id ? (
@@ -80,8 +80,10 @@ export default class Comic extends Component {
         ) : (
             <div className="input-container">
         <ComicChoice
-          updateValue={val =>
-            this.props.updateVals({ id: val.id, name: val.name })
+          updateValue={val =>{
+              console.log("updateValue",val);
+              this.props.updateVals({ id: val.id, name: val.name,provider:val.provider })
+          }
           }
         />
       </div>
@@ -89,6 +91,10 @@ export default class Comic extends Component {
     }
     async findUrl(date) {
         if(!(this.state.id&&this.state.provider)) return;
+        if(this.state.id&&this.state.provider&&!this.state.name) {
+            fetch(`${API_URL}/api/${API_VERSION}/${this.state.provider}/${this.state.id}`)
+                .then(resp=>resp.json()).then(json=>this.setState({name:json.name}));
+        }
         date = date || this.state.date;
         let thisComic,
             strips = {};
@@ -97,7 +103,6 @@ export default class Comic extends Component {
             let json = await fetch(url);
             json = await json.json();
             if (json.error) {
-                /*return */
                 console.log(url, "failed");
             }
             thisComic = json;
