@@ -1,6 +1,7 @@
 {
     "name": "xkcd",
     "id": "xkcd",
+    "date-format":"YYYY-MM-DD",
     "date-scrape": [{
         "headers": {
             "uri": "https://xkcd-api.herokuapp.com/id/${year}-${month}-${day}"
