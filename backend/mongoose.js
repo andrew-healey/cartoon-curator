@@ -298,7 +298,7 @@ module.exports = new Promise(async (resolve, reject) => {
                 if (!(src&&date.isValid())) return {};
                 comic = new Comic({
                     previous: prevDate && prevDate.isValid()&&prevDate.toDate(),
-                    next: nextDate &&prevDate.isValid()&& nextDate.toDate(),
+                    next: nextDate &&nextDate.isValid()&& nextDate.toDate(),
                     src,
                     date: date.toDate(),
                     seriesId: series.id,
