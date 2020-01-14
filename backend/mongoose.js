@@ -295,11 +295,10 @@ module.exports = new Promise(async (resolve, reject) => {
                 }));
                 prevDate = this.parseDate(previous);
                 nextDate = this.parseDate(next);
-
-                if (!src) return {};
+                if (!(src&&date.isValid())) return {};
                 comic = new Comic({
-                    previous: prevDate && prevDate.toDate(),
-                    next: nextDate && nextDate.toDate(),
+                    previous: prevDate && prevDate.isValid()&&prevDate.toDate(),
+                    next: nextDate &&prevDate.isValid()&& nextDate.toDate(),
                     src,
                     date: date.toDate(),
                     seriesId: series.id,
