@@ -120,11 +120,11 @@ module.exports = new Promise(async (resolve, reject) => {
             required: true,
         },
         namesJson: {
-            type:Object,
+            type: Object,
         },
         seriesIds: [{
-            type:String,
-            required:true,
+            type: String,
+            required: true,
         }],
     });
 
@@ -143,8 +143,8 @@ module.exports = new Promise(async (resolve, reject) => {
                     preExisting.urlRx = json["src-to-url"],
                     preExisting.nameJson = json["get-name"],
                     preExisting.dateFormat = json["date-format"] || "YYYY-MM-DD";
-                preExisting.seriesIds=json["series-ids"];
-                preExisting.namesJson=json["list-names"];
+                preExisting.seriesIds = json["series-ids"];
+                preExisting.namesJson = json["list-names"];
                 await preExisting.save();
             }
             return preExisting;
@@ -159,7 +159,7 @@ module.exports = new Promise(async (resolve, reject) => {
             nameJson: json["get-name"],
             dateFormat: json["date-format"] || "YYYY-MM-DD",
             password: await bcrypt.hash(password, NUM_ROUNDS),
-            namesJson:json["list-names"],
+            namesJson: json["list-names"],
             seriesIds: json["series-ids"],
         });
         await n.save();
@@ -176,7 +176,6 @@ module.exports = new Promise(async (resolve, reject) => {
             provId: this.id,
         });
         if (!series) {
-            console.log("Making new series",seriesId);
             //Check if it is valid
             const name = await this.getName(seriesId);
             if (name) {
@@ -189,9 +188,13 @@ module.exports = new Promise(async (resolve, reject) => {
 
     providers.methods.getNames = async function() {
         //TODO Make this rerun every once in a while
-        this.seriesIds=this.seriesIds!=false?this.seriesIds:(await runSteps(this.namesJson,{})).seriesIds;
-        await this.save();
-        return this.seriesIds;
+        try {
+            this.seriesIds = this.seriesIds != false ? this.seriesIds : (await runSteps(this.namesJson, {})).seriesIds;
+            await this.save();
+            return this.seriesIds;
+        } catch (err) {
+            return;
+        }
     };
 
     const runSteps = async function(steps, vars) {
@@ -201,34 +204,38 @@ module.exports = new Promise(async (resolve, reject) => {
     }
 
     providers.methods.getFirst = async function(seriesId) {
-        try{
-        const series = await this.getSeries(seriesId);
-        if (!series) throw new Error("Series does not exist.");
-        if (!series.first) {
-            const first = this.parseDate(((await runSteps(this.firstJson, {
-                seriesId
-            })) || {}).first);
-            series.first = first && first.toDate();
+        try {
+            const series = await this.getSeries(seriesId);
+            if (!series) throw new Error("Series does not exist.");
+            if (!series.first) {
+                const first = this.parseDate(((await runSteps(this.firstJson, {
+                    seriesId
+                })) || {}).first);
+                series.first = first && first.toDate();
+            }
+            await series.save();
+            return Provider.formatDate(series.first);
+        } catch (err) {
+            return null;
         }
-        await series.save();
-        return Provider.formatDate(series.first);
-        }catch(err) {return null;}
     };
 
     providers.methods.getLast = async function(seriesId) {
         try {
-        const series = await this.getSeries(seriesId);
-        if (!series) throw new Error("Series does not exist.");
-        if (!series.last || (new Date() - series.last >= 3.6 * 24 * 10 ** 6)) {
-            const lastStr=(await runSteps(this.lastJson, {
-                seriesId
-            })).last;
-            if(!lastStr) return;
-            series.last = this.parseDate(lastStr).toDate();
-            await series.save();
+            const series = await this.getSeries(seriesId);
+            if (!series) throw new Error("Series does not exist.");
+            if (!series.last || (new Date() - series.last >= 3.6 * 24 * 10 ** 6)) {
+                const lastStr = (await runSteps(this.lastJson, {
+                    seriesId
+                })).last;
+                if (!lastStr) return;
+                series.last = this.parseDate(lastStr).toDate();
+                await series.save();
+            }
+            return Provider.formatDate(series.last);
+        } catch (err) {
+            return null;
         }
-        return Provider.formatDate(series.last);
-        }catch (err) { return null;}
     };
 
     providers.methods.getName = async function(seriesId) {
@@ -262,54 +269,54 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.methods.getComic = async function(seriesId, year, month, day, recsLeft = 0) {
-        try{
-        const series = await this.getSeries(seriesId);
-        if (!series) return null;
-        const date = Provider.genDate(year, month, day);
-        const startTime = new Date();
-        let comic = await Comic.findOne({
-            date,
-            seriesId: series.id,
-        });
-
-        let prevDate=comic&&moment(comic.previous);
-        let nextDate=comic&&moment(comic.next);
-
-        if (!comic) {
-            const {
-                src,
-                previous,
-                next
-            } = (await runSteps(this.dateJson, {
-                seriesId,
-                year,
-                month,
-                day
-            }));
-            prevDate = this.parseDate(previous);
-            nextDate = this.parseDate(next);
-
-            if (!src) return {};
-            comic = new Comic({
-                previous: prevDate && prevDate.toDate(),
-                next: nextDate && nextDate.toDate(),
-                src,
-                date: date.toDate(),
+        try {
+            const series = await this.getSeries(seriesId);
+            if (!series) return null;
+            const date = Provider.genDate(year, month, day);
+            const startTime = new Date();
+            let comic = await Comic.findOne({
+                date,
                 seriesId: series.id,
             });
-            await comic.save();
-        }
+
+            let prevDate = comic && moment(comic.previous);
+            let nextDate = comic && moment(comic.next);
+
+            if (!comic) {
+                const {
+                    src,
+                    previous,
+                    next
+                } = (await runSteps(this.dateJson, {
+                    seriesId,
+                    year,
+                    month,
+                    day
+                }));
+                prevDate = this.parseDate(previous);
+                nextDate = this.parseDate(next);
+
+                if (!src) return {};
+                comic = new Comic({
+                    previous: prevDate && prevDate.toDate(),
+                    next: nextDate && nextDate.toDate(),
+                    src,
+                    date: date.toDate(),
+                    seriesId: series.id,
+                });
+                await comic.save();
+            }
             if (recsLeft > 0)
                 Promise.all([prevDate, nextDate].map(dt => dt ? this.getComic(seriesId, dt.year(), dt.month() + 1, dt.date(), recsLeft - 1) : dt));
-        return {
-            url: getString(this.urlRx, {
-                src: comic.src
-            }),
-            previous: Provider.formatDate(prevDate),
-            next: Provider.formatDate(nextDate),
-        };
-        } catch(err) {
-            console.error(err);
+            return {
+                url: getString(this.urlRx, {
+                    src: comic.src
+                }),
+                previous: Provider.formatDate(prevDate),
+                next: Provider.formatDate(nextDate),
+            };
+        } catch (err) {
+            //console.error(err);
             return {};
         }
     };

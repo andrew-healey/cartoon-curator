@@ -64,6 +64,8 @@
   margin: 0px;
   padding: 0px;
   display: block;
+  max-width:900px;
+  height:auto;
 }
 
 .comic .overlay {
