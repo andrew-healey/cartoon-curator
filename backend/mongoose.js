@@ -269,7 +269,7 @@ module.exports = new Promise(async (resolve, reject) => {
         return moment(`${year}/${month}/${day}`, "YYYY-MM-DD");
     };
 
-    providers.methods.getComic = async function(seriesId, year, month, day, recsLeft = 0) {
+    providers.methods.getComic = async function(seriesId, year, month, day, recsLeft = 0,direction=0) {
         try {
             const series = await this.getSeries(seriesId);
             if (!series) return null;
@@ -294,7 +294,6 @@ module.exports = new Promise(async (resolve, reject) => {
                     month,
                     day
                 }));
-                console.log(seriesId,src,previous,next);
                 prevDate = this.parseDate(previous);
                 nextDate = this.parseDate(next);
                 if (!(src&&date.isValid())) return {};
@@ -308,7 +307,7 @@ module.exports = new Promise(async (resolve, reject) => {
                 await comic.save();
             }
             if (recsLeft > 0)
-                Promise.all([prevDate, nextDate].map(dt => dt ? this.getComic(seriesId, dt.year(), dt.month() + 1, dt.date(), recsLeft - 1) : dt));
+                Promise.all([[prevDate,-1], [nextDate,1]].map(([dt,dir]) => dt && direction!==dir ? this.getComic(seriesId, dt.year(), dt.month() + 1, dt.date(), recsLeft - 1,dir) : null));
             return {
                 url: getString(this.urlRx, {
                     src: comic.src
