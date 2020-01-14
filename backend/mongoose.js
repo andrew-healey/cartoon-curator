@@ -260,6 +260,7 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.statics.formatDate = function(date) {
+        if(!date) return undefined;
         if (date instanceof Date) date = moment(date);
         return date && date.format("YYYY/M/D");
     };
@@ -293,12 +294,13 @@ module.exports = new Promise(async (resolve, reject) => {
                     month,
                     day
                 }));
+                console.log(seriesId,src,previous,next);
                 prevDate = this.parseDate(previous);
                 nextDate = this.parseDate(next);
                 if (!(src&&date.isValid())) return {};
                 comic = new Comic({
-                    previous: prevDate && prevDate.isValid()&&prevDate.toDate(),
-                    next: nextDate &&nextDate.isValid()&& nextDate.toDate(),
+                    previous: (prevDate && prevDate.isValid()&&prevDate.toDate())||undefined,
+                    next: (nextDate &&nextDate.isValid() && nextDate.toDate())||undefined,
                     src,
                     date: date.toDate(),
                     seriesId: series.id,

@@ -30,7 +30,8 @@ export default class Comic extends Component {
         this.findUrl();
     }
     render() {
-        console.log(this.state.id,this.state.provider);
+        console.log("render");
+        //console.log(this.state.id,this.state.provider);
         let thisComic = this.state.strips[this.state.date] || {};
 
         return this.state.date !== "" && this.state.id ? (
@@ -112,7 +113,8 @@ export default class Comic extends Component {
         strips[date] = thisComic;
         if (this.state.date !== date) {
             this.setState({
-                date
+                date,
+                strips
             });
         }
         for (let order of ["previous", "next"]) {
