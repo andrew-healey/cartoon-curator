@@ -5,7 +5,8 @@ import React, {
 import Comic from "./Comic";
 import {
     dateFromPath,
-    getCookie
+    getCookie,
+    SAVE_AS_URL,
 } from "../util";
 
 export default class Newspaper extends Component {
@@ -183,9 +184,11 @@ export default class Newspaper extends Component {
         //   alert(this.url);
         if (comics) {
             this.url.delete("comic");
-            for (let comic of comics) {
-                this.url.append("comic", comic.id);
-                this.url.append("provider", comic.provider);
+            if (SAVE_AS_URL) {
+                for (let comic of comics) {
+                    this.url.append("comic", comic.id);
+                    this.url.append("provider", comic.provider);
+                }
             }
             const sanitize = m => m.replace(/,/g, ",,").replace(/;/g, " , ");
             [
