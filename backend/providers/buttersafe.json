@@ -1,0 +1,44 @@
+{
+    "name": "Buttersafe",
+    "id": "buttersafe",
+    "date-formats": ["YYYY/MM/DD", "dddd[, ]MMMM[ ]Do[, ]YYYY"],
+    "src-to-url": "https://www.buttersafe.com/comics/${src}",
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://www.buttersafe.com/${year}/${month}/${day}"
+        },
+        "frame": {
+            "%mainUri": ".comicarchiveframe a @ href"
+        }
+    }, {
+        "headers": {
+            "uri": "${mainUri}"
+        },
+        "frame": {
+            "%src": "#comic img @ src || (?<=comics/).*$",
+            "%next": "td:nth-child(3) #headernav a @ href || \\d+/\\d+/\\d+",
+            "%previous": "td:nth-child(1) #headernav a @ href || \\d+/\\d+/\\d+"
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": [{
+            "headers": {
+                "uri": "https://www.buttersafe.com/"
+            },
+            "frame": {
+                "%last": "div#headernav-date"
+            }
+        }]
+    },
+
+    "get-name": [{
+        "headers": {
+            "uri": "https://www.buttersafe.com/"
+        },
+        "frame": {
+            "%name": "#logoheader2 img @ alt"
+        }
+    }],
+    "series-ids": ["buttersafe"]
+}

@@ -111,10 +111,10 @@ module.exports = new Promise(async (resolve, reject) => {
             type: Object,
             required: true,
         },
-        dateFormat: {
+        dateFormats: [{
             type: String,
-            required: false,
-        },
+            required: true,
+        }],
         password: {
             type: String,
             required: true,
@@ -142,7 +142,7 @@ module.exports = new Promise(async (resolve, reject) => {
                     preExisting.lastJson = json["extremes-scrape"].last,
                     preExisting.urlRx = json["src-to-url"],
                     preExisting.nameJson = json["get-name"],
-                    preExisting.dateFormat = json["date-format"] || "YYYY-MM-DD";
+                    preExisting.dateFormats = Object.values(json["date-formats"] || [json["date-format"] || "YYYY-MM-DD"]);
                 preExisting.seriesIds = json["series-ids"];
                 preExisting.namesJson = json["list-names"];
                 await preExisting.save();
@@ -157,7 +157,7 @@ module.exports = new Promise(async (resolve, reject) => {
             lastJson: json["extremes-scrape"].last,
             urlRx: json["src-to-url"],
             nameJson: json["get-name"],
-            dateFormat: json["date-format"] || "YYYY-MM-DD",
+            dateFormats: Object.values(json["date-formats"] || [json["date-format"] || "YYYY-MM-DD"]),
             password: await bcrypt.hash(password, NUM_ROUNDS),
             namesJson: json["list-names"],
             seriesIds: json["series-ids"],
@@ -245,7 +245,7 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.methods.parseDate = function(str) {
-        return str && moment(str, this.dateFormat).startOf('day');
+        return str && moment(str, this.dateFormats).startOf('day');
     };
 
     providers.methods.getSeriesInfo = async function(seriesId) {
