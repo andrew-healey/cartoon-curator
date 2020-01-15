@@ -316,7 +316,7 @@ module.exports = new Promise(async (resolve, reject) => {
                 next: Provider.formatDate(nextDate),
             };
         } catch (err) {
-            //console.error(err);
+            console.error(err);
             return {};
         }
     };
