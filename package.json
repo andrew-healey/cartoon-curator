@@ -17,7 +17,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.8.4",
     "randomstring": "^1.1.5",
-    "react": "^16.8.2",
+    "react": "^16.12.0",
     "react-dom": "^16.8.2",
     "react-scripts": "^3.3.0",
     "request": "^2.88.0",
