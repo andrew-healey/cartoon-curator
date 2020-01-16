@@ -3,26 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.5.4",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/runtime": "^7.8.3",
     "@sesamestrong/json-scraper": "^2.0.0",
     "bcrypt": "^3.0.7",
-    "bluebird": "^3.5.5",
+    "bluebird": "^3.7.2",
     "cheerio": "^1.0.0-rc.3",
-    "core-js": "^3.1.4",
+    "core-js": "^3.6.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.24.0",
-    "mongoose": "^5.8.4",
+    "mongoose": "^5.8.7",
     "randomstring": "^1.1.5",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-scripts": "^3.3.0",
     "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "url-search-params-polyfill": "^7.0.0"
+    "request-promise": "^4.2.5",
+    "url-search-params-polyfill": "^7.0.1"
   },
   "homepage": "https://freecomics.ml",
   "scripts": {
@@ -44,16 +44,16 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/core": "^7.5.4",
-    "@babel/node": "^7.5.0",
-    "@babel/plugin-transform-runtime": "^7.5.0",
-    "@babel/register": "^7.4.4",
+    "@babel/core": "^7.8.3",
+    "@babel/node": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/register": "^7.8.3",
     "chai": "^4.2.0",
     "chai-enzyme": "^1.0.0-beta.1",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "ignore-styles": "^5.0.1",
-    "mocha": "^6.1.4",
-    "sinon": "^7.3.2"
+    "mocha": "^6.2.2",
+    "sinon": "^7.5.0"
   }
 }

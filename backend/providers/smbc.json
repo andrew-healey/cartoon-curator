@@ -1,0 +1,43 @@
+{
+    "id": "smbc",
+    "name": "Saturday Morning Breakfast Cereal",
+    "series-ids": ["smbc"],
+    "date-formats": ["YYY-MM-DD"],
+    "src-to-url": "https://smbc-comics.com/comics/${src}",
+    "get-name": [{
+        "headers": {
+            "uri": "https://smbc-comics.com/"
+        },
+        "frame": {
+            "%name": "meta[property='og:description'] @ content || .*(?>= -)"
+        }
+    }],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://smbc-comics.com/comic/${year}-${month}-${day}"
+        },
+        "frame": {
+            "%src": "meta[property='og:image'] @ content || (?<=comics/).*$",
+            "%previous": "a.cc-prev @ href || \\d+-\\d+-\\d+",
+            "%next": "a.cc-next@ href || \\d+-\\d+-\\d+"
+        }
+    }],
+    "extremes-scrape": {
+        "first": [{
+            "headers": {
+                "uri": "https://smbc-comics.com/"
+            },
+            "frame": {
+                "%first": "a.cc-first @ href || \\d+-\\d+-\\d+"
+            }
+        }],
+        "last": [{
+            "headers": {
+                "uri": "https://smbc-comics.com/"
+            },
+            "frame": {
+                "%last": "a.cc-last @ href || \\d+-\\d+-\\d+"
+            }
+        }]
+    }
+}
