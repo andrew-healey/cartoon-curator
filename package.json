@@ -53,7 +53,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "ignore-styles": "^5.0.1",
-    "mocha": "^6.1.4",
+    "mocha": "^7.0.0",
     "sinon": "^7.3.2"
   }
 }
