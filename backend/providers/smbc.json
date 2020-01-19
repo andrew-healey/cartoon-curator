@@ -1,8 +1,7 @@
-{
-    "id": "smbc",
+{ "id": "smbc",
     "name": "Saturday Morning Breakfast Cereal",
     "series-ids": ["smbc"],
-    "date-formats": ["YYY-MM-DD"],
+    "date-formats": ["YYY-MM-DD","YYYY[]MM[]DD"],
     "src-to-url": "https://smbc-comics.com/comics/${src}",
     "get-name": [{
         "headers": {
@@ -14,21 +13,50 @@
     }],
     "date-scrape": [{
         "headers": {
-            "uri": "https://smbc-comics.com/comic/${year}-${month}-${day}"
+            "uri": "https://smbc-comics.com/comic/archive"
+        },
+        "frame": {
+            "%comicId":"option:contains(\"$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"MMMM D[, ]YYYY\"}\") @ value || [^/]+$"
+        }
+    },{
+        "headers": {
+            "uri": "https://smbc-comics.com/comic/${comicId}"
         },
         "frame": {
             "%src": "meta[property='og:image'] @ content || (?<=comics/).*$",
-            "%previous": "a.cc-prev @ href || \\d+-\\d+-\\d+",
-            "%next": "a.cc-next@ href || \\d+-\\d+-\\d+"
+            "%previousUrl": "a.cc-prev @ href || [^/]+$",
+            "%nextUrl": "a.cc-next @ href || [^/]+$"
         }
-    }],
+    },{
+        "headers": {
+            "uri": "https://smbc-comics.com/comic/${previousUrl}"
+        },
+        "frame": {
+            "%previous": "meta[property='og:image'] @ content || (?<!\\d)\\d{8}(?=(?:-\\d+)?\\.[^.]+$)",
+        }
+    },{
+        "headers": {
+            "uri": "https://smbc-comics.com/comic/${nextUrl}"
+        },
+        "frame": {
+            "%next": "meta[property='og:image'] @ content || (?<!\\d)\\d{8}(?=(?:-\\d+)?\\.[^.]+$)",
+        }
+    }
+    ],
     "extremes-scrape": {
         "first": [{
             "headers": {
                 "uri": "https://smbc-comics.com/"
             },
             "frame": {
-                "%first": "a.cc-first @ href || \\d+-\\d+-\\d+"
+                "%firstUrl": "a.cc-first @ href || [^/]+$"
+            }
+        },{
+            "headers": {
+                "uri": "https://smbc-comics.com/comic/${firstUrl}"
+            },
+            "frame": {
+                "%first": "meta[property='og:image'] @ content || (?<!\\d)\\d{8}(?=(?:-\\d+)?\\.[^.]+$)"
             }
         }],
         "last": [{
@@ -36,7 +64,7 @@
                 "uri": "https://smbc-comics.com/"
             },
             "frame": {
-                "%last": "a.cc-last @ href || \\d+-\\d+-\\d+"
+                "%last": "meta[property='og:image'] @ content || (?<!\\d)\\d{8}(?=(?:-\\d+)?\\.[^.]+$)"
             }
         }]
     }

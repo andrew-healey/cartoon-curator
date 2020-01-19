@@ -1,6 +1,7 @@
 require("dotenv").config();
 const moment = require("moment");
 const bcrypt = require("bcrypt");
+const {extensions}=require("./extensions.js");
 const NUM_ROUNDS = 12;
 module.exports = new Promise(async (resolve, reject) => {
     const mongoose = require("mongoose");
@@ -200,7 +201,7 @@ module.exports = new Promise(async (resolve, reject) => {
     const runSteps = async function(steps, vars) {
         return await runEntireScraper({
             steps
-        }, vars);
+        }, vars, extensions);
     }
 
     providers.methods.getFirst = async function(seriesId) {
@@ -260,7 +261,7 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.statics.formatDate = function(date) {
-        if(!date) return undefined;
+        if (!date) return undefined;
         if (date instanceof Date) date = moment(date);
         return date && date.format("YYYY/M/D");
     };
@@ -269,7 +270,7 @@ module.exports = new Promise(async (resolve, reject) => {
         return moment(`${year}/${month}/${day}`, "YYYY-MM-DD");
     };
 
-    providers.methods.getComic = async function(seriesId, year, month, day, recsLeft = 0,direction=0) {
+    providers.methods.getComic = async function(seriesId, year, month, day, recsLeft = 0, direction = 0) {
         try {
             const series = await this.getSeries(seriesId);
             if (!series) return null;
@@ -296,10 +297,10 @@ module.exports = new Promise(async (resolve, reject) => {
                 }));
                 prevDate = this.parseDate(previous);
                 nextDate = this.parseDate(next);
-                if (!(src&&date.isValid())) return {};
+                if (!(src && date.isValid())) return {};
                 comic = new Comic({
-                    previous: (prevDate && prevDate.isValid()&&prevDate.toDate())||undefined,
-                    next: (nextDate &&nextDate.isValid() && nextDate.toDate())||undefined,
+                    previous: (prevDate && prevDate.isValid() && prevDate.toDate()) || undefined,
+                    next: (nextDate && nextDate.isValid() && nextDate.toDate()) || undefined,
                     src,
                     date: date.toDate(),
                     seriesId: series.id,
@@ -307,7 +308,10 @@ module.exports = new Promise(async (resolve, reject) => {
                 await comic.save();
             }
             if (recsLeft > 0)
-                Promise.all([[prevDate,-1], [nextDate,1]].map(([dt,dir]) => dt && direction!==dir ? this.getComic(seriesId, dt.year(), dt.month() + 1, dt.date(), recsLeft - 1,dir) : null));
+                Promise.all([
+                    [prevDate, -1],
+                    [nextDate, 1]
+                ].map(([dt, dir]) => dt && direction !== dir ? this.getComic(seriesId, dt.year(), dt.month() + 1, dt.date(), recsLeft - 1, dir) : null));
             return {
                 url: getString(this.urlRx, {
                     src: comic.src
