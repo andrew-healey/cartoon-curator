@@ -47,7 +47,11 @@ export default class Newspaper extends Component {
             },
             {
                 provider: "xkcd",
-                id: "xkcd"
+                id: "xkcd",
+            },
+            {
+                provider: "smbc",
+                id: "smbc",
             },
             {
                 provider: "comicskingdom",
