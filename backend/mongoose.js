@@ -1,7 +1,9 @@
 require("dotenv").config();
 const moment = require("moment");
 const bcrypt = require("bcrypt");
-const {extensions}=require("./extensions.js");
+const {
+    extensions
+} = require("./extensions.js");
 const NUM_ROUNDS = 12;
 module.exports = new Promise(async (resolve, reject) => {
     const mongoose = require("mongoose");
@@ -147,8 +149,9 @@ module.exports = new Promise(async (resolve, reject) => {
                 preExisting.seriesIds = json["series-ids"];
                 preExisting.namesJson = json["list-names"];
                 await preExisting.save();
+                return true;
             }
-            return preExisting;
+            return false;
         }
         const n = new this({
             name: json.name,
@@ -164,7 +167,18 @@ module.exports = new Promise(async (resolve, reject) => {
             seriesIds: json["series-ids"],
         });
         await n.save();
-        return n;
+        return true;
+    };
+
+    providers.methods.refresh = async function() {
+        Promise.all((await Series.find({
+            provId: this.id
+        })).map(async serie => //For each series, delete all of its comics and then it
+            (await Comic.deleteMany({ //I fear Mongoose query thenables
+                seriesId: serie.id
+            })) &&
+            (await Series.findByIdAndDelete(serie.id))
+        ));
     };
 
     providers.methods.seriesDoesExist = async function(seriesId) {

@@ -6,7 +6,7 @@
             "uri":"https://dilbert.com/strip/${year}-${month}-${day}"
         },
         "frame":{
-            "%src":"meta[property='og:image'] @ content || .{32}$",
+            "%src":"meta[property='og:url'][content$='/${year}-${month}-${day}'] ~ meta[property='og:image'] @ content || .{32}$",
             "%previous":".nav-comic.nav-left a @ href || \\d+-\\d+-\\d+$",
             "%next":".nav-comic.nav-right a @ href || \\d+-\\d+-\\d+$"
         }
@@ -15,7 +15,7 @@
         "first":[],
         "last":[{
             "headers":{
-                "uri":"https://dilbert.com/",
+                "uri":"https://dilbert.com/"
             },
             "frame":{
                 "%last":"img.img-responsive.img-comic @ href || \\d+-\\d+-\\d+"
@@ -31,5 +31,5 @@
             "%name":"meta[property='og:site_name'] @ content"
         }
     }],
-    "series-ids":["dilbert"],
+    "series-ids":["dilbert"]
 }

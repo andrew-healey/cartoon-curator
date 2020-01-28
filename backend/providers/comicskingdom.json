@@ -34,7 +34,7 @@
             "frame": {
                 "%last": "meta[property='og:url'] @ content || [0-9-]+$"
             }
-        }],
+        }]
     },
     "date-format": "YYYY-MM-DD",
     "list-names": [{
