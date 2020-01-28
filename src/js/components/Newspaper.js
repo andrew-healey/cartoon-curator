@@ -162,6 +162,7 @@ export default class Newspaper extends Component {
         this.setState({
             comics: list
         });
+        this.setURL(list);
         return ret;
     }
     addDays(numDays) {
