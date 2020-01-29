@@ -1,0 +1,49 @@
+{
+    "id": "noaa",
+    "name": "NOAA",
+    "series-ids": ["stnplot", "minmax", "500ht", "prcn"],
+    "date-formats": ["YYYY-MM-DD", "YYYY[]MM[]DD"],
+    "src-to-url": "https://www.wpc.ncep.noaa.gov/dailywxmap/htmlimages/${src}",
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://www.wpc.ncep.noaa.gov/dailywxmap/dwm_${seriesId}_$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YYYY[]MM[]DD\"}.html"
+        },
+        "frame": {
+            "%src": "img @ src || [^/]+$"
+        }
+    }, {
+        "headers": {
+            "uri": "https://www.wpc.ncep.noaa.gov/dailywxmap/title_$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YYYY[]MM[]DD\"}.html"
+        },
+        "frame": {
+            "%next": "a[alt*='next'] @ href || \\d+",
+            "%previous": "a[alt*='previous'] @ href || \\d+"
+        }
+    }],
+    "get-name": [{
+        "headers": {
+            "uri": "https://www.wpc.ncep.noaa.gov/dailywxmap/index.html"
+        },
+        "frame": {
+            "%date": "FRAME[src*='title'] @ src || \\d+"
+        }
+    }, {
+        "headers": {
+            "uri": "https://www.wpc.ncep.noaa.gov/dailywxmap/dwm_${seriesId}_${date}.html"
+        },
+        "frame": {
+            "%name": "title"
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": [{
+            "headers": {
+                "uri": "https://www.wpc.ncep.noaa.gov/dailywxmap/index.html"
+            },
+            "frame": {
+                "%last": "FRAME[src*='title'] @ src || \\d+"
+            }
+        }]
+    }
+}

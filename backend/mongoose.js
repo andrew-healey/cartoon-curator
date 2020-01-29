@@ -51,7 +51,6 @@ module.exports = new Promise(async (resolve, reject) => {
     series = new mongoose.Schema({
         name: {
             type: String,
-            required: true,
         },
         seriesId: {
             type: String,
@@ -204,7 +203,10 @@ module.exports = new Promise(async (resolve, reject) => {
     providers.methods.getNames = async function() {
         //TODO Make this rerun every once in a while
         try {
-            this.seriesIds = this.seriesIds != false ? this.seriesIds : (await runSteps(this.namesJson, {})).seriesIds;
+            if (this.seriesIds == false) {
+                const temp= Array.from((await runSteps(this.namesJson, {})).seriesIds);
+                this.seriesIds = temp;
+            }
             await this.save();
             return this.seriesIds;
         } catch (err) {
@@ -334,7 +336,6 @@ module.exports = new Promise(async (resolve, reject) => {
                 next: Provider.formatDate(nextDate),
             };
         } catch (err) {
-            console.error(err);
             return {};
         }
     };
