@@ -1,16 +1,16 @@
 {
     "name": "Astronomy Picture of the Day",
     "id": "apod",
-    "date-formats":["YYMMDD","YYYY-MM-DD"],
-    "series-ids":["apod"],
+    "date-formats": ["YYMMDD", "YYYY-MM-DD"],
+    "series-ids": ["apod"],
     "date-scrape": [{
         "headers": {
             "uri": "https://apod.nasa.gov/apod/ap$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YY[]MM[]DD\"}.html"
         },
         "frame": {
-            "%src": "img @ src \\d+/[^/]+$",
-            "%next":"center:last-of-type a:contains('>') @ href || \\d+",
-            "%previous":"center:last-of-type a:contains('\\<') @ href || \\d+"
+            "%src": "img, video @ src || \\d+/[^/]+$",
+            "%next": "center:last-of-type :nth-last-child(3) @ href || \\d+",
+            "%previous": "center:last-of-type :nth-last-child(13) @ href || \\d+"
         }
     }],
     "extremes-scrape": {
