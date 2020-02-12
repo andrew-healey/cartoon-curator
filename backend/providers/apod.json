@@ -1,0 +1,43 @@
+{
+    "name": "Astronomy Picture of the Day",
+    "id": "apod",
+    "date-formats":["YYMMDD","YYYY-MM-DD"],
+    "series-ids":["apod"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://apod.nasa.gov/apod/ap$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YY[]MM[]DD\"}.html"
+        },
+        "frame": {
+            "%src": "img @ src \\d+/[^/]+$",
+            "%next":"center:last-of-type a:contains('>') @ href || \\d+",
+            "%previous":"center:last-of-type a:contains('\\<') @ href || \\d+"
+        }
+    }],
+    "extremes-scrape": {
+        "last": [{
+            "headers": {
+                "uri": "https://apod.nasa.gov/apod/archivepix.html"
+            },
+            "frame": {
+                "%last": "b a:last-of-type @ href || \\d+"
+            }
+        }],
+        "first": [{
+            "headers": {
+                "uri": "https://apod.nasa.gov/apod/archivepixFull.html"
+            },
+            "frame": {
+                "%first": "a:nth-child(1) @ href || \\d+"
+            }
+        }]
+    },
+    "src-to-url": "https://apod.nasa.gov/apod/image/${src}",
+    "get-name": [{
+        "headers": {
+            "uri": "https://apod.nasa.gov/apod/astropix.html"
+        },
+        "frame": {
+            "%name": "h1"
+        }
+    }]
+}

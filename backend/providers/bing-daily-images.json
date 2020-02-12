@@ -1,0 +1,17 @@
+{
+    "id":"bing-daily-images",
+    "name":"Bing Daily Images",
+    "get-names":[{
+        "headers":{
+            "uri":"http://www.lingoes.net/en/translator/langcode.htm"
+        },
+        "frame":{
+            "%names":["td:nth-child(1)"]
+        }
+    }],
+    "date-scrape":[{
+        "headers":{
+            "uri":"TODO"
+        }
+    }]
+}

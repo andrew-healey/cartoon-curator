@@ -1,0 +1,39 @@
+{
+    "name": "Picture Bots",
+    "id": "bots",
+    "date-formats":["YYYY-MM-DD"],
+    "series-ids":["inspirobot.me","xmascardbot.com"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://${seriesId}/api?generate=true"
+        },
+        "text":"%src"
+    },{
+        "headers":{
+            "uri":"https://get-adjacent-days.herokuapp.com/",
+            "method":"post",
+            "json":{
+                "day":"${day}",
+                "month":"${month}",
+                "year":"${year}"
+            }
+        },
+        "json":{
+            "%previous":0,
+            "%next":0
+        }
+    }],
+    "extremes-scrape": {
+        "last": [],
+        "first": []
+    },
+    "src-to-url": "${src}",
+    "get-name": [{
+        "headers": {
+            "uri": "https://${seriesId}/"
+        },
+        "frame": {
+            "%name": ".navbar-brand"
+        }
+    }]
+}
