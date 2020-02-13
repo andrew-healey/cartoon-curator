@@ -137,18 +137,41 @@ module.exports = new Promise(async (resolve, reject) => {
         //TODO Handle updating providers
         if (preExisting) {
             if (password && await bcrypt.compare(password, preExisting.password)) {
-                preExisting.name = json.name,
-                    preExisting.provId = json.id,
-                    preExisting.dateJson = json["date-scrape"],
-                    preExisting.firstJson = json["extremes-scrape"].first,
-                    preExisting.lastJson = json["extremes-scrape"].last,
-                    preExisting.urlRx = json["src-to-url"],
-                    preExisting.nameJson = json["get-name"],
-                    preExisting.dateFormats = Object.values(json["date-formats"] || [json["date-format"] || "YYYY-MM-DD"]);
+                const hasFound = Object.entries({
+                    name: json.name,
+                    provId: json.id,
+                    dateJson: json["date-scrape"],
+                    first: json["extremes-scrape"].first,
+                    last: json["extremes-scrape"].last,
+                    urlRx: json["src-to-url"],
+                    nameJson: json["get-name"],
+                    dateFormats: Object.values(json["date-formats"] || [json["date-format"] || "YYYY-MM-DD"]),
+                    seriesIds: json["series-ids"],
+                    namesJson: json["list-names"],
+                }).reduce((last, [key, val]) => {
+                    if (preExisting[key] != val) {
+                        preExisting[key] = val;
+                        return true;
+                    }
+                    return last;
+                }, false);
+                /*
+                preExisting.name = json.name;
+                preExisting.provId = json.id;
+                preExisting.dateJson = json["date-scrape"];
+                preExisting.firstJson = json["extremes-scrape"].first,;
+                preExisting.lastJson = json["extremes-scrape"].last;
+                preExisting.urlRx = json["src-to-url"];
+                preExisting.nameJson = json["get-name"];
+                preExisting.dateFormats = Object.values(json["date-formats"] || [json["date-format"] || "YYYY-MM-DD"]);
                 preExisting.seriesIds = json["series-ids"];
                 preExisting.namesJson = json["list-names"];
-                await preExisting.save();
-                return true;
+                */
+                if (hasFound) {
+                    await preExisting.save();
+                    await preExisting.refresh();
+                    return true;
+                }
             }
             return false;
         }
@@ -204,7 +227,7 @@ module.exports = new Promise(async (resolve, reject) => {
         //TODO Make this rerun every once in a while
         try {
             if (this.seriesIds == false) {
-                const temp= Array.from((await runSteps(this.namesJson, {})).seriesIds);
+                const temp = Array.from((await runSteps(this.namesJson, {})).seriesIds);
                 this.seriesIds = temp;
             }
             await this.save();

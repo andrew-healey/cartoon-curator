@@ -14,8 +14,6 @@
     } = require("./providers");
 
     const providers = await loadProviders();
-    await Promise.all(providers.map(async provider => (await Provider.new(provider, process.env.STD_PASSWORD) ? (await Provider.findOne({
-        provId: provider.id
-    })).refresh() : null)));
+    await Promise.all(providers.map(provider => Provider.new(provider, process.env.STD_PASSWORD)));
 
 })();
