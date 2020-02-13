@@ -60,7 +60,7 @@ module.exports = new Promise(async (resolve, reject) => {
             password = `${saltshaker(64)}`, json
         } = req.body;
         res.json({
-            provider: { ...(await Provider.new(json, password)),
+            provider: { saved:(await Provider.new(json, password)),
                 password: undefined
             },
             password
