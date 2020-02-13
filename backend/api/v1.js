@@ -68,6 +68,5 @@ module.exports = new Promise(async (resolve, reject) => {
     });
 
 
-    //Provider.new(require("../providers/gocomics.json"), "Test_PW").then(i => console.log("Made GoComics!"));
     resolve(router);
 });
