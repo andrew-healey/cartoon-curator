@@ -6,7 +6,7 @@
     "@babel/preset-react": "^7.8.3",
     "@babel/runtime": "^7.8.3",
     "@sesamestrong/json-scraper": "^3.0.0",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^3.0.8",
     "bluebird": "^3.7.2",
     "cheerio": "^1.0.0-rc.3",
     "core-js": "^3.6.4",
