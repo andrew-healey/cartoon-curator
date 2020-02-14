@@ -1,5 +1,6 @@
 require("dotenv").config();
 const moment = require("moment");
+const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const {
     extensions
@@ -139,17 +140,16 @@ module.exports = new Promise(async (resolve, reject) => {
             if (password && await bcrypt.compare(password, preExisting.password)) {
                 const hasFound = Object.entries({
                     name: json.name,
-                    provId: json.id,
                     dateJson: json["date-scrape"],
-                    first: json["extremes-scrape"].first,
-                    last: json["extremes-scrape"].last,
+                    firstJson: json["extremes-scrape"].first || [],
+                    lastJson: json["extremes-scrape"].last || [],
                     urlRx: json["src-to-url"],
                     nameJson: json["get-name"],
                     dateFormats: Object.values(json["date-formats"] || [json["date-format"] || "YYYY-MM-DD"]),
-                    seriesIds: json["series-ids"],
+                    seriesIds: json["series-ids"] || [],
                     namesJson: json["list-names"],
                 }).reduce((last, [key, val]) => {
-                    if (preExisting[key] != val) {
+                    if (!_.isEqual(preExisting[key], val)) {
                         preExisting[key] = val;
                         return true;
                     }
