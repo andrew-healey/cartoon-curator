@@ -59,11 +59,32 @@ module.exports = new Promise(async (resolve, reject) => {
         const {
             password = `${saltshaker(64)}`, json
         } = req.body;
+        if(json.id=="provider") return res.json({ok:false});
         res.json({
             provider: { saved:(await Provider.new(json, password)),
                 password: undefined
             },
             password
+        });
+    });
+
+    router.get("/:provider",async (req, res) => {
+        const {provider:provId}=req.params;
+        const toGet=await Provider.findOne({provId});
+        if(!toGet) return res.json({ok:false});
+        return res.json({
+            "series-ids":toGet.seriesIds,
+            "date-scrape":toGet.dateJson,
+            "extremes-scrape":{
+                "first":toGet.first,
+                "last":toGet.last,
+            },
+            "get-name":toGet.nameJson,
+            "date-formats":toGet.dateFormats,
+            "list-names":toGet.namesJson,
+            "src-to-url":toGet.urlRx,
+            "id":toGet.provId,
+            "name":toGet.name
         });
     });
 
