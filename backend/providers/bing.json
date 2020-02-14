@@ -2,23 +2,10 @@
     "series-ids": [],
     "date-scrape": [{
         "headers": {
-            "uri": "https://get-bing-id.herokuapp.com/",
-            "method": "POST",
-            "json": {
-                "year": "${year}",
-                "month": "${month}",
-                "day": "${day}"
-            }
+            "uri": "https://bingwallpaper.anerg.com/${seriesId}/$convert{\"${year}-${month}\",\"YYYY-MM\",\"YYYY[]MM\"}"
         },
-        "text": "%id"
-    }, {
-        "headers": {
-            "uri": "https://bing.com/HPImageArchive.aspx?format=js&idx=${id}&n=1&mkt=${seriesId}"
-        },
-        "json": {
-            "images": {
-                "%url": "src"
-            }
+        "frame": {
+            "%src": "div[data-u=slides] div:nth-of-type(${day}) img @ src || \\d+/[^/]+(?=\\.jpg$)"
         }
     }, {
         "headers": {
@@ -37,35 +24,26 @@
     }],
     "extremes-scrape": {
         "first": [],
-        "last": [{
-            "headers": {
-                "uri": "https://bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=${seriesId}"
-            }
-        }],
-        "json": {
-            "images": {
-                "%enddate": "last"
-            }
-        }
+        "last": []
     },
     "get-name": [{
         "headers": {
-            "uri": "http://www.lingoes.net/en/translator/langcode.htm"
+            "uri": "https://bingwallpaper.anerg.com/"
         },
         "frame": {
-            "%name": "td:contains('${seriesId}') ~ td"
+            "%name": "div.select-area select:first-of-type option[value='${seriesId}']"
         }
     }],
     "date-formats": ["YYYY-MM-DD", "YYYY[]MM[]DD"],
     "list-names": [{
         "headers": {
-            "uri": "http://www.lingoes.net/en/translator/langcode.htm"
+            "uri": "https://bingwallpaper.anerg.com/"
         },
         "frame": {
-            "%seriesIds": ["td:nth-child(1)"]
+            "%seriesIds": ["div.select-area select:first-of-type option @ value"]
         }
     }],
-    "src-to-url": "https://bing.com${src}",
+    "src-to-url": "https://bing.nanxiongnandi.com/${src}.jpg",
     "id": "bing",
     "name": "Bing Daily Images"
 }

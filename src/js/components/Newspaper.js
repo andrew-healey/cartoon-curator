@@ -89,6 +89,7 @@ export default class Newspaper extends Component {
             date
         }));
         this.state.comics = newComics;
+        if(search.get("sync")=="true") this.setURL(this.state.comics,this.state.date,true);
     }
     render() {
         return (
@@ -184,12 +185,13 @@ export default class Newspaper extends Component {
             comics: newComics
         });
     }
-    setURL(comics, date = this.state.date) {
+    setURL(comics, date = this.state.date, doQuery = false) {
         let mom = moment(date);
         //   alert(this.url);
         if (comics) {
             this.url.delete("comic");
-            if (SAVE_AS_URL) {
+            this.url.delete("provider");
+            if (SAVE_AS_URL||doQuery) {
                 for (let comic of comics) {
                     this.url.append("comic", comic.id);
                     this.url.append("provider", comic.provider);
