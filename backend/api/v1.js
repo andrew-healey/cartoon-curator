@@ -77,7 +77,7 @@ module.exports = new Promise(async (resolve, reject) => {
             "date-scrape":toGet.dateJson,
             "extremes-scrape":{
                 "first":toGet.firstJson,
-                "last":toGet.Json,
+                "last":toGet.lastJson,
             },
             "get-name":toGet.nameJson,
             "date-formats":toGet.dateFormats,
