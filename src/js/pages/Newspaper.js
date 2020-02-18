@@ -2,7 +2,7 @@ import moment from "moment";
 import React, {
     Component
 } from "react";
-import Comic from "./Comic";
+import Comic from "../components/Comic";
 import {
     dateFromPath,
     getCookie,
