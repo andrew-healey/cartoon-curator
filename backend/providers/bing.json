@@ -5,7 +5,7 @@
             "uri": "https://bingwallpaper.anerg.com/${seriesId}/$convert{\"${year}-${month}\",\"YYYY-MM\",\"YYYY[]MM\"}"
         },
         "frame": {
-            "%src": "div[data-u=slides] div:nth-of-type(${day}) img @ src || \\d+/[^/]+(?=\\.jpg$)"
+            "%src": "div[data-u=slides] > div:nth-child(${day}) img @ src || \\d+/[^/]+(?=\\.jpg$)"
         }
     }, {
         "headers": {
