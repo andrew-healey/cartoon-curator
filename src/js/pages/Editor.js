@@ -30,7 +30,7 @@ class App extends React.Component {
         const search = new URLSearchParams(window.location.search);
         const toEdit = search.get("edit");
         if (toEdit) fetch(API_URL + "/api/v1/" + toEdit).then(res => res.text()).then(text => this.setState({
-            currJson: JSON.parse(text.replaceAll("\\","\\\\"))
+            currJson: JSON.parse(text.replaceAll("\\\\","\\\\\\\\"))
         }));
     }
 
@@ -41,7 +41,7 @@ class App extends React.Component {
     render() {
         const editorProps={ style:{outerBox:{flexGrow:"1",height:"100%"},container:{width:"100%",height:"100%"}},theme:"light_mitsuketa_tribute"};
         return (
-            <div className="App">
+            <div className="Editor">
                                     Password: <input type="password" size="50" value={this.state.password} onChange={(evt)=>this.setState({password:evt.target.value})}></input>
                                             <br/>
                                                     API URL: <input type="text" size="50" value={this.state.apiUrl} onChange={(evt)=>this.setState({apiUrl:evt.target.value})}></input>
@@ -51,7 +51,7 @@ class App extends React.Component {
                                                                             <br/>
                                                                     <input type="button" value="Copy to Clipboard" onClick={()=>this.copyToClipboard()}/>
                                                                             <div className="textarea-holder">
-                                                                                <Editor placeholder={this.state.currJson} onChange={(evt)=>{this.state.tempJson=jsObject}} {...editorProps} />
+                                                                                <Editor placeholder={this.state.currJson} onChange={(evt)=>{this.state.tempJson=evt.jsObject}} {...editorProps} />
                                                                                             <img className="sample-image" src={this.state.output.url} style={{maxWidth:"49vw",height:"auto"}}/>
                                                                                             <Editor readOnly placeholder={(this.state.output)} {...editorProps}/>>
                                                                                                         </div>
