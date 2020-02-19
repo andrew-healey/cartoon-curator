@@ -27,7 +27,6 @@ class App extends React.Component {
             output: {},
             apiUrl: API_URL + "/api/v1/"
         };
-        this.toCopy = createRef();
         const search = new URLSearchParams(window.location.search);
         const toEdit = search.get("edit");
         if (toEdit) fetch(API_URL + "/api/v1/" + toEdit).then(res => res.text()).then(text => this.setState({
@@ -37,9 +36,6 @@ class App extends React.Component {
 
     copyToClipboard(){
         navigator.clipboard.writeText(JSON.stringify(this.state.currJson,null));
-        this.toCopy.current.focus();
-        this.toCopy.current.select();
-        document.execCommand('copy');
     }
 
     render() {
@@ -59,7 +55,6 @@ class App extends React.Component {
                                                                                             <img className="sample-image" src={this.state.output.url} style={{maxWidth:"49vw",height:"auto"}}/>
                                                                                             <Editor readOnly placeholder={(this.state.output)} {...editorProps}/>>
                                                                                                         </div>
-                                                                                                        <textarea readOnly style={{display:"none"}} ref={this.toCopy} value={JSON.stringify(this.state.currJson)}></textarea>
                                                                                                     <br/>
                                                                                                                   </div>
         );
