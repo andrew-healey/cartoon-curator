@@ -292,7 +292,6 @@ module.exports = new Promise(async (resolve, reject) => {
         const first = await this.getFirst(seriesId);
         const last = await this.getLast(seriesId);
         const name = await this.getName(seriesId);
-        console.log("name",name);
         return {
             first,
             last,

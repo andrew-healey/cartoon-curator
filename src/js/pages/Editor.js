@@ -30,8 +30,8 @@ class App extends React.Component {
         this.toCopy = createRef();
         const search = new URLSearchParams(window.location.search);
         const toEdit = search.get("edit");
-        if (toEdit) fetch(API_URL + "/api/v1/" + toEdit).then(res => res.json()).then(json => this.setState({
-            currJson: json
+        if (toEdit) fetch(API_URL + "/api/v1/" + toEdit).then(res => res.text()).then(text => this.setState({
+            currJson: JSON.parse(text.replaceAll("\\","\\\\"))
         }));
     }
 
@@ -79,7 +79,6 @@ class App extends React.Component {
                 })
             })).json()
             const output = await (await fetch(this.state.apiUrl + this.state.query)).json();
-            console.log("doorn");
             this.setState({
                 output
             });
