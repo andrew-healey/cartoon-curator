@@ -51,7 +51,7 @@ class App extends React.Component {
                                                                             <br/>
                                                                     <input type="button" value="Copy to Clipboard" onClick={()=>this.copyToClipboard()}/>
                                                                             <div className="textarea-holder">
-                                                                                <Editor placeholder={this.state.currJson} onChange={(evt)=>this.setState({tempJson:evt.jsObject})} {...editorProps} />
+                                                                                <Editor placeholder={this.state.currJson} onChange={(evt)=>{this.state.tempJson=jsObject}} {...editorProps} />
                                                                                             <img className="sample-image" src={this.state.output.url} style={{maxWidth:"49vw",height:"auto"}}/>
                                                                                             <Editor readOnly placeholder={(this.state.output)} {...editorProps}/>>
                                                                                                         </div>
