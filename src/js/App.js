@@ -20,11 +20,11 @@ class App extends Component {
         return (
             <Router>
                 <Switch>
-                    <Route path="/">
-                        <Newspaper/>
-                    </Route>
                     <Route path="/editor">
                         <Editor/>
+                    </Route>
+                    <Route path="/">
+                        <Newspaper/>
                     </Route>
                 </Switch>
             </Router>

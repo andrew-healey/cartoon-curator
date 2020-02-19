@@ -1,0 +1,44 @@
+{
+    "series-ids": ["cat"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://api.thecatapi.com/v1/images/search?limit=1&size=full",
+            "headers": {
+                "x-api-key": "36672353-2346-4e4d-8df9-364fc5826c8a"
+            }
+        },
+        "json": {
+            "%id": "src"
+        }
+    }, {
+        "headers": {
+            "uri": "https://get-adjacent-days.herokuapp.com",
+            "method": "POST",
+            "json": {
+                "year": "${year}",
+                "month": "${month}",
+                "day": "${day}"
+            }
+        },
+        "json": {
+            "%previous": 0,
+            "%next": 0
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": []
+    },
+    "get-name": [{
+        "headers": {
+            "uri": "https://api.thecatapi.com/"
+        },
+        "json": {
+            "%message": "name"
+        }
+    }],
+    "date-formats": ["YYYY-MM-DD"],
+    "src-to-url": "https://cdn2.thecatapi.com/images/${src}.jpg",
+    "id": "cat-api",
+    "name": "Cat API"
+}

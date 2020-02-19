@@ -1,0 +1,41 @@
+{
+    "series-ids": ["dog"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://dog.ceo/api/breeds/image/random"
+        },
+        "json": {
+            "%message": "src"
+        }
+    }, {
+        "headers": {
+            "uri": "https://get-adjacent-days.herokuapp.com",
+            "method": "POST",
+            "json": {
+                "year": "${year}",
+                "month": "${month}",
+                "day": "${day}"
+            }
+        },
+        "json": {
+            "%previous": 0,
+            "%next": 0
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": []
+    },
+    "get-name": [{
+        "headers": {
+            "uri": "https://dog.ceo/dog-api"
+        },
+        "frame": {
+            "%name": "h1"
+        }
+    }],
+    "date-formats": ["YYYY-MM-DD"],
+    "src-to-url": "${src}",
+    "id": "dog-api",
+    "name": "Dog API"
+}

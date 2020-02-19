@@ -1,7 +1,22 @@
 .App {
+    display:flex;
+    flex-flow:column;
+    height:100vh;
 }
 .App > * {
   margin: auto;
+}
+.textarea-holder {
+    flex-grow:1;
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content:space-around;
+    align-items:center;
+    width:100%;
+}
+
+.sample-image {
+    flex-shrink:1;
 }
 .navBar {
   margin: 5% auto;

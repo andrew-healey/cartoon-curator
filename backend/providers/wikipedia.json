@@ -1,0 +1,29 @@
+{
+    "series-ids": ["en"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://en.wikipedia.org/wiki/Template:POTD/$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YYYY-MM-DD\"}"
+        },
+        "frame": {
+            "%src": "div#mw-content-text img @ src || (?<=//upload.wikimedia.org/wikipedia/commons/thumb/).+$",
+            "%previous": "div[role=navigation] div a[href^=\"/wiki/Template:POTD/\"] @ href || \\d+-\\d+-\\d+$",
+            "%next": "div[role=navigation] div:last-of-type a[href^=\"/wiki/Template:POTD/\"] @ href || \\d+-\\d+-\\d+$"
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": []
+    },
+    "get-name": [{
+        "headers": {
+            "uri": "https://en.wikipedia.org/wiki/Wikipedia:Picture_of_the_day"
+        },
+        "frame": {
+            "%name": "h1"
+        }
+    }],
+    "date-formats": ["YYYY-MM-DD"],
+    "src-to-url": "https://upload.wikimedia.org/wikipedia/commons/thumb/${src}",
+    "id": "wikipedia",
+    "name": "Wikipedia Image of the Day"
+}

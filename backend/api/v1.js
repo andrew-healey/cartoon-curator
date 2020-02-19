@@ -48,7 +48,7 @@ module.exports = new Promise(async (resolve, reject) => {
     });
 
     router.get("/ids", async (req, res) => {
-        res.json((await Promise.all((await Provider.find()).map(async provider => console.log(provider.provId)||({
+        res.json((await Promise.all((await Provider.find()).map(async provider => ({
             [provider.provId]: await provider.getNames()
         })))).reduce((last, next) => ({ ...last,
             ...next
