@@ -1,5 +1,5 @@
 import React,{createRef} from 'react';
-import '../../css/App.css';
+import '../../css/Editor.css';
 import Editor from 'react-json-editor-ajrm';
 import {
     API_URL
