@@ -9,7 +9,7 @@ import '../css/App.css';
 import Editor from './pages/Editor';
 
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Switch,
     Link,
