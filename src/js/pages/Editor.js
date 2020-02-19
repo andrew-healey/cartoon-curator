@@ -25,7 +25,7 @@ class App extends React.Component {
             }),
             password: "",
             output: {},
-            apiUrl: API_URL + "/api/v1/"
+            apiUrl: API_URL + "/api/v1/",
         };
         const search = new URLSearchParams(window.location.search);
         const toEdit = search.get("edit");
@@ -51,7 +51,7 @@ class App extends React.Component {
                                                                             <br/>
                                                                     <input type="button" value="Copy to Clipboard" onClick={()=>this.copyToClipboard()}/>
                                                                             <div className="textarea-holder">
-                                                                                <Editor placeholder={this.state.currJson} onChange={(evt)=>this.setState({currJson:evt.jsObject})} {...editorProps} />
+                                                                                <Editor placeholder={this.state.currJson} onChange={(evt)=>this.setState({tempJson:evt.jsObject})} {...editorProps} />
                                                                                             <img className="sample-image" src={this.state.output.url} style={{maxWidth:"49vw",height:"auto"}}/>
                                                                                             <Editor readOnly placeholder={(this.state.output)} {...editorProps}/>>
                                                                                                         </div>
@@ -61,7 +61,8 @@ class App extends React.Component {
     }
     async runJSON() {
         try {
-            const parsed = this.state.currJson;
+            const parsed = this.state.tempJson||this.state.currJson;
+            this.setState({currJson:parsed});
             const didPost = await (await fetch(this.state.apiUrl + "provider", {
                 method: "POST",
                 mode: 'cors',
