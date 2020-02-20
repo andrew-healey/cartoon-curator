@@ -76,7 +76,7 @@ class App extends React.Component {
             })).json()
             const output = await (await fetch(this.state.apiUrl + this.state.query)).json();
             this.setState({
-                output
+                output:output||{}
             });
         } catch (err) {
             alert(err.message);
