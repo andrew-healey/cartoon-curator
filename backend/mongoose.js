@@ -238,9 +238,13 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     const runSteps = async function(steps, vars) {
+        try{
         return await runEntireScraper({
             steps
         }, vars, extensions);
+        } catch(err){
+            return {err};
+        }
     }
 
     providers.methods.getFirst = async function(seriesId) {
@@ -327,7 +331,8 @@ module.exports = new Promise(async (resolve, reject) => {
                 const {
                     src,
                     previous,
-                    next
+                    next,
+                    ...rest
                 } = (await runSteps(this.dateJson, {
                     seriesId,
                     year,
@@ -336,7 +341,7 @@ module.exports = new Promise(async (resolve, reject) => {
                 }));
                 prevDate = this.parseDate(previous);
                 nextDate = this.parseDate(next);
-                if (!(src && date.isValid())) return {};
+                if (!(src && date.isValid())) return {...rest};
                 comic = new Comic({
                     previous: (prevDate && prevDate.isValid() && prevDate.toDate()) || undefined,
                     next: (nextDate && nextDate.isValid() && nextDate.toDate()) || undefined,
