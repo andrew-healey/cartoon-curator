@@ -41,7 +41,7 @@
             "uri": "https://gocomics.com/${seriesId}"
         },
         "frame": {
-            "%name": ".mb-0"
+            "%name": ".media-body.ml-3 .mb-0"
         }
     }],
     "list-names": [{
