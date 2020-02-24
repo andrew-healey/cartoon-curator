@@ -103,7 +103,7 @@ export default class Comic extends Component {
             let url = this.getUrl(date);
             let json = await fetch(url);
             json = await json.json();
-            if (json.error) {
+            if (!json||json.error) {
                 console.log(url, "failed");
             }
             thisComic = json;
