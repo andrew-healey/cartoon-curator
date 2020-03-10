@@ -129,7 +129,7 @@ export default class Comic extends Component {
                 } catch (err) {
                     continue;
                 }
-                strips[thisComic[order]] = json;
+                strips[thisComic[order]] = json||undefined;
             } else {
                 strips[thisComic[order]] = this.state.strips[thisComic[order]];
             }
