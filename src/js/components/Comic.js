@@ -142,6 +142,6 @@ export default class Comic extends Component {
         }
     }
     getUrl(date) {
-        return `${API_URL}/api/${API_VERSION}/${this.state.provider}/${this.state.id}/${date}`
+        return `${API_URL}/api/${API_VERSION}/${encodeURIComponent(this.state.provider)}/${this.state.id}/${date}`
     }
 }
