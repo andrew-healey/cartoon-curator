@@ -93,7 +93,7 @@ export default class Comic extends Component {
     async findUrl(date) {
         if(!(this.state.id&&this.state.provider)) return;
         if(this.state.id&&this.state.provider&&!this.state.name) {
-            fetch(`${API_URL}/api/${API_VERSION}/${this.state.provider}/${this.state.id}`)
+            fetch(`${API_URL}/api/${API_VERSION}/${encodeURIComponent(this.state.provider)}/${encodeURIComponent(this.state.id)}`)
                 .then(resp=>resp.json()).then(json=>this.setState({name:json.name}));
         }
         date = date || this.state.date;
@@ -142,6 +142,6 @@ export default class Comic extends Component {
         }
     }
     getUrl(date) {
-        return `${API_URL}/api/${API_VERSION}/${encodeURIComponent(this.state.provider)}/${this.state.id}/${date}`
+        return `${API_URL}/api/${API_VERSION}/${encodeURIComponent(this.state.provider)}/${encodeURIComponent(this.state.id)}/${date}`
     }
 }
