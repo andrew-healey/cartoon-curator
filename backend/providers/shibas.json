@@ -31,7 +31,7 @@
             "uri": "https://legitcode267.github.io/react-random-shiba/"
         },
         "frame": {
-            "%name": "meta[name=\"description\"] @ content"
+            "%name": "title"
         }
     }],
     "date-formats": ["YYYY-MM-DD"],
