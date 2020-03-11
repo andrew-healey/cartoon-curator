@@ -13,7 +13,7 @@ module.exports = new Promise(async (resolve, reject) => {
         getString,
     } = require("@sesamestrong/json-scraper");
 
-    const dbUrl = process.env.DATABASE.replace(/<password>/, process.env.PASSWORD).replace(/<divison>/,process.env.DIVISION);
+    const dbUrl = process.env.DATABASE.replace(/<password>/, process.env.PASSWORD).replace(/<division>/,process.env.DIVISION);
     mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -155,18 +155,6 @@ module.exports = new Promise(async (resolve, reject) => {
                     }
                     return last;
                 }, false);
-                /*
-                preExisting.name = json.name;
-                preExisting.provId = json.id;
-                preExisting.dateJson = json["date-scrape"];
-                preExisting.firstJson = json["extremes-scrape"].first,;
-                preExisting.lastJson = json["extremes-scrape"].last;
-                preExisting.urlRx = json["src-to-url"];
-                preExisting.nameJson = json["get-name"];
-                preExisting.dateFormats = Object.values(json["date-formats"] || [json["date-format"] || "YYYY-MM-DD"]);
-                preExisting.seriesIds = json["series-ids"];
-                preExisting.namesJson = json["list-names"];
-                */
                 if (hasFound) {
                     await preExisting.save();
                     await preExisting.refresh();
@@ -237,11 +225,11 @@ module.exports = new Promise(async (resolve, reject) => {
         }
     };
 
-    const runSteps = async function(steps, vars) {
+    const runSteps = async function(steps, vars,varsOnly=true) {
         try{
-        return await runEntireScraper({
+            return (ans=>varsOnly?ans.vars:ans)(await runEntireScraper({
             steps
-        }, vars, extensions);
+        }, {vars}, extensions));
         } catch(err){
             return {err};
         }

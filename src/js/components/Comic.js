@@ -106,11 +106,11 @@ export default class Comic extends Component {
             if (!json||json.error) {
                 console.log(url, "failed");
             }
-            thisComic = json;
+            thisComic = json||undefined;
         } else {
             thisComic = this.state.strips[date];
         }
-        strips[date] = thisComic;
+        strips[date] = thisComic||undefined;
         if (this.state.date !== date) {
             this.setState({
                 date,
@@ -136,6 +136,7 @@ export default class Comic extends Component {
         }
         let oldKeys = Object.keys(this.state.strips);
         if (Object.keys(strips).filter(i => !oldKeys.includes(i)).length > 0) {
+            console.log("strps");
             this.setState({
                 strips
             });

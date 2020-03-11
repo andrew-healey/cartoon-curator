@@ -1,0 +1,51 @@
+{
+    "series-ids": ["epod"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://epod.usra.edu/blog/$convert{\"${year}-${month}\",\"YYYY-MM\",\"YYYY[/]MM\"}/index.html"
+        },
+        "frame": {
+            "%pageUrl": "ul.archive-list div:nth-child(${day}) a @ href"
+        }
+    }, {
+        "headers": {
+            "uri": "${pageUrl}"
+        },
+        "frame": {
+            "%src": "a.asset-img-link @ href || [^/]+$",
+            "%previousLink": "link[rel=prev] @ href",
+            "%nextLink": "link[rel=next] @ href"
+        }
+    }, {
+        "headers": {
+            "uri": "${previousLink}"
+        },
+        "frame": {
+            "%previous": "p.date"
+        }
+    }, {
+        "headers": {
+            "uri": "${nextLink}"
+        },
+        "frame": {
+            "%next": "p.date"
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": []
+    },
+    "get-name": [{
+        "headers": {
+            "uri": "https://epod.usra.edu/blog/about-epod.html"
+        },
+        "frame": {
+            "%name": "h3.entry-header || (?<=\\w+ ).+"
+        }
+    }],
+    "date-formats": ["YYYY-MM-DD", "MMMM[ ]DD[, ]YYYY"],
+    "list-names": [],
+    "src-to-url": "https://epod.usra.edu/.a/${src}",
+    "id": "epod",
+    "name": "Earth Science Photo of the Day"
+}

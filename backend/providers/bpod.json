@@ -1,0 +1,36 @@
+{
+    "series-ids": ["bpod"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://www.bpod.mrc.ac.uk/archive/${year}/${month}/${day}"
+        },
+        "frame": {
+            "%src": "img.profile_pic @ src || (?<=^//s3.amazonaws.com/mrc-bpod-production/imgs/).+$",
+            "%next": "a.next @ href || \\d+/\\d+/\\d+",
+            "%previous": "a.previous @ href || \\d+/\\d+/\\d+"
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": [{
+            "headers": {
+                "uri": "https://www.bpod.mrc.ac.uk/"
+            },
+            "frame": {
+                "%last": "h5.date"
+            }
+        }]
+    },
+    "get-name": [{
+        "headers": {
+            "uri": "https://www.bpod.mrc.ac.uk"
+        },
+        "frame": {
+            "%name": "a#logo img @ alt"
+        }
+    }],
+    "date-formats": ["YY[]MM[]DD", "YYYY-MM-DD", "DD[ ]MMMM[ ]YYYY"],
+    "src-to-url": "https://s3.amazonaws.com/mrc-bpod-production/imgs/${src}",
+    "id": "bpod",
+    "name": "Biomedical Picture of the Day"
+}

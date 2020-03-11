@@ -1,0 +1,41 @@
+{
+    "series-ids": ["cubism"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://art42.net/"
+        },
+        "frame": {
+            "%src": ".img-wrapper > img @ src || [^/]+/[^/]+(?=\\.jpg$)"
+        }
+    }, {
+        "headers": {
+            "uri": "https://get-adjacent-days.herokuapp.com/",
+            "method": "post",
+            "json": {
+                "day": "${day}",
+                "month": "${month}",
+                "year": "${year}"
+            }
+        },
+        "json": {
+            "%previous": 0,
+            "%next": 0
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": []
+    },
+    "get-name": [{
+        "headers": {
+            "uri": "https://art42.net/"
+        },
+        "frame": {
+            "%name": "title || ^[^|]+"
+        }
+    }],
+    "date-formats": ["YYYY-MM-DD"],
+    "src-to-url": "https://vcloud42.com/file/art42-cdn/${src}.jpg",
+    "id": "art42",
+    "name": "Art42"
+}

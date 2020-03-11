@@ -1,0 +1,42 @@
+{
+    "series-ids": ["img/dog", "img/cat", "img/panda", "img/red_panda", "img/birb", "img/fox", "img/koala", "animu/pat", "animu/hug", "meme", "pikachuimg"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://some-random-api.ml/${seriesId}"
+        },
+        "json": {
+            "%link": "src",
+            "%image": "src"
+        }
+    }, {
+        "headers": {
+            "uri": "https://get-adjacent-days.herokuapp.com",
+            "method": "POST",
+            "json": {
+                "year": "${year}",
+                "month": "${month}",
+                "day": "${day}"
+            }
+        },
+        "json": {
+            "%previous": 0,
+            "%next": 0
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": []
+    },
+    "get-name": [{
+        "headers": {
+            "uri": "https://some-random-api.ml"
+        },
+        "frame": {
+            "%name": "div.card-body:has(a[href^=\"/${seriesId}\"]) h2"
+        }
+    }],
+    "date-formats": ["YYYY-MM-DD"],
+    "src-to-url": "${src}",
+    "id": "some-random-api",
+    "name": "Some Random API"
+}

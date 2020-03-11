@@ -22,7 +22,7 @@ module.exports = new Promise(async (resolve, reject) => {
         const provider = await Provider.findOne({
             provId: req.params.provider
         });
-        if (!provider) res.status(404);
+        if (!provider) return res.status(404);
         res.send(await provider.getSeriesInfo(req.params.series));
     });
     router.get("/:providerId/:series/:year/:month/:day", async (req, res) => {
@@ -59,6 +59,7 @@ module.exports = new Promise(async (resolve, reject) => {
         const {
             password = `${saltshaker(64)}`, json
         } = req.body;
+        if(!json||!json.id) return res.json({ok:false});
         if(json.id=="provider") return res.json({ok:false});
         res.json({
             provider: { saved:(await Provider.new(json, password)),
