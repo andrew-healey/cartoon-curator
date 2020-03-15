@@ -13,7 +13,7 @@ module.exports = new Promise(async (resolve, reject) => {
         getString,
     } = require("@sesamestrong/json-scraper");
 
-    const dbUrl = process.env.DATABASE.replace(/<password>/, process.env.PASSWORD).replace(/<division>/,process.env.DIVISION);
+    const dbUrl = process.env.DATABASE.replace(/<password>/, process.env.PASSWORD).replace(/<division>/, process.env.DIVISION);
     mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -25,19 +25,17 @@ module.exports = new Promise(async (resolve, reject) => {
         ObjectId
     } = mongoose.Schema.Types;
 
-    let Comic, Series, Provider, comics, providers, series;
+    let Comic, Series, Provider, Newspaper, comics, providers, series, newspapers;
+
+    // Comics
 
     comics = new mongoose.Schema({
         date: {
             type: Date,
             required: true,
         },
-        next: {
-            type: Date,
-        },
-        previous: {
-            type: Date,
-        },
+        next: Date,
+        previous: Date,
         seriesId: {
             type: ObjectId,
             required: true,
@@ -47,7 +45,11 @@ module.exports = new Promise(async (resolve, reject) => {
             type: String,
             required: true,
         },
+        alt: String,
+        description: String,
     });
+
+    // Series
 
     series = new mongoose.Schema({
         name: {
@@ -63,6 +65,7 @@ module.exports = new Promise(async (resolve, reject) => {
         last: {
             type: Date,
         },
+        description:String,
         provId: {
             type: ObjectId,
             required: true,
@@ -70,11 +73,12 @@ module.exports = new Promise(async (resolve, reject) => {
         },
     });
 
-    series.statics.new = async function(seriesId, name, provider) {
+    series.statics.new = async function(seriesId, name, provider,description) {
         const series = new Series({
             seriesId,
             provId: provider.id,
             name,
+            description,
         });
         await series.save();
         return series;
@@ -85,6 +89,7 @@ module.exports = new Promise(async (resolve, reject) => {
             type: String,
             required: true
         },
+        description:String,
         provId: {
             type: String,
             required: true,
@@ -131,6 +136,8 @@ module.exports = new Promise(async (resolve, reject) => {
         }],
     });
 
+    // Providers
+
     providers.statics.new = async function(json, password) {
         const preExisting = await Provider.findOne({
             provId: json.id
@@ -148,6 +155,7 @@ module.exports = new Promise(async (resolve, reject) => {
                     dateFormats: Object.values(json["date-formats"] || [json["date-format"] || "YYYY-MM-DD"]),
                     seriesIds: json["series-ids"] || [],
                     namesJson: json["list-names"],
+                    description:json["description"],
                 }).reduce((last, [key, val]) => {
                     if (!_.isEqual(preExisting[key], val)) {
                         preExisting[key] = val;
@@ -175,6 +183,7 @@ module.exports = new Promise(async (resolve, reject) => {
             password: await bcrypt.hash(password, NUM_ROUNDS),
             namesJson: json["list-names"],
             seriesIds: json["series-ids"],
+            description:json["description"],
         });
         await n.save();
         return true;
@@ -225,27 +234,45 @@ module.exports = new Promise(async (resolve, reject) => {
         }
     };
 
-    const runSteps = async function(steps, vars,varsOnly=true) {
-        try{
-            return (ans=>varsOnly?ans.vars:ans)(await runEntireScraper({
-            steps
-        }, {vars}, extensions));
-        } catch(err){
-            return {err};
+    const runSteps = async function(steps, vars, varsOnly = true) {
+        try {
+            return (ans => varsOnly ? ans.vars : ans)(await runEntireScraper({
+                steps
+            }, {
+                vars
+            }, extensions));
+        } catch (err) {
+            return {
+                err
+            };
         }
     }
+
+    providers.methods.getDescription = async function(seriesId){
+        try {
+            const series = await this.getSeries(seriesId);
+            if (!series) throw new Error("Series does not exist.");
+            if (!series.description) {
+                series.description = (await runSteps(this.descriptionJson||[],{seriesId})||{}).description;
+                await series.save();
+            }
+            return series.description;
+        } catch (err) {
+            return null;
+        }
+    };
 
     providers.methods.getFirst = async function(seriesId) {
         try {
             const series = await this.getSeries(seriesId);
             if (!series) throw new Error("Series does not exist.");
             if (!series.first) {
-                const first = this.parseDate(((await runSteps(this.firstJson, {
+                const first = this.parseDate(((await runSteps(this.firstJson||[], {
                     seriesId
                 })) || {}).first);
                 series.first = first && first.toDate();
+                await series.save();
             }
-            await series.save();
             return Provider.formatDate(series.first);
         } catch (err) {
             return null;
@@ -257,7 +284,7 @@ module.exports = new Promise(async (resolve, reject) => {
             const series = await this.getSeries(seriesId);
             if (!series) throw new Error("Series does not exist.");
             if (!series.last || (new Date() - series.last >= 3.6 * 24 * 10 ** 6)) {
-                const lastStr = (await runSteps(this.lastJson, {
+                const lastStr = (await runSteps(this.lastJson||[], {
                     seriesId
                 })).last;
                 if (!lastStr) return;
@@ -284,10 +311,12 @@ module.exports = new Promise(async (resolve, reject) => {
         const first = await this.getFirst(seriesId);
         const last = await this.getLast(seriesId);
         const name = await this.getName(seriesId);
+        const description = await this.getDescription(seriesId);
         return {
             first,
             last,
-            name
+            name,
+            description,
         };
     };
 
@@ -320,6 +349,8 @@ module.exports = new Promise(async (resolve, reject) => {
                     src,
                     previous,
                     next,
+                    alt,
+                    description,
                     ...rest
                 } = (await runSteps(this.dateJson, {
                     seriesId,
@@ -329,13 +360,17 @@ module.exports = new Promise(async (resolve, reject) => {
                 }));
                 prevDate = this.parseDate(previous);
                 nextDate = this.parseDate(next);
-                if (!(src && date.isValid())) return {info:rest};
+                if (!(src && date.isValid())) return {
+                    info: rest
+                };
                 comic = new Comic({
                     previous: (prevDate && prevDate.isValid() && prevDate.toDate()) || undefined,
                     next: (nextDate && nextDate.isValid() && nextDate.toDate()) || undefined,
                     src,
                     date: date.toDate(),
                     seriesId: series.id,
+                    alt,
+                    description,
                 });
                 await comic.save();
             }
@@ -356,13 +391,82 @@ module.exports = new Promise(async (resolve, reject) => {
         }
     };
 
+    // Newspapers
+
+    newspapers = new mongoose.Schema({
+        seriesIds: [{
+            type: ObjectId,
+            ref: 'Series',
+            required: true
+        }],
+        hashPassword: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        newsId: {
+            type: String,
+            required: true
+        },
+        // TODO
+        // layout: [{/*Something...*/}]
+    });
+
+    newspapers.statics.new = async function(name, newsId, seriesInfo, password) {
+        const preExisting = await Newspaper.findOne({
+            newsId
+        });
+        const series = await Promise.all(seriesInfo.map(async info => await Series.findOne({
+            seriesId: info.seriesId,
+            provId: (await Provider.findOne({
+                provId: info.provId
+            }))._id,
+        })));
+        const seriesIds = series.filter(i => i).map(info => info._id);
+        if (!preExisting) {
+            const newspaper = new Newspaper({
+                name,
+                newsId,
+                seriesIds,
+                hashPassword: await bcrypt.hash(password, NUM_ROUNDS),
+            });
+            await newspaper.save();
+            return true;
+        }
+
+        if (password && await bcrypt.compare(password, preExisting.hashPassword)) {
+            const hasFound = Object.entries({
+                name,
+                seriesIds,
+            }).reduce((last, [key, val]) => {
+                if (!_.isEqual(preExisting[key], val)) {
+                    preExisting[key] = val;
+                    return true;
+                }
+                return last;
+            }, false);
+            if (hasFound) {
+                await preExisting.save();
+                return true;
+            }
+        }
+        return false;
+
+    };
+
     db.on("open", () => {
         Comic = mongoose.model("Comic", comics);
         Series = mongoose.model("Series", series);
         Provider = mongoose.model("Provider", providers);
+        Newspaper = mongoose.model("Newspaper", newspapers);
         resolve({
             Comic,
-            Provider
+            Provider,
+            Series,
+            Newspaper,
         });
     });
 });
