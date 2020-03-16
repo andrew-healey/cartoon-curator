@@ -1,6 +1,7 @@
 require("dotenv").config();
 const moment = require("moment");
 const _ = require("lodash");
+const {timerMaker} = require("./util.js");
 const bcrypt = require("bcrypt");
 const {
     extensions
@@ -65,7 +66,7 @@ module.exports = new Promise(async (resolve, reject) => {
         last: {
             type: Date,
         },
-        description:String,
+        description: String,
         provId: {
             type: ObjectId,
             required: true,
@@ -73,7 +74,7 @@ module.exports = new Promise(async (resolve, reject) => {
         },
     });
 
-    series.statics.new = async function(seriesId, name, provider,description) {
+    series.statics.new = async function(seriesId, name, provider, description) {
         const series = new Series({
             seriesId,
             provId: provider.id,
@@ -89,7 +90,7 @@ module.exports = new Promise(async (resolve, reject) => {
             type: String,
             required: true
         },
-        description:String,
+        description: String,
         provId: {
             type: String,
             required: true,
@@ -134,6 +135,10 @@ module.exports = new Promise(async (resolve, reject) => {
             type: String,
             required: true,
         }],
+        descriptionJson: [{
+            type: Object,
+            required: true
+        }],
     });
 
     // Providers
@@ -155,7 +160,8 @@ module.exports = new Promise(async (resolve, reject) => {
                     dateFormats: Object.values(json["date-formats"] || [json["date-format"] || "YYYY-MM-DD"]),
                     seriesIds: json["series-ids"] || [],
                     namesJson: json["list-names"],
-                    description:json["description"],
+                    description: json["description"],
+                    descriptionJson: json["get-description"],
                 }).reduce((last, [key, val]) => {
                     if (!_.isEqual(preExisting[key], val)) {
                         preExisting[key] = val;
@@ -183,7 +189,8 @@ module.exports = new Promise(async (resolve, reject) => {
             password: await bcrypt.hash(password, NUM_ROUNDS),
             namesJson: json["list-names"],
             seriesIds: json["series-ids"],
-            description:json["description"],
+            description: json["description"],
+            descriptionJson: json["get-description"],
         });
         await n.save();
         return true;
@@ -248,12 +255,14 @@ module.exports = new Promise(async (resolve, reject) => {
         }
     }
 
-    providers.methods.getDescription = async function(seriesId){
+    providers.methods.getDescription = async function(seriesId) {
         try {
             const series = await this.getSeries(seriesId);
             if (!series) throw new Error("Series does not exist.");
             if (!series.description) {
-                series.description = (await runSteps(this.descriptionJson||[],{seriesId})||{}).description;
+                series.description = (await runSteps(this.descriptionJson || [], {
+                    seriesId
+                }) || {}).description;
                 await series.save();
             }
             return series.description;
@@ -267,7 +276,7 @@ module.exports = new Promise(async (resolve, reject) => {
             const series = await this.getSeries(seriesId);
             if (!series) throw new Error("Series does not exist.");
             if (!series.first) {
-                const first = this.parseDate(((await runSteps(this.firstJson||[], {
+                const first = this.parseDate(((await runSteps(this.firstJson || [], {
                     seriesId
                 })) || {}).first);
                 series.first = first && first.toDate();
@@ -284,7 +293,7 @@ module.exports = new Promise(async (resolve, reject) => {
             const series = await this.getSeries(seriesId);
             if (!series) throw new Error("Series does not exist.");
             if (!series.last || (new Date() - series.last >= 3.6 * 24 * 10 ** 6)) {
-                const lastStr = (await runSteps(this.lastJson||[], {
+                const lastStr = (await runSteps(this.lastJson || [], {
                     seriesId
                 })).last;
                 if (!lastStr) return;
@@ -332,9 +341,12 @@ module.exports = new Promise(async (resolve, reject) => {
 
     providers.methods.getComic = async function(seriesId, year, month, day, recsLeft = 0, direction = 0) {
         try {
+            const timer=timerMaker();
             const series = await this.getSeries(seriesId);
+            timer("getSeries");
             if (!series) return null;
             const date = Provider.genDate(year, month, day);
+            timer("genDate");
             const startTime = new Date();
             let comic = await Comic.findOne({
                 date,
@@ -358,6 +370,7 @@ module.exports = new Promise(async (resolve, reject) => {
                     month,
                     day
                 }));
+                timer("Entire runSteps");
                 prevDate = this.parseDate(previous);
                 nextDate = this.parseDate(next);
                 if (!(src && date.isValid())) return {
@@ -373,12 +386,14 @@ module.exports = new Promise(async (resolve, reject) => {
                     description,
                 });
                 await comic.save();
+                timer("Make/save comic");
             }
             if (recsLeft > 0)
                 Promise.all([
                     [prevDate, -1],
                     [nextDate, 1]
                 ].map(([dt, dir]) => dt && direction !== dir ? this.getComic(seriesId, dt.year(), dt.month() + 1, dt.date(), recsLeft - 1, dir) : null));
+            timer("Just make the Promise");
             return {
                 url: getString(this.urlRx, {
                     src: comic.src
@@ -419,12 +434,12 @@ module.exports = new Promise(async (resolve, reject) => {
         const preExisting = await Newspaper.findOne({
             newsId
         });
-        const series = await Promise.all(seriesInfo.map(async info => await Series.findOne({
-            seriesId: info.seriesId,
-            provId: (await Provider.findOne({
+        const series = await Promise.all(seriesInfo.map(async info => 
+            (await (await Provider.findOne({
                 provId: info.provId
-            }))._id,
-        })));
+            })).getSeries(info.seriesId)),
+        ));
+        console.log(series);
         const seriesIds = series.filter(i => i).map(info => info._id);
         if (!preExisting) {
             const newspaper = new Newspaper({

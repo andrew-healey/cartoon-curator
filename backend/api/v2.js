@@ -1,4 +1,5 @@
 const saltshaker = require("randomstring").generate;
+const {timerMaker} = require("../util.js");
 module.exports = new Promise(async (resolve, reject) => {
     const express = require("express");
     const moment = require("moment");
@@ -23,7 +24,8 @@ module.exports = new Promise(async (resolve, reject) => {
             provId: req.params.provider
         });
         if (!provider) return res.status(404);
-        res.send(await provider.getSeriesInfo(req.params.series));
+        const seriesInfo=await provider.getSeriesInfo(req.params.series);
+        res.json({name:seriesInfo.name,last:seriesInfo.last,first:seriesInfo.first});
     });
     router.get("/comic/:providerId/:series/:year/:month/:day", async (req, res) => {
         const {
@@ -33,6 +35,7 @@ module.exports = new Promise(async (resolve, reject) => {
             month,
             day
         } = req.params;
+        const breh=timerMaker();
         if (!(providerId && series && year && month && day)) return res.send({
             ok: false,
             message: "Not enough parameters."
@@ -40,11 +43,14 @@ module.exports = new Promise(async (resolve, reject) => {
         const provider = await Provider.findOne({
             provId: providerId,
         });
+        const provLookup=new Date();
+        breh("Provider lookup");
         if (!provider) return res.send({
             ok: false,
             err: "Provider not found."
         });
-        res.json(await provider.getComic(series, year, month, day, 2));
+        res.json(await provider.getComic(series, year, month, day, 1));
+        breh("Full getComic");
     });
 
     router.get("/provider", async (req, res) => {
@@ -96,7 +102,9 @@ module.exports = new Promise(async (resolve, reject) => {
             "list-names": toGet.namesJson,
             "src-to-url": toGet.urlRx,
             "id": toGet.provId,
-            "name": toGet.name
+            "name": toGet.name,
+            "description": toGet.description,
+            "get-description": toGet.descriptionJson,
         });
     });
 
