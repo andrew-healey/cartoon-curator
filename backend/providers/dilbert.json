@@ -6,7 +6,7 @@
             "uri":"https://dilbert.com/strip/${year}-${month}-${day}"
         },
         "frame":{
-            "%src":"meta[property='og:url'][content$='/${year}-${month}-${day}'] ~ meta[property='og:image'] @ content || .{32}$",
+            "%src":"div[data-id$='$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YYYY-MM-DD\"}'] @ data-image || .{32}$",
             "%previous":".nav-comic.nav-left a @ href || \\d+-\\d+-\\d+$",
             "%next":".nav-comic.nav-right a @ href || \\d+-\\d+-\\d+$"
         }

@@ -356,6 +356,8 @@ module.exports = new Promise(async (resolve, reject) => {
             let prevDate = comic && moment(comic.previous);
             let nextDate = comic && moment(comic.next);
 
+            let didWork=!!comic;
+
             if (!comic) {
                 const {
                     src,
@@ -387,8 +389,9 @@ module.exports = new Promise(async (resolve, reject) => {
                 });
                 await comic.save();
                 timer("Make/save comic");
+                didWork=true;
             }
-            if (recsLeft > 0)
+            if (didWork&&recsLeft > 0)
                 Promise.all([
                     [prevDate, -1],
                     [nextDate, 1]
