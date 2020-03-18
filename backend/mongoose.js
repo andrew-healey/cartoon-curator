@@ -218,6 +218,7 @@ module.exports = new Promise(async (resolve, reject) => {
         if (!series) {
             //Check if it is valid
             const name = await this.getName(seriesId);
+            console.log("name",name);
             if (name) {
                 //Create, save series
                 series = await Series.new(seriesId, name, this);
@@ -301,7 +302,7 @@ module.exports = new Promise(async (resolve, reject) => {
     providers.methods.getSeriesInfo = async function(seriesId) {
         const series = await getSeries(seriesId);
         const first = this.firstJson.length > 0 ? series.first || await this.getFirst(seriesId) : undefined;
-        const last = this.lastJson.length > 0 ? (series.last&&new Date()-series.last>=process.env.RESET_LAST && series.last) || await this.getLast(seriesId) : undefined;
+        const last = this.lastJson.length > 0 ? (series.last&&new Date()-series.last>=(process.env.RESET_LAST || 1000*60*60*12 ) && series.last) || await this.getLast(seriesId) : undefined;
         const name = series.name || await this.getName(seriesId);
         const description = series.description || await this.getDescription(seriesId);
         const isChanged = first-series.first!=0||last-series.first!=0||name!==series.name||description!==series.description;
@@ -327,7 +328,7 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.statics.genDate = (year, month, day) => {
-        return moment(`${year}/${month}/${day}`, "YYYY-MM-DD");
+        return moment(`${year}-${month}-${day}`, "YYYY-MM-DD");
     };
 
     providers.methods.getComic = async function(seriesId, year, month, day, recsLeft = 0, direction = 0) {
@@ -364,8 +365,8 @@ module.exports = new Promise(async (resolve, reject) => {
                     day
                 }));
                 timer("Entire runSteps");
-                prevDate = this.parseDate(previous);
-                nextDate = this.parseDate(next);
+                prevDate = previous?this.parseDate(previous):moment(date).subtract(1,"day");
+                nextDate = next?this.parseDate(next):moment(date).subtract(1,"day");
                 if (!(src && date.isValid())) return {
                     info: rest
                 };
