@@ -281,7 +281,6 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.methods.getLast = async function(seriesId) {
-        //if (!series.last || (new Date() - series.last >= 3.6 * 24 * 10 ** 6)) {
         const lastDate = this.parseDate((await runSteps(this.lastJson || [], {
             seriesId
         })).last);
