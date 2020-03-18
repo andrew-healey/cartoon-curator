@@ -1,7 +1,9 @@
 require("dotenv").config();
 const moment = require("moment");
 const _ = require("lodash");
-const {timerMaker} = require("./util.js");
+const {
+    timerMaker
+} = require("./util.js");
 const bcrypt = require("bcrypt");
 const {
     extensions
@@ -197,18 +199,14 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.methods.refresh = async function() {
-        Promise.all((await Series.find({
+        await Promise.all((await Series.find({
             provId: this.id
         })).map(async serie => //For each series, delete all of its comics and then it
             (await Comic.deleteMany({ //I fear Mongoose query thenables
                 seriesId: serie.id
-            })) &&
+            })) &
             (await Series.findByIdAndDelete(serie.id))
         ));
-    };
-
-    providers.methods.seriesDoesExist = async function(seriesId) {
-        return await runSteps(this.getName).name !== undefined;
     };
 
     providers.methods.getSeries = async function(seriesId) {
@@ -216,12 +214,14 @@ module.exports = new Promise(async (resolve, reject) => {
             seriesId,
             provId: this.id,
         });
+        console.log("sereis?",!!series);
         if (!series) {
             //Check if it is valid
             const name = await this.getName(seriesId);
             if (name) {
                 //Create, save series
                 series = await Series.new(seriesId, name, this);
+                await series.save();
             }
         }
         return series;
@@ -233,8 +233,8 @@ module.exports = new Promise(async (resolve, reject) => {
             if (this.seriesIds == false) {
                 const temp = Array.from((await runSteps(this.namesJson, {})).seriesIds);
                 this.seriesIds = temp;
+                await this.save();
             }
-            await this.save();
             return this.seriesIds;
         } catch (err) {
             return;
@@ -272,41 +272,23 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.methods.getFirst = async function(seriesId) {
-        try {
-            const series = await this.getSeries(seriesId);
-            if (!series) throw new Error("Series does not exist.");
-            if (!series.first) {
-                const first = this.parseDate(((await runSteps(this.firstJson || [], {
-                    seriesId
-                })) || {}).first);
-                series.first = first && first.toDate();
-                await series.save();
-            }
-            return Provider.formatDate(series.first);
-        } catch (err) {
-            return null;
-        }
+        const firstDate = this.parseDate(((await runSteps(this.firstJson || [], {
+            seriesId
+        })) || {}).first);
+        const first = firstDate && firstDate.toDate();
+        return first;
     };
 
     providers.methods.getLast = async function(seriesId) {
-        try {
-            const series = await this.getSeries(seriesId);
-            if (!series) throw new Error("Series does not exist.");
-            if (!series.last || (new Date() - series.last >= 3.6 * 24 * 10 ** 6)) {
-                const lastStr = (await runSteps(this.lastJson || [], {
-                    seriesId
-                })).last;
-                if (!lastStr) return;
-                series.last = this.parseDate(lastStr).toDate();
-                await series.save();
-            }
-            return Provider.formatDate(series.last);
-        } catch (err) {
-            return null;
-        }
+        //if (!series.last || (new Date() - series.last >= 3.6 * 24 * 10 ** 6)) {
+        const lastDate = this.parseDate((await runSteps(this.lastJson || [], {
+            seriesId
+        })).last);
+        const last = lastDate && lastDate.toDate();
+        return last;
     };
 
-    providers.methods.getName = async function(seriesId) {
+    providers.methods.getName = async function(seriesId, seriesExists = false) {
         return (await runSteps(this.nameJson, {
             seriesId
         })).name;
@@ -317,10 +299,19 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.methods.getSeriesInfo = async function(seriesId) {
-        const first = await this.getFirst(seriesId);
-        const last = await this.getLast(seriesId);
-        const name = await this.getName(seriesId);
-        const description = await this.getDescription(seriesId);
+        const series = await getSeries(seriesId);
+        const first = this.firstJson.length > 0 ? series.first || await this.getFirst(seriesId) : undefined;
+        const last = this.lastJson.length > 0 ? (series.last&&new Date()-series.last>=process.env.RESET_LAST && series.last) || await this.getLast(seriesId) : undefined;
+        const name = series.name || await this.getName(seriesId);
+        const description = series.description || await this.getDescription(seriesId);
+        const isChanged = first-series.first!=0||last-series.first!=0||name!==series.name||description!==series.description;
+        if(isChanged){
+            series.first=first;
+            series.last=last;
+            series.name=name;
+            series.description=description;
+            await series.save();
+        }
         return {
             first,
             last,
@@ -341,7 +332,7 @@ module.exports = new Promise(async (resolve, reject) => {
 
     providers.methods.getComic = async function(seriesId, year, month, day, recsLeft = 0, direction = 0) {
         try {
-            const timer=timerMaker();
+            const timer = timerMaker();
             const series = await this.getSeries(seriesId);
             timer("getSeries");
             if (!series) return null;
@@ -356,7 +347,7 @@ module.exports = new Promise(async (resolve, reject) => {
             let prevDate = comic && moment(comic.previous);
             let nextDate = comic && moment(comic.next);
 
-            let didWork=!!comic;
+            let didWork = !!comic;
 
             if (!comic) {
                 const {
@@ -389,9 +380,9 @@ module.exports = new Promise(async (resolve, reject) => {
                 });
                 await comic.save();
                 timer("Make/save comic");
-                didWork=true;
+                didWork = true;
             }
-            if (didWork&&recsLeft > 0)
+            if (didWork && recsLeft > 0)
                 Promise.all([
                     [prevDate, -1],
                     [nextDate, 1]
@@ -437,7 +428,7 @@ module.exports = new Promise(async (resolve, reject) => {
         const preExisting = await Newspaper.findOne({
             newsId
         });
-        const series = await Promise.all(seriesInfo.map(async info => 
+        const series = await Promise.all(seriesInfo.map(async info =>
             (await (await Provider.findOne({
                 provId: info.provId
             })).getSeries(info.seriesId)),
