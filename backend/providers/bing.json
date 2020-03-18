@@ -7,20 +7,6 @@
         "frame": {
             "%src": "div[data-u=slides] > div:nth-child(${day}) img @ src || \\d+/[^/]+(?=\\.jpg$)"
         }
-    }, {
-        "headers": {
-            "uri": "https://get-adjacent-days.herokuapp.com",
-            "method": "POST",
-            "json": {
-                "year": "${year}",
-                "month": "${month}",
-                "day": "${day}"
-            }
-        },
-        "json": {
-            "%previous": 1,
-            "%next": 1
-        }
     }],
     "extremes-scrape": {
         "first": [],

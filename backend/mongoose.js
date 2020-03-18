@@ -214,16 +214,17 @@ module.exports = new Promise(async (resolve, reject) => {
             seriesId,
             provId: this.id,
         });
-        console.log("sereis?",!!series);
+        console.log("sereis?", !!series);
         if (!series) {
             //Check if it is valid
             const name = await this.getName(seriesId);
-            console.log("name",name);
+            console.log("name", name);
             if (name) {
                 //Create, save series
                 series = await Series.new(seriesId, name, this);
                 await series.save();
             }
+            console.log("did");
         }
         return series;
     };
@@ -257,19 +258,9 @@ module.exports = new Promise(async (resolve, reject) => {
     }
 
     providers.methods.getDescription = async function(seriesId) {
-        try {
-            const series = await this.getSeries(seriesId);
-            if (!series) throw new Error("Series does not exist.");
-            if (!series.description) {
-                series.description = (await runSteps(this.descriptionJson || [], {
-                    seriesId
-                }) || {}).description;
-                await series.save();
-            }
-            return series.description;
-        } catch (err) {
-            return null;
-        }
+        return (await runSteps(this.descriptionJson || [], {
+            seriesId
+        }) || {}).description;
     };
 
     providers.methods.getFirst = async function(seriesId) {
@@ -299,22 +290,22 @@ module.exports = new Promise(async (resolve, reject) => {
     };
 
     providers.methods.getSeriesInfo = async function(seriesId) {
-        const series = await getSeries(seriesId);
+        const series = await this.getSeries(seriesId);
         const first = this.firstJson.length > 0 ? series.first || await this.getFirst(seriesId) : undefined;
-        const last = this.lastJson.length > 0 ? (series.last&&new Date()-series.last>=(process.env.RESET_LAST || 1000*60*60*12 ) && series.last) || await this.getLast(seriesId) : undefined;
+        const last = this.lastJson.length > 0 ? (series.last && new Date() - series.last >= (process.env.RESET_LAST || 1000 * 60 * 60 * 12) && series.last) || await this.getLast(seriesId) : undefined;
         const name = series.name || await this.getName(seriesId);
-        const description = series.description || await this.getDescription(seriesId);
-        const isChanged = first-series.first!=0||last-series.first!=0||name!==series.name||description!==series.description;
-        if(isChanged){
-            series.first=first;
-            series.last=last;
-            series.name=name;
-            series.description=description;
+        const description = series.description || this.descriptionJson&&this.descriptionJson.length>0 && await this.getDescription(seriesId);
+        const isChanged = first - series.first != 0 || last - series.first != 0 || name !== series.name || description !== series.description;
+        if (isChanged) {
+            series.first = first;
+            series.last = last;
+            series.name = name;
+            series.description = description;
             await series.save();
         }
         return {
-            first,
-            last,
+            first: Provider.formatDate(first),
+            last: Provider.formatDate(last),
             name,
             description,
         };
@@ -364,8 +355,8 @@ module.exports = new Promise(async (resolve, reject) => {
                     day
                 }));
                 timer("Entire runSteps");
-                prevDate = previous?this.parseDate(previous):moment(date).subtract(1,"day");
-                nextDate = next?this.parseDate(next):moment(date).subtract(1,"day");
+                prevDate = previous || next ? this.parseDate(previous) : moment(date).subtract(1, "day");
+                nextDate = previous || next ? this.parseDate(next) : moment(date).subtract(1, "day");
                 if (!(src && date.isValid())) return {
                     info: rest
                 };

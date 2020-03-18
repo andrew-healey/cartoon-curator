@@ -33,14 +33,14 @@
             "uri": "https://smbc-comics.com/comic/${previousUrl}"
         },
         "frame": {
-            "%previous": "meta[property='og:image'] @ content || (?<!\\d)\\d{8}(?=(?:-\\d+)?\\.[^.]+$)"
+            "%previous": "meta[property='og:image'] @ content || (?<=/comics/\\d{10}-)[^/]+(?=\\.[^.]+$)"
         }
     }, {
         "headers": {
             "uri": "https://smbc-comics.com/comic/${nextUrl}"
         },
         "frame": {
-            "%next": "meta[property='og:image'] @ content || (?<!\\d)\\d{8}(?=(?:-\\d+)?\\.[^.]+$)"
+            "%next": "meta[property='og:image'] @ content || (?<=/comics/\\d{10}-)[^/]+(?=\\.[^.]+$)"
         }
     }],
     "extremes-scrape": {

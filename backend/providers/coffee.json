@@ -7,20 +7,6 @@
         "json": {
             "%file": "src"
         }
-    }, {
-        "headers": {
-            "uri": "https://get-adjacent-days.herokuapp.com",
-            "method": "POST",
-            "json": {
-                "year": "${year}",
-                "month": "${month}",
-                "day": "${day}"
-            }
-        },
-        "json": {
-            "%previous": 0,
-            "%next": 0
-        }
     }],
     "extremes-scrape": {
         "first": [],

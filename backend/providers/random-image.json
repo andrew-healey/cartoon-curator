@@ -1,29 +1,8 @@
 {
     "series-ids": ["default", "grayscale", "blur", "grayscale&blur"],
     "date-scrape": [{
-        "headers": {
-            "uri": "https://echo-info.herokuapp.com/",
-            "method": "POST",
-            "json": {
-                "src": "$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YYYYMMDD\"}/1000/700?${seriesId}"
-            }
-        },
-        "json": {
-            "%src": 0
-        }
-    }, {
-        "headers": {
-            "uri": "https://get-adjacent-days.herokuapp.com",
-            "method": "POST",
-            "json": {
-                "year": "${year}",
-                "month": "${month}",
-                "day": "${day}"
-            }
-        },
-        "json": {
-            "%previous": 0,
-            "%next": 0
+        "set": {
+            "%src": "$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YYYYMMDD\"}/1000/700?${seriesId}"
         }
     }],
     "extremes-scrape": {

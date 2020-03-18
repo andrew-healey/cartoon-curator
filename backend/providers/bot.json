@@ -8,20 +8,6 @@
             "uri": "https://${seriesId}/api?generate=true"
         },
         "text":"%src"
-    },{
-        "headers":{
-            "uri":"https://get-adjacent-days.herokuapp.com/",
-            "method":"post",
-            "json":{
-                "day":"${day}",
-                "month":"${month}",
-                "year":"${year}"
-            }
-        },
-        "json":{
-            "%previous":0,
-            "%next":0
-        }
     }],
     "extremes-scrape": {
         "last": [],
