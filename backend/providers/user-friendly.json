@@ -1,0 +1,36 @@
+{
+    "series-ids": ["user-friendly"],
+    "date-scrape": [{
+        "headers": {
+            "uri": "http://ars.userfriendly.org/cartoons/?id=$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YYYYMMDD\"}"
+        },
+        "frame": {
+            "%src": "td td a img @ src || (?<=http://www.userfriendly.org/cartoons/archives/).*",
+            "%previous": "area[alt=\"Previous Cartoon\"] @ href || \\d{8}",
+            "%next": "area[alt=\"Next Day's Cartoon\"] @ href || \\d{8}"
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": [{
+            "headers": {
+                "uri": "http://www.userfriendly.org/static/"
+            },
+            "frame": {
+                "%last": "b || (?<=CARTOON FOR ).*"
+            }
+        }]
+    },
+    "get-name": [{
+        "headers": {
+            "uri": "http://www.userfriendly.org/"
+        },
+        "frame": {
+            "%name": "meta[name=description] @ content"
+        }
+    }],
+    "date-formats": ["YYYY-MM-DD", "YYYYMMDD", "YYYY"],
+    "src-to-url": "http://www.userfriendly.org/cartoons/archives/${src}",
+    "id": "user-friendly",
+    "name": "User Friendly"
+}
