@@ -8,10 +8,7 @@ module.exports = new Promise(async (resolve, reject) => {
     app.use(require("cors")());
 
     app.get("/", (req, res) =>
-        res.send(`This API is under construction. See the 
-<a href="">main website</a>
-until this is finished.
-`)
+        res.sendFile(__dirname+"/static/index.html")
     );
 
     app.use("/api/v1", apiV1);

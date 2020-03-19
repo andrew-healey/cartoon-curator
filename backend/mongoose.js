@@ -294,7 +294,7 @@ module.exports = new Promise(async (resolve, reject) => {
         const first = this.firstJson.length > 0 ? series.first || await this.getFirst(seriesId) : undefined;
         const last = this.lastJson.length > 0 ? (series.last && new Date() - series.last >= (process.env.RESET_LAST || 1000 * 60 * 60 * 12) && series.last) || await this.getLast(seriesId) : undefined;
         const name = series.name || await this.getName(seriesId);
-        const description = series.description || this.descriptionJson&&this.descriptionJson.length>0 && await this.getDescription(seriesId);
+        const description = series.description || this.descriptionJson && this.descriptionJson.length > 0 && await this.getDescription(seriesId);
         const isChanged = first - series.first != 0 || last - series.first != 0 || name !== series.name || description !== series.description;
         if (isChanged) {
             series.first = first;
@@ -385,6 +385,8 @@ module.exports = new Promise(async (resolve, reject) => {
                 }),
                 previous: Provider.formatDate(prevDate),
                 next: Provider.formatDate(nextDate),
+                alt:comic.alt,
+                description:comic.description,
             };
         } catch (err) {
             return {};
@@ -394,10 +396,20 @@ module.exports = new Promise(async (resolve, reject) => {
     // Newspapers
 
     newspapers = new mongoose.Schema({
-        seriesIds: [{
-            type: ObjectId,
-            ref: 'Series',
-            required: true
+        seriesInfo: [{
+            seriesId: {
+                type: ObjectId,
+                ref: 'Series',
+                required: true
+            },
+            x: {
+                type: Number,
+                required: true
+            },
+            y: {
+                type: Number,
+                required: true
+            }
         }],
         hashPassword: {
             type: String,
@@ -419,18 +431,20 @@ module.exports = new Promise(async (resolve, reject) => {
         const preExisting = await Newspaper.findOne({
             newsId
         });
-        const series = await Promise.all(seriesInfo.map(async info =>
-            (await (await Provider.findOne({
-                provId: info.provId
-            })).getSeries(info.seriesId)),
-        ));
+        const series = await Promise.all(seriesInfo.map(async info => ({
+            series:
+                (await (await Provider.findOne({
+                    provId: info.provId
+                })).getSeries(info.seriesId)),
+            ...info
+        }) ));
         console.log(series);
-        const seriesIds = series.filter(i => i).map(info => info._id);
+        const seriesIds = series.filter(i => i.series).map(info => info.series._id);
         if (!preExisting) {
             const newspaper = new Newspaper({
                 name,
                 newsId,
-                seriesIds,
+                seriesInfo: seriesIds,
                 hashPassword: await bcrypt.hash(password, NUM_ROUNDS),
             });
             await newspaper.save();
@@ -440,7 +454,7 @@ module.exports = new Promise(async (resolve, reject) => {
         if (password && await bcrypt.compare(password, preExisting.hashPassword)) {
             const hasFound = Object.entries({
                 name,
-                seriesIds,
+                seriesInfo,
             }).reduce((last, [key, val]) => {
                 if (!_.isEqual(preExisting[key], val)) {
                     preExisting[key] = val;

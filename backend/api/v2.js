@@ -1,5 +1,7 @@
 const saltshaker = require("randomstring").generate;
-const {timerMaker} = require("../util.js");
+const {
+    timerMaker
+} = require("../util.js");
 module.exports = new Promise(async (resolve, reject) => {
     const express = require("express");
     const moment = require("moment");
@@ -23,9 +25,14 @@ module.exports = new Promise(async (resolve, reject) => {
         const provider = await Provider.findOne({
             provId: req.params.provider
         });
-        if (!provider) return res.status(404);
-        const seriesInfo=await provider.getSeriesInfo(req.params.series);
-        res.json({name:seriesInfo.name,last:seriesInfo.last,first:seriesInfo.first});
+        if (!provider) return res.status(404).end();
+        const seriesInfo = await provider.getSeriesInfo(req.params.series);
+        res.json({
+            name: seriesInfo.name,
+            last: seriesInfo.last,
+            first: seriesInfo.first,
+            description: seriesInfo.description,
+        });
     });
     router.get("/comic/:providerId/:series/:year/:month/:day", async (req, res) => {
         const {
@@ -35,20 +42,14 @@ module.exports = new Promise(async (resolve, reject) => {
             month,
             day
         } = req.params;
-        const breh=timerMaker();
-        if (!(providerId && series && year && month && day)) return res.send({
-            ok: false,
-            message: "Not enough parameters."
-        });
+        const breh = timerMaker();
+        if (!(providerId && series && year && month && day)) return res.status(404).end()
         const provider = await Provider.findOne({
             provId: providerId,
         });
-        const provLookup=new Date();
+        const provLookup = new Date();
         breh("Provider lookup");
-        if (!provider) return res.send({
-            ok: false,
-            err: "Provider not found."
-        });
+        if (!provider) return res.status(404).end();
         res.json(await provider.getComic(series, year, month, day, 1));
         breh("Full getComic");
     });
@@ -65,17 +66,10 @@ module.exports = new Promise(async (resolve, reject) => {
         const {
             password = `${saltshaker(64)}`, json
         } = req.body;
-        if (!json || !json.id) return res.json({
-            ok: false
-        });
-        if (json.id == "provider") return res.json({
-            ok: false
-        });
+        if (!json || !json.id) return res.status(400).end();;
+        if (json.id == "provider") return res.status(400).end();
         res.json({
-            provider: {
-                saved: (await Provider.new(json, password)),
-                password: undefined
-            },
+            saved: (await Provider.new(json, password)),
             password
         });
     });
@@ -131,10 +125,18 @@ module.exports = new Promise(async (resolve, reject) => {
         return res.json({
             name: toGet.name,
             newsId: toGet.newsId,
-            series: await Promise.all(toGet.seriesIds.map(async seriesId => (async series => ({
-                seriesId: series.seriesId,
-                provId: (await Provider.findById(series.provId)).provId
-            }))(await Series.findById(seriesId)))),
+            series: await Promise.all(toGet.seriesInfo.map(async ({
+                seriesId,
+                x,
+                y
+            }) => ({
+                seriesId: (async series => ({
+                    seriesId: series.seriesId,
+                    provId: (await Provider.findById(series.provId)).provId
+                }))(await Series.findById(seriesId)),
+                x,
+                y
+            }))),
         });
     });
 
@@ -151,9 +153,15 @@ module.exports = new Promise(async (resolve, reject) => {
         });
         const seriesThings = Object.keys(seriesInfo).reduce((last, next) => ([
             ...last,
-            ...seriesInfo[next].map(seriesId => ({
+            ...seriesInfo[next].map(({
+                seriesId,
+                xPercent,
+                yPercent
+            }) => ({
                 provId: next,
-                seriesId
+                seriesId,
+                x,
+                y,
             }))
         ]), []);
         return res.json({
