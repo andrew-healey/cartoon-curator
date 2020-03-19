@@ -8,17 +8,20 @@
             GET /series/:providerId/:seriesId
             Returns:
             Either a 404 or
+            ```javascript
             {
                 name: "Name of the series",
                 last: "Optional date of the most recently released comic",
                 first: "Optional date of the first comic",
                 description: "Optional description of the series"
             }
+            ```
         </li>
         <li>
             GET /comic/:providerId/:seriesId/:year/:month/:day
             Returns:
             Either a 404 or
+            ```javascript
             {
                 url: "Image URL of the comic",
                 previous: "Optional date in YYYY/MM/DD format of the previous comic",
@@ -26,19 +29,24 @@
                 alt: "Optional alt text for the image",
                 description: "Optional description/title for the comic"
             }
+            ```
         </li>
         <li>
             GET /provider
             Returns:
+            ```javascript
             {
                 "id of one provider":["seriesId of one series provided by provider","another one",...],
                 "id of another provider":["seriesId of a series provided by another provider","another one",...],
                 ...
             }
+            ```
         </li>
         <li>
             POST /provider
-            Body: {
+            Body:
+            ```javascript
+            {
                 password: "Optional password",
                 json:{
                     name:"Name of the provider",
@@ -56,15 +64,20 @@
                     "get-description":["An object representing one step","Another"] // Optional. Returns an optional variable description, which represents the description of a series.
                 }
             }
+            ```
             Returns:
+            ```javascript
             {
                 saved:true, // Represents if the request has caused an update in the database.
                 password:"The password either provided by the person or generated randomly by the server."
             }
+            ```
         </li>
         <li>
             GET /provider/:providerId
-            Body: {
+            Body:
+            ```javascript
+            {
                 name:"Name of the provider",
                 id:"Unique ID of the provider",
                 "series-ids":["seriesId of one series served by this provider","seriesId of another"],
@@ -79,15 +92,19 @@
                 "description": "An optional description of the provider",
                 "get-description":["An object representing one step","Another"] // Optional. Returns an optional variable description, which represents the description of a series.
             }
+            ```
         </li>
         <li>
             GET /newspaper
             Returns:
+            ```javascript
             ["newspaperId of a newspaper","newspaperId of another"]
+            ```
         </li>
         <li>
             GET /newspaper/:newspaperId
             Returns:
+            ```javascript
             {
                 newsId: "newspaperId of the newspaper",
                 name: "Name of the newspaper",
@@ -97,10 +114,13 @@
                     y:12
                 }]
             }
+            ```
         </li>
         <li>
             POST /newspaper
-            Body: {
+            Body:
+            ```javascript
+            {
                 newsId: "Unique id of the newspaper",
                 password: "Optional password for the newspaper",
                 seriesInfo: [{
@@ -109,5 +129,6 @@
                     y: 0, // The y value of the series on the screen
                 }]
             }
+            ```
         </li>
 </div>
