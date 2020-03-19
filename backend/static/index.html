@@ -8,6 +8,7 @@
             GET /series/:providerId/:seriesId
             Returns:
             Either a 404 or
+
             ```javascript
             {
                 name: "Name of the series",
@@ -21,6 +22,7 @@
             GET /comic/:providerId/:seriesId/:year/:month/:day
             Returns:
             Either a 404 or
+
             ```javascript
             {
                 url: "Image URL of the comic",
@@ -34,6 +36,7 @@
         <li>
             GET /provider
             Returns:
+
             ```javascript
             {
                 "id of one provider":["seriesId of one series provided by provider","another one",...],
@@ -45,6 +48,7 @@
         <li>
             POST /provider
             Body:
+
             ```javascript
             {
                 password: "Optional password",
@@ -66,6 +70,7 @@
             }
             ```
             Returns:
+
             ```javascript
             {
                 saved:true, // Represents if the request has caused an update in the database.
@@ -76,6 +81,7 @@
         <li>
             GET /provider/:providerId
             Body:
+            
             ```javascript
             {
                 name:"Name of the provider",
@@ -97,6 +103,7 @@
         <li>
             GET /newspaper
             Returns:
+
             ```javascript
             ["newspaperId of a newspaper","newspaperId of another"]
             ```
@@ -104,6 +111,7 @@
         <li>
             GET /newspaper/:newspaperId
             Returns:
+
             ```javascript
             {
                 newsId: "newspaperId of the newspaper",
@@ -119,6 +127,7 @@
         <li>
             POST /newspaper
             Body:
+
             ```javascript
             {
                 newsId: "Unique id of the newspaper",
