@@ -1,0 +1,25 @@
+{
+    "series-ids": ["thispersondoesnotexist"],
+    "date-scrape": [{
+        "set": {
+            "%src": "$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"YYYYMMDD\"}"
+        }
+    }],
+    "extremes-scrape": {
+        "first": [],
+        "last": []
+    },
+    "get-name": [{
+        "headers": {
+            "uri": "https://thispersondoesnotexist.com/"
+        },
+        "frame": {
+            "%name": "title"
+        }
+    }],
+    "date-formats": ["YYYY-MM-DD"],
+    "src-to-url": "https://thispersondoesnotexist.com/image.jpg?time=${src}",
+    "id": "thispersondoesnotexist",
+    "name": "This Person Does Not Exist",
+    "description": "A random face generator. Creates a face that looks like it belongs to a real person, but is completely fake and computer-generated."
+}
