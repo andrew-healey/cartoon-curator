@@ -1,7 +1,7 @@
 const saltshaker = require("randomstring").generate;
 const {
     timerMaker
-} = require("../util.js");
+} = require("@sesamestrong/timer");
 module.exports = new Promise(async (resolve, reject) => {
     const express = require("express");
     const moment = require("moment");
@@ -169,7 +169,6 @@ module.exports = new Promise(async (resolve, reject) => {
             password
         });
     });
-
 
     resolve(router);
 });

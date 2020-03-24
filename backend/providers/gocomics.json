@@ -51,5 +51,13 @@
         "frame": {
             "%seriesIds": [".col-lg-4 @ href || [^/]+"]
         }
+    }],
+    "get-description": [{
+        "headers": {
+            "uri": "https://gocomics.com/${seriesId}/about"
+        },
+        "frame": {
+            "%description": "p"
+        }
     }]
 }

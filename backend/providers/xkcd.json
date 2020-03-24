@@ -13,6 +13,8 @@
         },
         "frame": {
             "%src": "#comic img @ src || [^/]+$",
+            "%alt": "#comic img @ title",
+            "%description": "#ctitle",
             "%previousId":"a[rel=prev] @ href || \\d+",
             "%nextId":"a[rel=next] @ href || \\d+"
         }

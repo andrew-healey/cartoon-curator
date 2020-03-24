@@ -3,7 +3,7 @@ const moment = require("moment");
 const _ = require("lodash");
 const {
     timerMaker
-} = require("./util.js");
+} = require("@sesamestrong/timer");
 const bcrypt = require("bcrypt");
 const {
     extensions
