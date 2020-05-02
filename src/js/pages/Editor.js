@@ -1,5 +1,5 @@
 /*eslint-disable no-template-curly-in-string*/
-/*eslint-disable react-no-direct-mutation-state*/
+/*eslint-disable react/no-direct-mutation-state*/
 /*eslint-disable no-unused-vars*/
 /*eslint-disable jsx-a11y/alt-text*/
 /*eslint-disable no-mixed-operators*/
