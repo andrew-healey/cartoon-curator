@@ -88,7 +88,7 @@ export default class Newspaper extends Component {
             date
         }));
         this.state.comics = newComics;
-        if(search.get("sync")=="true") this.setURL(this.state.comics,this.state.date,true);
+        if(search.get("sync")==="true") this.setURL(this.state.comics,this.state.date,true);
     }
     render() {
         return (
@@ -196,7 +196,7 @@ export default class Newspaper extends Component {
                     this.url.append("provider", comic.provider);
                 }
             }
-            const sanitize = m => m.replace(/,/g, ",,").replace(/;/g, " , ");
+            //const sanitize = m => m.replace(/,/g, ",,").replace(/;/g, " , ");
             [
                 ["id", "comic"],
                 ["provider", "provider"]
