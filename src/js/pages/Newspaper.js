@@ -4,7 +4,6 @@ import React, {
 } from "react";
 import Comic from "../components/Comic";
 import {
-    dateFromPath,
     getCookie,
     SAVE_AS_URL,
 } from "../util";

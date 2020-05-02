@@ -1,4 +1,9 @@
-import React,{createRef} from 'react';
+/*eslint-disable no-template-curly-in-string*/
+/*eslint-disable react-no-direct-mutation-state*/
+/*eslint-disable no-unused-vars*/
+/*eslint-disable jsx-a11y/alt-text*/
+/*eslint-disable no-mixed-operators*/
+import React from 'react';
 import '../../css/Editor.css';
 import Editor from 'react-json-editor-ajrm';
 import {
@@ -22,7 +27,6 @@ class App extends React.Component {
                 "get-name": [],
                 "src-to-url": "${src}",
                 "list-names": [],
-                "series-ids": []
             }),
             password: "",
             output: {},
