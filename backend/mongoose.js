@@ -389,7 +389,7 @@ module.exports = new Promise(async (resolve, reject) => {
                 next: Provider.formatDate(nextDate),
                 alt:comic.alt,
                 description:comic.description,
-                mediaType:comic.mediaType??"image"
+                mediaType:comic.mediaType||"image"
             };
         } catch (err) {
             return {};
