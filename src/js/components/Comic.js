@@ -21,6 +21,7 @@ export default class Comic extends Component {
             provider: this.props.provider,
             mediaType:this.props.mediaType
         };
+        this.mediaRef=React.createRef();
     }
     static getDerivedStateFromProps(newProps, oldState) {
         return newProps.date !== oldState.date ? {
@@ -29,9 +30,19 @@ export default class Comic extends Component {
     }
     componentDidMount() {
         if (this.state.id) this.findUrl(this.state.date);
+        try{
+            this.mediaRef.play();
+        } catch(err){
+
+        }
     }
     componentDidUpdate() {
         this.findUrl();
+        try{
+            this.mediaRef.play();
+        } catch(err){
+
+        }
     }
     render() {
         let thisComic = this.state.strips[this.state.date] || {};
@@ -53,7 +64,7 @@ export default class Comic extends Component {
               href={(this.state.strips[thisComic.previous] || {}).url}
             />
             <Media
-              ref="this"
+              ref={this.mediaRef}
               alt={this.state.name || this.state.id + " comic strip"}
               src={thisComic.url}
               mediaType={thisComic.mediaType}
