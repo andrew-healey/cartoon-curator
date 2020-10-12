@@ -112,6 +112,7 @@ export default class Newspaper extends Component {
               date={i.date}
               id={i.id}
               provider={i.provider}
+              mediaType={i.mediaType}
             />
           ))}
           <div className="input-container">

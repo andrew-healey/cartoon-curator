@@ -6,6 +6,9 @@ import {
     API_VERSION,
 } from "../util";
 import ComicChoice from "./ComicChoice";
+
+const Media=(props)=>props.mediaType==="video"?<video {...props}></video>:<img {...props}/>;
+
 export default class Comic extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +19,7 @@ export default class Comic extends Component {
             id: this.props.id,
             name: undefined,
             provider: this.props.provider,
+            mediaType:this.props.mediaType
         };
     }
     static getDerivedStateFromProps(newProps, oldState) {
@@ -30,9 +34,8 @@ export default class Comic extends Component {
         this.findUrl();
     }
     render() {
-        console.log("render");
-        //console.log(this.state.id,this.state.provider);
         let thisComic = this.state.strips[this.state.date] || {};
+        console.log("mediaType",this.state.mediaType);
 
         return this.state.date !== "" && this.state.id ? (
             thisComic.url ? (
@@ -49,16 +52,16 @@ export default class Comic extends Component {
               as="image"
               href={(this.state.strips[thisComic.previous] || {}).url}
             />
-            <img
+            <Media
               ref="this"
               alt={this.state.name || this.state.id + " comic strip"}
               src={thisComic.url}
-              onClick={() => this.props.setDate(thisComic.previous)}
+              mediaType={thisComic.mediaType}
             />
             <link
               ref="next"
               rel="preload"
-              as="image"
+              as="image" // TODO support video preloading
               href={(this.state.strips[thisComic.next] || {}).url}
             />
             <div className="overlay">
@@ -136,7 +139,6 @@ export default class Comic extends Component {
         }
         let oldKeys = Object.keys(this.state.strips);
         if (Object.keys(strips).filter(i => !oldKeys.includes(i)).length > 0) {
-            console.log("strps");
             this.setState({
                 strips
             });

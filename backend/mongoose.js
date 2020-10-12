@@ -50,6 +50,7 @@ module.exports = new Promise(async (resolve, reject) => {
         },
         alt: String,
         description: String,
+        mediaType:String,
     });
 
     // Series
@@ -214,11 +215,9 @@ module.exports = new Promise(async (resolve, reject) => {
             seriesId,
             provId: this.id,
         });
-        console.log("sereis?", !!series);
         if (!series) {
             //Check if it is valid
             const name = await this.getName(seriesId);
-            console.log("name", name);
             if (name) {
                 //Create, save series
                 series = await Series.new(seriesId, name, this);
@@ -232,7 +231,7 @@ module.exports = new Promise(async (resolve, reject) => {
     providers.methods.getNames = async function() {
         //TODO Make this rerun every once in a while
         try {
-            if (this.seriesIds == false) {
+            if (this.seriesIds === false) {
                 const temp = Array.from((await runSteps(this.namesJson, {})).seriesIds);
                 this.seriesIds = temp;
                 await this.save();
@@ -294,7 +293,7 @@ module.exports = new Promise(async (resolve, reject) => {
         const first = this.firstJson.length > 0 ? series.first || await this.getFirst(seriesId) : undefined;
         const last = this.lastJson.length > 0 ? (series.last && new Date() - series.last >= (process.env.RESET_LAST || 1000 * 60 * 60 * 12) && series.last) || await this.getLast(seriesId) : undefined;
         const name = series.name || await this.getName(seriesId);
-        const description = series.description || this.descriptionJson && this.descriptionJson.length > 0 && await this.getDescription(seriesId);
+        const description = series.description || (this.descriptionJson && this.descriptionJson.length > 0 && await this.getDescription(seriesId));
         const isChanged = first - series.first != 0 || last - series.first != 0 || name !== series.name || description !== series.description;
         if (isChanged) {
             series.first = first;
@@ -347,6 +346,7 @@ module.exports = new Promise(async (resolve, reject) => {
                     next,
                     alt,
                     description,
+                    mediaType,
                     ...rest
                 } = (await runSteps(this.dateJson, {
                     seriesId,
@@ -354,6 +354,7 @@ module.exports = new Promise(async (resolve, reject) => {
                     month,
                     day
                 }));
+                if(seriesId=="southpark")console.log(src,previous,next,mediaType);
                 timer("Entire runSteps");
                 prevDate = previous || next ? this.parseDate(previous) : moment(date).subtract(1, "day");
                 nextDate = previous || next ? this.parseDate(next) : moment(date).subtract(1, "day");
@@ -368,6 +369,7 @@ module.exports = new Promise(async (resolve, reject) => {
                     seriesId: series.id,
                     alt,
                     description,
+                    mediaType
                 });
                 await comic.save();
                 timer("Make/save comic");
@@ -387,6 +389,7 @@ module.exports = new Promise(async (resolve, reject) => {
                 next: Provider.formatDate(nextDate),
                 alt:comic.alt,
                 description:comic.description,
+                mediaType:comic.mediaType??"image"
             };
         } catch (err) {
             return {};

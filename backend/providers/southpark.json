@@ -1,0 +1,47 @@
+{
+    "name": "South Park",
+    "id": "southpark",
+    "date-scrape": [{
+        "headers": {
+            "uri": "https://south-park-api.herokuapp.com/date",
+            "qs":{
+                "date":"$convert{\"${year}-${month}-${day}\",\"YYYY-MM-DD\",\"x\"}"
+            }
+        },
+        "json": {
+            "%previous": 0,
+            "%next":0,
+            "%token":"src",
+            "%mediaType":0
+        }
+    }],
+    "extremes-scrape": {
+        "first": [{
+            "headers": {
+                "uri": "https://south-park-api.herokuapp.com/first"
+            },
+            "frame": {
+                "%first": 0
+            }
+        }],
+        "last": [{
+            "headers": {
+                "uri": "https://south-park-api.herokuapp.com/last"
+            },
+            "frame": {
+                "%last": 0
+            }
+        }]
+    },
+    "date-format": "x",
+    "series-ids": ["southpark"],
+    "get-name": [{
+        "headers": {
+            "uri": "http://allsp.ch/"
+        },
+        "frame": {
+            "%name": "#disclaimer || \\w+ \\w+"
+        }
+    }],
+    "src-to-url": "https://south-park-api.herokuapp.com/token?token=${src}"
+}
