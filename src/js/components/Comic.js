@@ -31,7 +31,7 @@ export default class Comic extends Component {
     componentDidMount() {
         if (this.state.id) this.findUrl(this.state.date);
         try{
-            this.mediaRef.play();
+            this.mediaRef.current.play();
         } catch(err){
 
         }
@@ -39,7 +39,7 @@ export default class Comic extends Component {
     componentDidUpdate() {
         this.findUrl();
         try{
-            this.mediaRef.play();
+            this.mediaRef.current.play();
         } catch(err){
 
         }
