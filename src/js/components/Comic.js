@@ -7,7 +7,7 @@ import {
 } from "../util";
 import ComicChoice from "./ComicChoice";
 
-const Media=(props)=>props.mediaType==="video"?<video {...props}></video>:<img {...props}/>;
+const Media=(props)=>props.mediaType==="video"?<video {...props}></video>:<img alt={props.alt} {...props}/>;
 
 export default class Comic extends Component {
     constructor(props) {
