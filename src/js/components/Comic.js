@@ -57,6 +57,7 @@ export default class Comic extends Component {
               alt={this.state.name || this.state.id + " comic strip"}
               src={thisComic.url}
               mediaType={thisComic.mediaType}
+              autoplay="true" 
             />
             <link
               ref="next"
