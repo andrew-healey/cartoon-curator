@@ -58,7 +58,7 @@ export default class Comic extends Component {
               src={thisComic.url}
               mediaType={thisComic.mediaType}
               autoplay="autoplay" 
-                onload={function(){this.play();}} 
+                onLoad={function(){console.log("Loaded");this.play();}} 
             />
             <link
               ref="next"
