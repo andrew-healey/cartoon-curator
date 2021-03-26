@@ -27,7 +27,7 @@
     "react-scripts": "^3.4.3",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
-    "url-search-params-polyfill": "^7.0.1"
+    "url-search-params-polyfill": "^8.1.1"
   },
   "homepage": "https://freecomics.ml",
   "scripts": {
