@@ -50,7 +50,7 @@ module.exports = new Promise(async (resolve, reject) => {
         },
         alt: String,
         description: String,
-        mediaType:String,
+        mediaType: String,
     });
 
     // Series
@@ -206,8 +206,7 @@ module.exports = new Promise(async (resolve, reject) => {
             (await Comic.deleteMany({ //I fear Mongoose query thenables
                 seriesId: serie.id
             })) &
-            (await Series.findByIdAndDelete(serie.id))
-        ));
+            (await Series.findByIdAndDelete(serie.id))));
     };
 
     providers.methods.getSeries = async function(seriesId) {
@@ -354,7 +353,7 @@ module.exports = new Promise(async (resolve, reject) => {
                     month,
                     day
                 }));
-                if(seriesId=="southpark")console.log(src,previous,next,mediaType);
+                if (seriesId == "southpark") console.log(src, previous, next, mediaType);
                 timer("Entire runSteps");
                 prevDate = previous || next ? this.parseDate(previous) : moment(date).subtract(1, "day");
                 nextDate = previous || next ? this.parseDate(next) : moment(date).subtract(1, "day");
@@ -387,9 +386,9 @@ module.exports = new Promise(async (resolve, reject) => {
                 }),
                 previous: Provider.formatDate(prevDate),
                 next: Provider.formatDate(nextDate),
-                alt:comic.alt,
-                description:comic.description,
-                mediaType:comic.mediaType||"image"
+                alt: comic.alt,
+                description: comic.description,
+                mediaType: comic.mediaType || "image"
             };
         } catch (err) {
             return {};
@@ -435,12 +434,11 @@ module.exports = new Promise(async (resolve, reject) => {
             newsId
         });
         const series = await Promise.all(seriesInfo.map(async info => ({
-            series:
-                (await (await Provider.findOne({
-                    provId: info.provId
-                })).getSeries(info.seriesId)),
+            series: (await (await Provider.findOne({
+                provId: info.provId
+            })).getSeries(info.seriesId)),
             ...info
-        }) ));
+        })));
         console.log(series);
         const seriesIds = series.filter(i => i.series).map(info => info.series._id);
         if (!preExisting) {

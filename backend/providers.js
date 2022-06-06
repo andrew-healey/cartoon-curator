@@ -13,4 +13,6 @@ const loadProviders = async (directory = __dirname, jsonRx = /^(.*)\.json$/, jso
     return providers;
 };
 
-module.exports={loadProviders};
+module.exports = {
+    loadProviders
+};

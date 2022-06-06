@@ -50,7 +50,8 @@ module.exports = new Promise(async (resolve, reject) => {
     router.get("/ids", async (req, res) => {
         res.json((await Promise.all((await Provider.find()).map(async provider => ({
             [provider.provId]: await provider.getNames()
-        })))).reduce((last, next) => ({ ...last,
+        })))).reduce((last, next) => ({
+            ...last,
             ...next
         }), {}));
     });
@@ -59,33 +60,44 @@ module.exports = new Promise(async (resolve, reject) => {
         const {
             password = `${saltshaker(64)}`, json
         } = req.body;
-        if(!json||!json.id) return res.json({ok:false});
-        if(json.id=="provider") return res.json({ok:false});
+        if (!json || !json.id) return res.json({
+            ok: false
+        });
+        if (json.id == "provider") return res.json({
+            ok: false
+        });
         res.json({
-            provider: { saved:(await Provider.new(json, password)),
+            provider: {
+                saved: (await Provider.new(json, password)),
                 password: undefined
             },
             password
         });
     });
 
-    router.get("/:provider",async (req, res) => {
-        const {provider:provId}=req.params;
-        const toGet=await Provider.findOne({provId});
-        if(!toGet) return res.json({ok:false});
+    router.get("/:provider", async (req, res) => {
+        const {
+            provider: provId
+        } = req.params;
+        const toGet = await Provider.findOne({
+            provId
+        });
+        if (!toGet) return res.json({
+            ok: false
+        });
         return res.json({
-            "series-ids":toGet.seriesIds,
-            "date-scrape":toGet.dateJson,
-            "extremes-scrape":{
-                "first":toGet.firstJson,
-                "last":toGet.lastJson,
+            "series-ids": toGet.seriesIds,
+            "date-scrape": toGet.dateJson,
+            "extremes-scrape": {
+                "first": toGet.firstJson,
+                "last": toGet.lastJson,
             },
-            "get-name":toGet.nameJson,
-            "date-formats":toGet.dateFormats,
-            "list-names":toGet.namesJson,
-            "src-to-url":toGet.urlRx,
-            "id":toGet.provId,
-            "name":toGet.name
+            "get-name": toGet.nameJson,
+            "date-formats": toGet.dateFormats,
+            "list-names": toGet.namesJson,
+            "src-to-url": toGet.urlRx,
+            "id": toGet.provId,
+            "name": toGet.name
         });
     });
 

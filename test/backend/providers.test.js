@@ -2,12 +2,14 @@ const {
     loadProviders,
     Provider
 } = require("../../backend/providers.js");
-const {assert} = require("chai");
+const {
+    assert
+} = require("chai");
 const {
     contains
 } = require("../../util");
 let providers, providerAnswers, providerInstances;
-describe("Provider class", function () {
+describe("Provider class", function() {
     it("Extracts variables from a JSONFrame scrape", async () =>
         assert.deepEqual({
             "slash-url": "https://github.githubassets.com/images/search-key-slash.svg"
@@ -20,7 +22,7 @@ describe("Provider class", function () {
                 "$slash-url": ".mr-2.header-search-key-slash @ src"
             }
         })));
-    it("Follows multi-step JSONFrame scrapes", async function () {
+    it("Follows multi-step JSONFrame scrapes", async function() {
         this.timeout(3000);
         assert.deepEqual({
                 "login-link": "/login",
@@ -50,14 +52,14 @@ describe("Provider class", function () {
     });
 });
 
-describe("Providers", async function () {
+describe("Providers", async function() {
     providers = await loadProviders();
     providerAnswers = await loadProviders(__dirname, /^(.*)\.test\.json$/, "$1.test.json");
     providerInstances = Object.keys(providers).map(provName => new Provider(provName, providers[provName]));
-    const comicTest = (desc, getContext, func,timeout) =>
-        describe(desc, function () {
-            if(timeout)this.timeout(timeout);
-            providerInstances.forEach(prov => it(prov.name, async function () {
+    const comicTest = (desc, getContext, func, timeout) =>
+        describe(desc, function() {
+            if (timeout) this.timeout(timeout);
+            providerInstances.forEach(prov => it(prov.name, async function() {
                 const answer = providerAnswers[prov.name];
                 const extInfo = getContext(answer);
                 contains(
@@ -65,9 +67,9 @@ describe("Providers", async function () {
                 );
             }));
         });
-    comicTest("Gets first comic strip", ans => ans["extremes-scrape"].first, async (data, prov) => await prov.getFirst(data.in),4000);
-    comicTest("Gets comic strip image, next and previous", ans => ans["date-scrape"], async (data, prov) => await prov.getDate(data.in.name, data.in.date),3000);
-    comicTest("Gets last comic strip", ans => ans["extremes-scrape"].last, async (data, prov) => await Provider.scrapes((await prov.getLast(data.in)).last, data.scrape),3000);
+    comicTest("Gets first comic strip", ans => ans["extremes-scrape"].first, async (data, prov) => await prov.getFirst(data.in), 4000);
+    comicTest("Gets comic strip image, next and previous", ans => ans["date-scrape"], async (data, prov) => await prov.getDate(data.in.name, data.in.date), 3000);
+    comicTest("Gets last comic strip", ans => ans["extremes-scrape"].last, async (data, prov) => await Provider.scrapes((await prov.getLast(data.in)).last, data.scrape), 3000);
 });
 
 // it("This will run?", () => assert(true));

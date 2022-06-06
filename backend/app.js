@@ -8,7 +8,7 @@ module.exports = new Promise(async (resolve, reject) => {
     app.use(require("cors")());
 
     app.get("/", (req, res) =>
-        res.sendFile(__dirname+"/static/index.html")
+        res.sendFile(__dirname + "/static/index.html")
     );
 
     app.use("/api/v1", apiV1);

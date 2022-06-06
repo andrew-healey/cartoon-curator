@@ -16,17 +16,23 @@ import {
 
 class App extends Component {
     render() {
-        return (
-            <Router>
-                <Switch>
-                    <Route path="/editor">
-                        <Editor/>
-                    </Route>
-                    <Route path="/">
-                        <Newspaper/>
-                    </Route>
-                </Switch>
-            </Router>
+        return ( <
+            Router >
+            <
+            Switch >
+            <
+            Route path = "/editor" >
+            <
+            Editor / >
+            <
+            /Route> <
+            Route path = "/" >
+            <
+            Newspaper / >
+            <
+            /Route> <
+            /Switch> <
+            /Router>
         ); //Temporary--until I make Treasury
     }
 }

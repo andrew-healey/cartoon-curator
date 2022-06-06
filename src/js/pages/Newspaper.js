@@ -84,47 +84,77 @@ export default class Newspaper extends Component {
         this.state.comics = comics;
         let date = moment(this.state.date).format("YYYY/M/D");
         document.title = moment(this.state.date).format("MMMM D[, ]YYYY");
-        let newComics = this.state.comics.map(comic => ({ ...comic,
+        let newComics = this.state.comics.map(comic => ({
+            ...comic,
             date
         }));
         this.state.comics = newComics;
-        if(search.get("sync")==="true") this.setURL(this.state.comics,this.state.date,true);
+        if (search.get("sync") === "true") this.setURL(this.state.comics, this.state.date, true);
     }
     render() {
-        return (
-            <div className="App">
-        <div className="navBar">
-          <button onClick={() => this.addDays(-1)} className="changeDate">
-            &lt;
-          </button>
-          <h1 className="title">Cartoon Curator</h1>
-          <button onClick={() => this.addDays(1)} className="changeDate next">
-            &gt;
-          </button>
-        </div>
-        <div className="body">
-          {this.state.comics.map((i, index) => (
-            <Comic
-              updateVals={newVal => this.updateValue(index, newVal)}
-              remove={() => this.popComic(index)}
-              setDate={path => this.setDate(index, path)}
-              key={i.id}
-              date={i.date}
-              id={i.id}
-              provider={i.provider}
-              mediaType={i.mediaType}
-            />
-          ))}
-          <div className="input-container">
-            <input
-              type="button"
-              onClick={() => this.addComic()}
-              className="plus"
-              value="+"
-            />
-          </div>
-        </div>
-      </div>
+        return ( <
+            div className = "App" >
+            <
+            div className = "navBar" >
+            <
+            button onClick = {
+                () => this.addDays(-1)
+            }
+            className = "changeDate" >
+            &
+            lt; <
+            /button> <
+            h1 className = "title" > Cartoon Curator < /h1> <
+            button onClick = {
+                () => this.addDays(1)
+            }
+            className = "changeDate next" >
+            &
+            gt; <
+            /button> <
+            /div> <
+            div className = "body" > {
+                this.state.comics.map((i, index) => ( <
+                    Comic updateVals = {
+                        newVal => this.updateValue(index, newVal)
+                    }
+                    remove = {
+                        () => this.popComic(index)
+                    }
+                    setDate = {
+                        path => this.setDate(index, path)
+                    }
+                    key = {
+                        i.id
+                    }
+                    date = {
+                        i.date
+                    }
+                    id = {
+                        i.id
+                    }
+                    provider = {
+                        i.provider
+                    }
+                    mediaType = {
+                        i.mediaType
+                    }
+                    />
+                ))
+            } <
+            div className = "input-container" >
+            <
+            input type = "button"
+            onClick = {
+                () => this.addComic()
+            }
+            className = "plus"
+            value = "+" /
+            >
+            <
+            /div> <
+            /div> <
+            /div>
         );
     }
     addComic() {
@@ -149,7 +179,8 @@ export default class Newspaper extends Component {
     }
     setDate(id, path) {
         let newComics = [...this.state.comics];
-        let newThing = { ...newComics[id]
+        let newThing = {
+            ...newComics[id]
         };
         newThing.date = path;
         newComics[id] = newThing;
@@ -175,7 +206,8 @@ export default class Newspaper extends Component {
     applyDate(date) {
         let mom = moment(date);
         let str = mom.format("YYYY/M/D");
-        let newComics = this.state.comics.map(comic => ({ ...comic,
+        let newComics = this.state.comics.map(comic => ({
+            ...comic,
             date: str
         }));
         this.setURL(undefined, str);
@@ -191,7 +223,7 @@ export default class Newspaper extends Component {
         if (comics) {
             this.url.delete("comic");
             this.url.delete("provider");
-            if (SAVE_AS_URL||doQuery) {
+            if (SAVE_AS_URL || doQuery) {
                 for (let comic of comics) {
                     this.url.append("comic", comic.id);
                     this.url.append("provider", comic.provider);
