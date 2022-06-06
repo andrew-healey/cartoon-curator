@@ -5,7 +5,7 @@
 // import 'core-js/web/url-search-params';
 // import 'whatwg-fetch';
 
-const API_URL = window.location.origin.startsWith('http://localhost:') ? "http://localhost:3000" : "https://comic-strip-api.herokuapp.com/" /*"https://Comic-Strip-API.426729.repl.co"*/ ;
+const API_URL = window.location.origin.startsWith('http://localhost:') ? "http://localhost:3000" : "https://comic-strip-api.herokuapp.com" /*"https://Comic-Strip-API.426729.repl.co"*/ ;
 const API_VERSION = "v1";
 const SAVE_AS_URL = false;
 
