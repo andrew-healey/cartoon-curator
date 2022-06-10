@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ac429503ff17c89f34ef9dea7e046e01",
+    "revision": "ee0a717c04b3cc0cb7100c7fd7d7a11f",
     "url": "/cartoon-curator/index.html"
   },
   {
-    "revision": "dc27520f6e060a9201c5",
-    "url": "/cartoon-curator/static/css/main.d5f14027.chunk.css"
+    "revision": "12b6f53e0ac8a0ea86db",
+    "url": "/cartoon-curator/static/css/main.858da172.chunk.css"
   },
   {
     "revision": "fcbb15029636d126cac4",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/cartoon-curator/static/js/2.462b049e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "dc27520f6e060a9201c5",
-    "url": "/cartoon-curator/static/js/main.db3319bb.chunk.js"
+    "revision": "12b6f53e0ac8a0ea86db",
+    "url": "/cartoon-curator/static/js/main.5ea82e7c.chunk.js"
   },
   {
     "revision": "886aeab65a0e3013418b",
