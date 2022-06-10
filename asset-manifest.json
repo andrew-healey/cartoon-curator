@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/cartoon-curator/static/css/main.d5f14027.chunk.css",
-    "main.js": "/cartoon-curator/static/js/main.cdb89fe7.chunk.js",
-    "main.js.map": "/cartoon-curator/static/js/main.cdb89fe7.chunk.js.map",
+    "main.js": "/cartoon-curator/static/js/main.5d4abf60.chunk.js",
+    "main.js.map": "/cartoon-curator/static/js/main.5d4abf60.chunk.js.map",
     "runtime-main.js": "/cartoon-curator/static/js/runtime-main.f1079fcd.js",
     "runtime-main.js.map": "/cartoon-curator/static/js/runtime-main.f1079fcd.js.map",
     "static/js/2.462b049e.chunk.js": "/cartoon-curator/static/js/2.462b049e.chunk.js",
     "static/js/2.462b049e.chunk.js.map": "/cartoon-curator/static/js/2.462b049e.chunk.js.map",
     "index.html": "/cartoon-curator/index.html",
-    "precache-manifest.76d4f461d9b559e7cf0bb9c418308c21.js": "/cartoon-curator/precache-manifest.76d4f461d9b559e7cf0bb9c418308c21.js",
+    "precache-manifest.3ec326243d9d24652fd0c21aa7c9f32a.js": "/cartoon-curator/precache-manifest.3ec326243d9d24652fd0c21aa7c9f32a.js",
     "service-worker.js": "/cartoon-curator/service-worker.js",
     "static/css/main.d5f14027.chunk.css.map": "/cartoon-curator/static/css/main.d5f14027.chunk.css.map",
     "static/js/2.462b049e.chunk.js.LICENSE.txt": "/cartoon-curator/static/js/2.462b049e.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.f1079fcd.js",
     "static/js/2.462b049e.chunk.js",
     "static/css/main.d5f14027.chunk.css",
-    "static/js/main.cdb89fe7.chunk.js"
+    "static/js/main.5d4abf60.chunk.js"
   ]
 }
